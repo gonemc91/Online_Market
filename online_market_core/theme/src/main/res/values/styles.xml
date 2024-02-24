@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.OnlineMarket" parent="Theme.Material3.Light.NoActionBar">
+
+        <!--<item name="colorPrimary">@color/primary_one</item>
+        <item name="colorPrimaryVariant">@color/primary_two</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/primary_one</item>
+        <item name="colorSecondaryVariant">@color/primary_two</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>-->
+
+        <item name="textInputStyle">@style/GlobalTextInputStyle</item>
+        <item name="materialButtonStyle">@style/GlobalButtonStyle</item>
+
+
+    </style>
+    
+    <style name="LargeTitle1" parent="TextAppearance.AppCompat.Medium">
+
+    </style>
+
+
+    <style name="MaterialAlertDialog">
+        <item name="buttonBarPositiveButtonStyle">@style/GlobalButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/GlobalButtonStyle</item>
+        <item name="cornerRadius">10dp</item>
+    </style>
+
+
+
+
+    <style name="GlobalTextInputStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:minWidth">@dimen/core_theme_big_width</item>
+    </style>
+
+    <style name="GlobalButtonStyle" parent="Widget.Material3.Button.ElevatedButton">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="minHeight">50dp</item>
+        <item name="maxHeight">50dp</item>
+        <item name="android:backgroundTint">@color/primary_one</item>
+    </style>
+
+    <style name="GlobalTextInputStyle.Big">
+        <item name="android:minWidth">@dimen/core_theme_big_width</item>
+    </style>
+
+    <style name="GlobalTextInputStyle.Secondary">
+
+    </style>
+
+    <style name="GlobalTextInputStyle.Secondary.Big">
+        <item name="android:minWidth">@dimen/core_theme_big_width</item>
+    </style>
+
+    <style name="ListItemTitle">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:lines">1</item>
+    </style>
+
+    <style name="ListItemDescription">
+        <item name="android:textSize">15sp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">2</item>
+    </style>
+
+    <style name="ListItemPrice">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:lines">1</item>
+    </style>
+
+    <style name="ClickableIcon">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
+    </style>
+
+    <style name="BaseTextHint">
+        <item name="android:textColor">@color/frame_stroke</item>
+    </style>
+
+    <style name="ProfileValueTextView" parent="BaseTextHint">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:lines">1</item>
+    </style>
+
+    <style name="TitleTextView" parent="BaseTextHint">
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="ProfileHintTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+
+
+    <style name="CardView">
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+
+
+
+</resources>
