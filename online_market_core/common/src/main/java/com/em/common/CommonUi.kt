@@ -1,7 +1,5 @@
 package com.em.common
 
-import com.em.common.AlertDialogConfig
-
 
 /**
  * General ui actions that can be executed anywhere

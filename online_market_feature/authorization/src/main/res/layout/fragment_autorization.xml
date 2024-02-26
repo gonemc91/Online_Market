@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/_16dp"
+        android:paddingEnd="@dimen/_16dp"
+        >
+
+
+        <MultiAutoCompleteTextView
+            android:id="@+id/usernameTextInput"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/author_ffield_username"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/surnameTextInput"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:background="@drawable/background_shape"
+            android:inputType="text"
+            android:imeOptions="actionNext"
+            android:paddingStart="@dimen/_16dp"
+            android:paddingEnd="@dimen/_16dp"
+            android:paddingRight="@dimen/_40dp"
+            tools:text="Марина"
+            style="@style/Placeholder_text"
+            />
+
+        <ImageView
+            android:id="@+id/deleteButtonName"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_type_big_close__state_default"
+            app:layout_constraintTop_toTopOf="@+id/usernameTextInput"
+            app:layout_constraintBottom_toBottomOf="@+id/usernameTextInput"
+            app:layout_constraintEnd_toEndOf="@+id/usernameTextInput"
+            android:layout_marginEnd="8dp"
+            style="@style/ClickableIcon"
+            >
+        </ImageView>
+
+
+        <MultiAutoCompleteTextView
+            android:id="@+id/surnameTextInput"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/author_field_surname"
+            app:layout_constraintTop_toBottomOf="@+id/usernameTextInput"
+            app:layout_constraintBottom_toTopOf="@id/telephoneNumberTextInput"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:background="@drawable/background_shape"
+            android:inputType="text"
+            android:imeOptions="actionNext"
+            android:layout_marginTop="@dimen/_16dp"
+            android:paddingStart="@dimen/_16dp"
+            android:paddingEnd="@dimen/_16dp"
+            tools:text="Иванова"
+            style="@style/Placeholder_text"
+            />
+
+        <ImageView
+            android:id="@+id/deleteButtonSurname"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_type_big_close__state_default"
+            app:layout_constraintTop_toTopOf="@+id/surnameTextInput"
+            app:layout_constraintBottom_toBottomOf="@+id/surnameTextInput"
+            app:layout_constraintEnd_toEndOf="@+id/surnameTextInput"
+            android:layout_marginEnd="8dp"
+            style="@style/ClickableIcon"
+            >
+        </ImageView>
+
+
+        <MultiAutoCompleteTextView
+            android:id="@+id/telephoneNumberTextInput"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/author_field_repeat_password"
+            app:layout_constraintTop_toBottomOf="@+id/surnameTextInput"
+            app:layout_constraintBottom_toTopOf="@id/enterButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:background="@drawable/background_shape"
+            android:inputType="number"
+            android:imeOptions="actionNext"
+            android:layout_marginTop="@dimen/_16dp"
+            android:paddingStart="@dimen/_16dp"
+            android:paddingEnd="@dimen/_16dp"
+            tools:text="+7 993 877 44 02"
+            style="@style/Placeholder_text"
+            />
+
+
+
+        <ImageView
+            android:id="@+id/deleteButtonTelephoneNumber"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_type_big_close__state_default"
+            app:layout_constraintTop_toTopOf="@+id/telephoneNumberTextInput"
+            app:layout_constraintBottom_toBottomOf="@+id/telephoneNumberTextInput"
+            app:layout_constraintEnd_toEndOf="@+id/telephoneNumberTextInput"
+            android:layout_marginEnd="8dp"
+            style="@style/ClickableIcon"
+            >
+        </ImageView>
+
+
+        <Button
+            android:id="@+id/enterButton"
+            style="@style/AppButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="51dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/auth_enter"
+            app:layout_constraintBottom_toTopOf="@id/descriptionScreen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/telephoneNumberTextInput">
+        </Button>
+
+
+        <TextView
+            android:id="@+id/descriptionScreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@string/description_auth"
+            app:layout_constraintBottom_toTopOf="@+id/descriptionURL"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            style="@style/Caption_2"
+            >
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/descriptionURL"
+            style="@style/Caption_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@string/description_auth_url"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/descriptionScreen"
+            android:clickable="true"
+            android:focusable="true"
+            >
+
+        </TextView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

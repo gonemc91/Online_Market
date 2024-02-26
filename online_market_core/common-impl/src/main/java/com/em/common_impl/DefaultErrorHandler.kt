@@ -6,9 +6,9 @@ import com.em.common.AuthException
 import com.em.common.CommonUi
 import com.em.common.ConnectionException
 import com.em.common.ErrorHandler
-import com.em.common.Logger
+import com.em.common.AppLogger
 import com.em.common.RemoteServiceException
-import com.em.common.Resources
+import com.em.common.AppResources
 import com.em.common.StorageException
 import com.em.common.UserFriendlyException
 import kotlinx.coroutines.CoroutineScope
@@ -17,9 +17,9 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.cancellation.CancellationException
 
 class DefaultErrorHandler(
-    private val logger: Logger,
+    private val logger: AppLogger,
     private val commonUi: CommonUi,
-    private val resources: Resources,
+    private val resources: AppResources,
     private val appRestarter: AppRestarter,
     private val globalScope: CoroutineScope
 ): ErrorHandler {

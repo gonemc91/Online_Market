@@ -21,15 +21,15 @@ object Core {
     val commonUi: CommonUi get() = coreProvider.commonUi
 
     /**
-     * @see Resources
+     * @see AppResources
      */
 
-    val resources: Resources get() = coreProvider.resources
+    val resources: AppResources get() = coreProvider.resources
 
     /**
-     * @see Logger
+     * @see AppLogger
      */
-    val logger: Logger get() = coreProvider.logger
+    val logger: AppLogger get() = coreProvider.logger
 
     /**
      * Global scope for launching async actions which results don't matter and

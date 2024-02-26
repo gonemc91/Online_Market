@@ -11,9 +11,9 @@ interface CoreProvider {
 
     var commonUi: CommonUi
 
-    val logger: Logger
+    val logger: AppLogger
 
-    val resources: Resources
+    val resources: AppResources
 
     val globalScope: CoroutineScope
 

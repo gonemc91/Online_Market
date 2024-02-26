@@ -4,7 +4,7 @@ package com.em.common
  * Get string resources without direct context dependency.
  */
 
-interface Resources {
+interface AppResources {
 
     fun getString(id: Int): String
 

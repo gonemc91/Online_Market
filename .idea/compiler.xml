@@ -4,6 +4,7 @@
     <bytecodeTargetLevel target="1.7">
       <module name="common" target="17" />
       <module name="common-impl" target="17" />
+      <module name="Online_Market.autorization" target="17" />
       <module name="Online_Market.core_module" target="17" />
       <module name="Online_Market.presentation" target="17" />
       <module name="Online_Market.theme" target="17" />

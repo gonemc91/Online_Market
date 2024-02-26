@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="24dp"
+    >
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_white"
+        >
+
+        <FrameLayout
+            android:id="@+id/cartIconContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="15dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            >
+            <ImageView
+                android:id="@+id/toolBarBackButton"
+                style="@style/ClickableIcon"
+                android:src="@drawable/ic_type_left_arrow__state_default"
+                tools:ignore="ContentDescription"
+                android:layout_marginEnd="28dp"
+                />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/toolBarTitle"
+            android:layout_gravity="center"
+            style="@style/List_Title_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Title" />
+
+
+        <ImageView
+            android:id="@+id/toolBarRightButton"
+            style="@style/ClickableIcon"
+            android:src="@drawable/ic_type_send__state_default"
+            android:layout_gravity="end"
+            android:layout_marginEnd="18dp"
+            />
+    </com.google.android.material.appbar.MaterialToolbar>
+
+
+
+</LinearLayout>

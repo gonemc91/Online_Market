@@ -1,14 +1,14 @@
 package com.em.common_impl
 
 import android.util.Log
-import com.em.common.Logger
+import com.em.common.AppLogger
 
 
 /**
- * Default implementation of [Logger] which send all logs to the LogCat.
+ * Default implementation of [AppLogger] which send all logs to the LogCat.
  */
 
-class AndroidLogger: Logger {
+class AndroidLogger: AppLogger {
 
     override fun log(message: String) {
         Log.d("AndroidLogger", message)

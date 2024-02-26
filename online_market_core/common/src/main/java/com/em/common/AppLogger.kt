@@ -5,7 +5,7 @@ package com.em.common
  */
 
 
-interface Logger {
+interface AppLogger {
 
     fun log(message: String)
 

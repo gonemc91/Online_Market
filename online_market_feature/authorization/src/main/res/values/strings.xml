@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string name="author_ffield_username">Имя</string>
+    <string name="author_field_surname">Фамилия</string>
+    <string name="author_field_repeat_password">Номер телефона</string>
+
+    <string name="signup_account_created">Account has been created successfully</string>
+    <string name="signup_account_exists">Account with such email already exists</string>
+    <string name="signup_empty_field">Field is empty</string>
+    <string name="signup_password_mismatch">Passwords mismatch</string>
+
+    <string name="auth_enter">Войти</string>
+    <string name="description_auth">Нажимая кнопку \"Войти\", Вы принимаете</string>
+    <string name="description_auth_url"><u>условия программы лояльности</u></string>
+
+</resources>

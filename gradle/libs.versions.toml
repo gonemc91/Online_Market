@@ -3,10 +3,12 @@ accompanist = "0.29.2-rc"
 androidGradlePlugin = "8.2.2"
 androidxCore = "1.12.0"
 androidMaterial = "1.11.0"
-androidxAppCompat = "1.7.0-alpha03"
+androidxAppCompat = "1.6.1"
 androidxActivity = "1.8.2"
 annotation = "1.7.1"
+constraintlayout = "2.1.4"
 markdownDependency = "0.3.2"
+navigationFragmentKtx = "2.7.7"
 navTransitions = "0.11.0-alpha"
 androidxPaging = "3.2.1"
 retrofit = "2.9.0"
@@ -37,7 +39,7 @@ junit4 = "4.13.2"
 kotlin = "1.9.10"
 kotlinxCoroutines = "1.8.0"
 kotlinxDatetime = "0.4.0"
-kotlinxSerializationJson = "1.5.0"
+kotlinxSerializationJson = "1.6.0"
 okhttp = "5.0.0-alpha.10"
 ktor = "1.6.3"
 
@@ -46,23 +48,26 @@ viewModel = "1.1.1"
 junit = "1.1.5"
 
 androidxFragmentKtx = "1.6.2"
+viewbinding = "8.2.2"
 
 
 [libraries]
 androidx-arch-lifecycle_viewmodel = { group = "'android.arch.lifecycle", name = "viewmodel", version.ref = "viewModel" }
 
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
 androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "androidxFragmentKtx" }
 
 
 android-material = { group = "com.google.android.material", name = "material", version.ref = "androidMaterial" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
-androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
 androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
 
 
 #Image loading
-coil-kt-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationFragmentKtx" }
+coil-kt = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 
 
 #Dependency injection
@@ -94,6 +99,7 @@ junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
 androidx-test-ext = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "androidxTestExt" }
 androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidxEspresso" }
+androidx-viewbinding = { group = "androidx.databinding", name = "viewbinding", version.ref = "viewbinding" }
 
 
 [plugins]
