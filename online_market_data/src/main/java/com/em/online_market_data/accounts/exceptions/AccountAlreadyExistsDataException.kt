@@ -1,4 +1,4 @@
-package com.example.data.accounts.exceptions
+package com.em.online_market_data.accounts.exceptions
 
 import com.em.common.AppException
 

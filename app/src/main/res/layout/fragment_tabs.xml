@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.em.online_market.TabsFragment"
+    tools:context="com.em.online_market.navigation.presentation.TabsFragment"
     >
 
     <androidx.fragment.app.FragmentContainerView
@@ -33,24 +33,12 @@
 
         <include
             android:id="@+id/toolbar"
-            layout="@layout/item_cart_title"
+            layout="@layout/nav_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             >
         </include>
-
-
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/item_cart_title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            >
-        </include>
-
-
 
 
 

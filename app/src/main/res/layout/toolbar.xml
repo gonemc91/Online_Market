@@ -3,14 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="24dp"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="24dp">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background_white"
+        app:titleCentered="true"
         >
 
         <FrameLayout
@@ -38,7 +39,9 @@
             style="@style/List_Title_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Title" />
+            tools:text="Вход"
+            android:visibility="visible"
+            />
 
 
         <ImageView
@@ -47,6 +50,8 @@
             android:src="@drawable/ic_type_send__state_default"
             android:layout_gravity="end"
             android:layout_marginEnd="18dp"
+            android:visibility="gone"
+            tools:visibility="visible"
             />
     </com.google.android.material.appbar.MaterialToolbar>
 

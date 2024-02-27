@@ -8,30 +8,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    tools:context=".navigation.presentation.MainActivity"
     >
 
     <include
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbarMain"
         layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
-    </include>
-
-
-    <include
-        android:id="@+id/filterToolbar"
-        layout="@layout/toolbar_filter"
         android:visibility="visible"
         >
     </include>
 
-    <include
-        android:id="@+id/filterToolbar"
-        layout="@layout/toolbar_buttons"
-        android:visibility="visible"
-        >
-    </include>
 
 
     <androidx.fragment.app.FragmentContainerView

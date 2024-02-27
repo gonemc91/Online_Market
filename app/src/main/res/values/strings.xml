@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Online Market</string>
+    <string name="authorization_title">Вход</string>
 </resources>

@@ -1,8 +1,9 @@
 package com.em.online_market_data.accounts.sources
 
 import com.em.common.AuthException
+import com.em.common.Core
 import com.em.online_market_data.accounts.entities.AccountDataEntity
-import com.em.online_market_data.accounts.entities.SignUpDataEntity
+import com.em.online_market_data.accounts.entities.AuthorizationDataEntity
 import com.em.online_market_data.settings.SettingDataSource
 import com.example.data.accounts.sources.AccountsDataSource
 import kotlinx.coroutines.delay
@@ -25,7 +26,7 @@ class InMemoryAccountsDataSource @Inject constructor(
         )
     )
 
-    override suspend fun authorization(signUpData: SignUpDataEntity): AccountDataEntity {
+    override suspend fun authorization(signUpData: AuthorizationDataEntity): AccountDataEntity {
         delay(1000)
         val record = records.firstOrNull{ it.account.telephoneNumber == signUpData.telephoneNumber}
         return if (record != null){
@@ -41,8 +42,10 @@ class InMemoryAccountsDataSource @Inject constructor(
                 ),
                 token = UUID.randomUUID().toString()
             )
+            Core.logger.log("${newRecord.account}")
             records.add(newRecord)
             newRecord.account
+
         }
     }
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/authorizationFragment">
+
+    <fragment
+        android:id="@+id/authorizationFragment"
+        android:name="com.em.authorization.presentation.AuthorizationFragment"
+        android:label="@string/authorization_title"
+        tools:layout="@layout/fragment_authorization"
+        />
+
+    <fragment
+        android:id="@+id/tabsFragment"
+        android:name="com.em.online_market.navigation.presentation.TabsFragment"
+        android:label="fragment_tabs"
+        tools:layout="@layout/fragment_tabs" />
+
+
+</navigation>

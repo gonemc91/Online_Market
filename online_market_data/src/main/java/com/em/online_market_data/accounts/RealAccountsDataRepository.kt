@@ -5,7 +5,7 @@ import com.em.common.Container
 import com.em.common.flow.LazyFlowSubjectFactory
 import com.em.online_market_data.AccountsDataRepository
 import com.em.online_market_data.accounts.entities.AccountDataEntity
-import com.em.online_market_data.accounts.entities.SignUpDataEntity
+import com.em.online_market_data.accounts.entities.AuthorizationDataEntity
 import com.em.online_market_data.settings.SettingDataSource
 import com.example.data.accounts.sources.AccountsDataSource
 import kotlinx.coroutines.CoroutineScope
@@ -40,8 +40,8 @@ class RealAccountsDataRepository @Inject constructor(
         return  accountLazyFlowSubject.listen()
     }
 
-    override suspend fun authorization(singUpData: SignUpDataEntity){
-        accountsDataSource.authorization(singUpData)
+    override suspend fun authorization(authorizationData: AuthorizationDataEntity){
+        accountsDataSource.authorization(authorizationData)
     }
 
     override fun reload() {

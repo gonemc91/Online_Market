@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.gradlePlugin)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 
 }
 
@@ -39,10 +40,8 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.android.material)
 
-
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
-
 
     testImplementation(libs.junit4)
     androidTestImplementation(libs.junit)

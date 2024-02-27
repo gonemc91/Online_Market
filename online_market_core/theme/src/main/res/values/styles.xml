@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.OnlineMarket" parent="Theme.Material3.Light">
+<resources>
 
-        <!--<item name="colorPrimary">@color/primary_one</item>
-        <item name="colorPrimaryVariant">@color/primary_two</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <item name="colorSecondary">@color/primary_one</item>
-        <item name="colorSecondaryVariant">@color/primary_two</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>-->
+    <style name="Theme.OnlineMarketCore" parent="Theme.Material3.Light">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
 
+        <item name="colorPrimary">@color/element_pink</item>
+
+
+        <item name="android:statusBarColor">@color/background_white</item>
+        <item name="toolbarStyle">@style/custom_toolbar</item>
+        <item name="buttonStyle">@style/AppButtonStyle</item>
 
     </style>
 
 
-
+    <style name="custom_toolbar" parent="@style/Widget.MaterialComponents.Toolbar">
+        <item name="titleTextStyle">@style/List_Title_1</item>
+    </style>
 
 
     <style name="MaterialAlertDialog">
@@ -33,13 +36,12 @@
     </style>
 
 
-    <style name="AppButtonStyle" parent="Button_text_2">
+    <style name="AppButtonStyle" parent="@android:style/Widget.Button">
         <item name="android:textColor">@color/text_white</item>
         <item name="android:backgroundTint">@color/element_pink</item>
         <item name="minHeight">51dp</item>
         <item name="android:background">@drawable/background_shape</item>
-        <item name="android:textAllCaps">false</item>
-
+        <item name="android:textAppearance">@style/Button_text_2</item>
     </style>
 
 
@@ -53,6 +55,8 @@
         <item name="android:gravity">center</item>
         <item name="fontFamily">@font/sfprodisplaybold</item>
         <item name="android:textColor">@color/text_black</item>
+        <item name="android:textStyle">normal</item>
+
     </style>
 
 
@@ -146,11 +150,8 @@
         <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
     </style>
 
-    <style name="BaseTextHint">
-        <item name="android:textColor">@color/frame_stroke</item>
-    </style>
 
-    <style name="ProfileValueTextView" parent="BaseTextHint">
+    <style name="ProfileValueTextView" >
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">16sp</item>
@@ -176,6 +177,9 @@
         <item name="android:layout_margin">10dp</item>
         <item name="android:layout_marginBottom">10dp</item>
     </style>
+
+
+
 
 
 

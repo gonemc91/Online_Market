@@ -10,10 +10,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.OnlineMarket"
-        tools:targetApi="31">
+        android:theme="@style/Theme.OnlineMarketCore"
+        tools:targetApi="31"
+        android:name=".App"
+        >
         <activity
-            android:name=".MainActivity"
+            android:name=".navigation.presentation.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

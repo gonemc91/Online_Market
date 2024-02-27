@@ -2,7 +2,7 @@ package com.em.online_market_data
 
 import com.em.common.Container
 import com.em.online_market_data.accounts.entities.AccountDataEntity
-import com.em.online_market_data.accounts.entities.SignUpDataEntity
+import com.em.online_market_data.accounts.entities.AuthorizationDataEntity
 import kotlinx.coroutines.flow.Flow
 
 
@@ -20,7 +20,7 @@ interface AccountsDataRepository {
     /**
      * Authorization in app.
      */
-    suspend fun authorization(singUpData: SignUpDataEntity)
+    suspend fun authorization(authorizationData: AuthorizationDataEntity)
 
 
 

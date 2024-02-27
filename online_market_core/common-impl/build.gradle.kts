@@ -35,7 +35,7 @@ android {
 
 dependencies {
     api(project(":online_market_core:common"))
-    implementation(":online_market_core:theme")
+    implementation(project(":online_market_core:theme"))
 
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.android.material)
