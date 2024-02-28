@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class InfoProduct(
+data class InfoProductDTO(
     @SerialName("title")val title: String,
     @SerialName("value")val value: String,
 )

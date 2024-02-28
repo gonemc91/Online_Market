@@ -58,7 +58,7 @@ dependencies {
     androidTestImplementation(libs.junit)
 
     implementation(project(":online_market_feature:authorization"))
-
+    implementation(project(":online_market_feature:catalog"))
     implementation(project(":online_market_api"))
     implementation(project(":online_market_data"))
 

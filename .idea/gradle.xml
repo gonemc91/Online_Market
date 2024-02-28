@@ -19,6 +19,7 @@
             <option value="$PROJECT_DIR$/online_market_data" />
             <option value="$PROJECT_DIR$/online_market_feature" />
             <option value="$PROJECT_DIR$/online_market_feature/authorization" />
+            <option value="$PROJECT_DIR$/online_market_feature/catalog" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

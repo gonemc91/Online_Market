@@ -117,7 +117,7 @@
             app:layout_constraintEnd_toEndOf="@+id/telephoneNumberTextInput"
             android:layout_marginEnd="12dp"
             style="@style/ClickableIcon"
-            >
+            tools:ignore="ContentDescription">
         </ImageView>
 
 

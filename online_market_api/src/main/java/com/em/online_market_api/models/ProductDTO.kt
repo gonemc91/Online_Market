@@ -16,6 +16,6 @@ data class ProductDTO(
     @SerialName("tags") val tags: List<String>,
     @SerialName("available") val available: Int,
     @SerialName("description") val description: String,
-    @SerialName("info") val info: List<InfoProduct>,
+    @SerialName("info") val info: List<InfoProductDTO>,
     @SerialName("ingredients") val ingredients: String,
     )
