@@ -7,7 +7,7 @@ import javax.inject.Inject
 class AdapterCatalogRouter @Inject constructor(
     private val  globalNavComponentRouter: GlobalNavComponentRouter,
 ): CatalogRouter {
-    override fun launchDetails(productId: Long) {
+    override fun launchDetails(productId: String) {
         TODO()
       /*  globalNavComponentRouter.launch(R.id.productDetailsFragment,
             ProductDetailsFragment.Screen(productId))*/

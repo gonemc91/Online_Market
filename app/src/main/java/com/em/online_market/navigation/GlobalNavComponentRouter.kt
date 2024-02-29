@@ -104,7 +104,6 @@ class GlobalNavComponentRouter @Inject constructor(
 
     fun startTabs(startTabDestinationId: Int? = null) = invoke {
         requireRealRouter().switchToTabs(destinationsProvider.provideMainTabs(), startTabDestinationId)
-
         requireRealRouter()
     }
 

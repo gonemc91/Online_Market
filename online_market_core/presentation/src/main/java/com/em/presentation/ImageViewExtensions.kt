@@ -26,7 +26,7 @@ fun ImageView.loadUrl(url: String, mode: Mode){
 
 fun ImageView.loadResources(@DrawableRes id: Int){
     load(id){
-        transformations(RoundedCornersTransformation(16f))
+
     }
 }
 

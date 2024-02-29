@@ -17,16 +17,37 @@ class DefaultDestinationProvider @Inject constructor(
     override fun provideNavigationGraphId(): Int {
         return R.navigation.nav_graph
     }
+
     override fun provideMainTabs(): List<NavTab> {
         return listOf(
-        /*    NavTab(
+            NavTab(
                 destinationId = R.id.catalogFragment,
-                title = context.getString(R.string.tab_catalog),
-                iconRes = R.drawable.ic_catalog,
-            ),*/
-
-        )
+                title = context.getString(R.string.tabs_main),
+                iconRes = com.em.theme.R.drawable.ic_type_home__state_default
+            ),
+            NavTab(
+                destinationId = R.id.catalogFragment,
+                title = context.getString(R.string.tabs_catalog),
+                iconRes = com.em.theme.R.drawable.ic_type_catalog__state_default,
+            ),
+            NavTab(
+                destinationId = R.id.catalogFragment,
+                title = context.getString(R.string.tabs_cart),
+                iconRes = com.em.theme.R.drawable.ic_type_bag__state_default,
+            ),
+            NavTab(
+                destinationId = R.id.catalogFragment,
+                title = context.getString(R.string.tabs_discount),
+                iconRes = com.em.theme.R.drawable.ic_type_discount__state_default,
+            ),
+            NavTab(
+                destinationId = R.id.catalogFragment,
+                title = context.getString(R.string.tabs_profile),
+                iconRes = com.em.theme.R.drawable.ic_type_account__state_default,
+            ),
+            )
     }
+
     override fun provideTabsDestinationId(): Int {
         return R.id.tabsFragment
     }

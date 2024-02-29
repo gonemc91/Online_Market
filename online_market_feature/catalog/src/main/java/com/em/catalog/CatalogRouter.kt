@@ -5,7 +5,7 @@ interface CatalogRouter {
     /**
      * Launch product details screen.
      */
-    fun launchDetails(productId: Long)
+    fun launchDetails(productId: String)
 
 
 }

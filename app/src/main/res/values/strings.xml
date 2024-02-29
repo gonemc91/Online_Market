@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Online Market</string>
     <string name="authorization_title">Вход</string>
+
+    <string name="tabs_main">Главная</string>
+    <string name="tabs_catalog">Каталог</string>
+    <string name="tabs_cart">Корзина</string>
+    <string name="tabs_discount">Акции</string>
+    <string name="tabs_profile">Профиль</string>
+
 </resources>

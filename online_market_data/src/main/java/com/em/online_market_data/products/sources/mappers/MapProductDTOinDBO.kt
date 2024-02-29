@@ -1,9 +1,10 @@
 package com.em.online_market_data.products.sources.mappers
 
-import com.em.online_market_api.models.FeedbackDTO
-import com.em.online_market_api.models.InfoProductDTO
-import com.em.online_market_api.models.PriceDTO
-import com.em.online_market_api.models.ProductDTO
+import com.em.api.models.FeedbackDTO
+import com.em.api.models.InfoProductDTO
+import com.em.api.models.PriceDTO
+import com.em.api.models.ProductDTO
+
 import com.em.online_market_data.products.entites.product_models.FeedbackDBO
 import com.em.online_market_data.products.entites.product_models.InfoProductDBO
 import com.em.online_market_data.products.entites.product_models.PriceDBO

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/filterToolbar"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_filter_bar"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background_white"
+    android:paddingBottom="15dp"
+    android:orientation="horizontal"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    >
+
+    <ImageView
+        android:id="@+id/buttonSortByState"
+        style="@style/ClickableIcon"
+        android:src="@drawable/ic_type_sort_by__state_default"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/filterLabel2"
+        app:layout_constraintBottom_toBottomOf="@id/filterLabel2"
+        tools:ignore="ContentDescription" />
+
+
+    <TextView
+        android:id="@+id/filterLabel1"
+        style="@style/List_Title_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Label"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@id/buttonSortByState"
+        app:layout_constraintTop_toTopOf="@id/filterLabel2"
+        app:layout_constraintBottom_toBottomOf="@id/filterLabel2"
+        />
+
+    <ImageView
+        android:id="@+id/buttonFilterDownArrow"
+        style="@style/ClickableIcon"
+        android:src="@drawable/ic_type_down_arrow__state_default"
+        app:layout_constraintStart_toEndOf="@id/filterLabel1"
+        app:layout_constraintTop_toTopOf="@id/filterLabel2"
+        app:layout_constraintBottom_toBottomOf="@id/filterLabel2"
+        tools:ignore="ContentDescription" />
+
+
+    <ImageView
+        android:id="@+id/buttonFilterButton"
+        style="@style/ClickableIcon"
+        android:src="@drawable/ic_type_filter__state_default"
+        app:layout_constraintEnd_toStartOf="@id/filterLabel2"
+        app:layout_constraintTop_toTopOf="@id/filterLabel2"
+        app:layout_constraintBottom_toBottomOf="@id/filterLabel2"
+        android:layout_marginEnd="8dp"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/filterLabel2"
+        style="@style/List_Title_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

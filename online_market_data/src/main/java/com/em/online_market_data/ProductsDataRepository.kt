@@ -21,7 +21,7 @@ interface ProductsDataRepository {
      * @throws NotFountException
      */
 
-    suspend fun getProductById(id: Long): ProductDBO
+    suspend fun getProductById(id: String): ProductDBO
 
 
 

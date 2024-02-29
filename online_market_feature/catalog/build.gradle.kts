@@ -32,6 +32,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures{
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -39,6 +42,8 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.android.material)
+
+    implementation("com.elveum:element-adapter:0.6")
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)

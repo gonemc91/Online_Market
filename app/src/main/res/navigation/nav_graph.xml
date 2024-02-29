@@ -17,6 +17,11 @@
         android:name="com.em.online_market.navigation.presentation.TabsFragment"
         android:label="fragment_tabs"
         tools:layout="@layout/fragment_tabs" />
+    <fragment
+        android:id="@+id/catalogFragment"
+        android:name="com.em.catalog.presentation.catalog.CatalogFragment"
+        android:label="@string/tabs_catalog"
+        tools:layout="@layout/fragment_catalog" />
 
 
 </navigation>

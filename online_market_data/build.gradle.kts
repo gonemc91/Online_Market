@@ -49,6 +49,6 @@ dependencies {
     androidTestImplementation(libs.androidx.test.espresso.core)
 
     implementation(project(":online_market_core:common"))
-    api(project(":online_market_api"))
-    
+    implementation(project(":api"))
+
 }

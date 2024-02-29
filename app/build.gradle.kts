@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.gradlePlugin)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+
 }
 
 android {
@@ -26,6 +27,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -42,6 +44,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.retrofit)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.android.material)
@@ -49,6 +52,8 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.fragment.ktx)
+    implementation (libs.converter.gson)
+
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
@@ -59,11 +64,11 @@ dependencies {
 
     implementation(project(":online_market_feature:authorization"))
     implementation(project(":online_market_feature:catalog"))
-    implementation(project(":online_market_api"))
     implementation(project(":online_market_data"))
 
     implementation(project(":online_market_core:common-impl"))
     implementation(project(":online_market_core:presentation"))
     implementation(project(":online_market_core:theme"))
+    implementation(project(":api"))
 
 }

@@ -1,4 +1,4 @@
-package com.example.presentation.views
+package com.em.presentation.views
 
 import android.content.Context
 import android.util.AttributeSet
@@ -9,8 +9,8 @@ import androidx.core.view.isVisible
 import com.em.common.AuthException
 import com.em.common.Container
 import com.em.common.Core
-import com.em.presentation.databinding.CorePresentationPartResultBinding
 import com.em.presentation.R
+import com.em.presentation.databinding.CorePresentationPartResultBinding
 
 /**
  * Layout for rendering [Container] results.

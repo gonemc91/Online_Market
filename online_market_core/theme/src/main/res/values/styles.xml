@@ -40,7 +40,7 @@
         <item name="android:textColor">@color/text_white</item>
         <item name="android:backgroundTint">@color/element_pink</item>
         <item name="minHeight">51dp</item>
-        <item name="android:background">@drawable/background_shape</item>
+        <item name="android:background">@drawable/background_shape_button</item>
         <item name="android:textAppearance">@style/Button_text_2</item>
     </style>
 
@@ -60,7 +60,6 @@
     </style>
 
 
-
     <style name="List_Title_2">
         <item name="android:textSize">14sp</item>
         <item name="android:lines">1</item>
@@ -69,14 +68,21 @@
         <item name="android:textColor">@color/text_black</item>
     </style>
 
-    <style name="Caption_1">
-        <item name="android:textSize">10sp</item>
+
+    <style name="List_Title_3">
+        <item name="android:textSize">12sp</item>
         <item name="android:lines">1</item>
         <item name="android:gravity">center</item>
-        <item name="fontFamily">@font/sfprodisplayregular</item>
+        <item name="fontFamily">@font/sfprodisplaymedium</item>
         <item name="android:textColor">@color/text_black</item>
     </style>
 
+    <style name="Caption_1">
+        <item name="android:textSize">10sp</item>
+        <item name="android:gravity">start</item>
+        <item name="fontFamily">@font/sfprodisplayregular</item>
+        <item name="android:textColor">@color/text_black</item>
+    </style>
 
 
     <style name="Caption_2">
@@ -85,6 +91,18 @@
         <item name="android:gravity">center</item>
         <item name="fontFamily">@font/sfprodisplayregular</item>
         <item name="android:textColor">@color/text_grey</item>
+    </style>
+
+
+
+
+    <style name="Element_text">
+        <item name="android:textSize">9sp</item>
+        <item name="android:lines">1</item>
+        <item name="android:gravity">center</item>
+        <item name="fontFamily">@font/sfprodisplayregular</item>
+        <item name="android:textColor">@color/text_grey</item>
+        <item name="android:textAllCaps">true</item>
     </style>
 
 
@@ -112,6 +130,15 @@
         <item name="android:lines">1</item>
         <item name="fontFamily">@font/sfprodisplayregular</item>
         <item name="android:textColor">@color/text_black</item>
+    </style>
+
+
+    <style name="Price_text">
+        <item name="android:textSize">14sp</item>
+        <item name="android:lines">1</item>
+        <item name="fontFamily">@font/sfprodisplaymedium</item>
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textAllCaps">true</item>
     </style>
 
 
