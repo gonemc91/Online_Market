@@ -46,11 +46,19 @@
 
 
 
+    <style name="Large_Title">
+        <item name="android:textSize">20sp</item>
+        <item name="android:lines">1</item>
+        <item name="android:gravity">center</item>
+        <item name="fontFamily">@font/sfprodisplaybold</item>
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textStyle">normal</item>
 
+    </style>
 
 
     <style name="List_Title_1">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:lines">1</item>
         <item name="android:gravity">center</item>
         <item name="fontFamily">@font/sfprodisplaybold</item>
@@ -79,6 +87,14 @@
 
     <style name="Caption_1">
         <item name="android:textSize">10sp</item>
+        <item name="android:gravity">start</item>
+        <item name="fontFamily">@font/sfprodisplayregular</item>
+        <item name="android:textColor">@color/text_black</item>
+    </style>
+
+
+    <style name="Text_1">
+        <item name="android:textSize">12sp</item>
         <item name="android:gravity">start</item>
         <item name="fontFamily">@font/sfprodisplayregular</item>
         <item name="android:textColor">@color/text_black</item>

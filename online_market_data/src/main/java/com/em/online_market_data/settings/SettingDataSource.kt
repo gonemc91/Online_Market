@@ -1,5 +1,6 @@
 package com.em.online_market_data.settings
 
+import com.em.online_market_data.accounts.entities.AccountDataEntity
 import kotlinx.coroutines.flow.Flow
 
 interface SettingDataSource {
@@ -9,7 +10,6 @@ interface SettingDataSource {
       */
 
      fun setToken(token: String?)
-
 
      /**
       * Get thr current auth token
@@ -22,4 +22,12 @@ interface SettingDataSource {
       */
 
      fun listenToken(): Flow<String?>
- }
+
+
+
+     fun setAccountInfo(accountDataEntity: AccountDataEntity)
+
+
+     fun getAccountInfo(): AccountDataEntity
+
+}

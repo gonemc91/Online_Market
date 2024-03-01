@@ -6,7 +6,7 @@ import com.em.authorization.domain.exceptions.EmptyFieldException
 import com.em.authorization.domain.repositories.AuthorizationRepository
 import javax.inject.Inject
 
-class AuthorizationUseCase @Inject constructor(
+class SignInUseCase @Inject constructor(
     private val signUpRepository: AuthorizationRepository
 ){
 

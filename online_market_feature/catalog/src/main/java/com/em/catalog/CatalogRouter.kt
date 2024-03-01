@@ -1,11 +1,13 @@
 package com.em.catalog
 
+import com.em.catalog.domain.entitys.product.ProductWithInfo
+
 interface CatalogRouter {
 
     /**
      * Launch product details screen.
      */
-    fun launchDetails(productId: String)
+    fun launchDetails(productId: ProductWithInfo)
 
 
 }

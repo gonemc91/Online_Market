@@ -1,6 +1,6 @@
 package com.em.online_market_data.accounts.di
 
-import com.example.data.accounts.sources.AccountsDataSource
+import com.em.online_market_data.accounts.sources.AccountsDataSource
 import com.em.online_market_data.accounts.sources.InMemoryAccountsDataSource
 import dagger.Binds
 import dagger.Module
@@ -16,6 +16,6 @@ interface AccountSourcesModule {
     @Singleton
     fun bindAccountSources(
         accountsDataSources: InMemoryAccountsDataSource
-    ):AccountsDataSource
+    ): AccountsDataSource
 
 }

@@ -11,7 +11,7 @@ import com.elveum.elementadapter.simpleAdapter
 import com.em.catalog.R
 import com.em.catalog.databinding.FragmentCatalogBinding
 import com.em.catalog.databinding.ItemProductBinding
-import com.em.catalog.domain.entitys.product.ProductWithCartInfo
+import com.em.catalog.domain.entitys.product.ProductWithInfo
 import com.em.common.Core
 import com.em.presentation.loadResources
 import com.em.presentation.viewBinding
@@ -21,7 +21,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class CatalogFragment : Fragment(R.layout.fragment_catalog) {
+class CatalogFragment(
+
+) : Fragment(R.layout.fragment_catalog) {
 
 
     private val binding by viewBinding<FragmentCatalogBinding>()
@@ -36,39 +38,34 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
         with(binding){
             observeState(adapter)
             setupList(adapter)
-            //setupListeners()
+            setupListeners()
         }
     }
 
 
-    private fun FragmentCatalogBinding.observeState(adapter: SimpleBindingAdapter<ProductWithCartInfo>){
+    private fun FragmentCatalogBinding.observeState(adapter: SimpleBindingAdapter<ProductWithInfo>){
         root.observe(viewLifecycleOwner, viewModel.stateLiveValue) { state ->
             adapter.submitList(state.products)
         }
     }
 
-    private fun FragmentCatalogBinding.setupList(adapter: SimpleBindingAdapter<ProductWithCartInfo>){
+    private fun FragmentCatalogBinding.setupList(adapter: SimpleBindingAdapter<ProductWithInfo>){
         productsRecyclerView.setupGridLayout()
         productsRecyclerView.adapter = adapter
     }
 
     private fun FragmentCatalogBinding.setupListeners(){
-        TODO("Filter impl")
+
     }
 
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun createAdapter() = simpleAdapter<ProductWithCartInfo, ItemProductBinding> {
+    private fun createAdapter() = simpleAdapter<ProductWithInfo, ItemProductBinding> {
         areItemsSame = {oldItem, newItem ->  oldItem.product.id == newItem.product.id}
         areContentsSame = {oldItem, newItem -> oldItem == newItem }
 
         bind { productWithCartInfo ->
             val product = productWithCartInfo.product
-            Core.logger.log("Product in UI $product")
-            Core.logger.log("Price ${product.price.price}")
-            Core.logger.log("Price ${product.price.unit}")
-            Core.logger.log("Price ${product.price.discount}")
-            Core.logger.log("Price ${product.price.priceWithDiscount}")
 
             product.images?.image1?.let { productImageView.loadResources(it) }
             if (product.price.priceWithDiscount == null){
@@ -103,8 +100,7 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
                 }
 
             }
-
-            productNameTextView.text = product.title
+            subTitle.text = product.title
             productDescription.text = product.description
             ratingText.text = product.feedback.rating.toString()
             feedbackText.text = buildString {
@@ -112,10 +108,14 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
                 append(product.feedback.count)
                 append(")")
             }
-            if (productWithCartInfo.favourite)
+
+            Core.logger.log("${productWithCartInfo.product.title} Favorites state: ${productWithCartInfo.favourite}")
+
+            if (productWithCartInfo.favourite) {
                 favoriteButton.setImageResource(com.em.theme.R.drawable.ic_type_heart__state_active)
-            else
-                favoriteButton.setImageResource(0)
+            } else {
+                favoriteButton.setImageResource(com.em.theme.R.drawable.ic_type_heart__state_default)
+            }
 
 
             listeners {
@@ -124,10 +124,11 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
                 }
                 favoriteButton.onClick {
                     val stateFavouriteButton = productWithCartInfo.favourite
-                    if (stateFavouriteButton)
-                        viewModel.deleteOnFavorites(productWithCartInfo.copy(favourite = false))
-                    else
-                        viewModel.addToFavorites(productWithCartInfo.copy(favourite = true))
+                    if (stateFavouriteButton) {
+                        viewModel.deleteOnFavorites(product.id)
+                    }else{
+                        viewModel.addToFavorites(product.id)
+                    }
                 }
             }
         }

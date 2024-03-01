@@ -2,7 +2,6 @@ package com.em.online_market_data.products
 
 import com.em.api.OnlineMarketApi
 import com.em.common.Container
-import com.em.common.Core
 import com.em.common.entities.OnChange
 import com.em.common.flow.LazyFlowSubjectFactory
 import com.em.online_market_data.ProductsDataRepository
@@ -11,7 +10,6 @@ import com.em.online_market_data.products.sources.ProductsDataSource
 import com.em.online_market_data.products.sources.mappers.mapProductDTOInDBO
 import com.example.data.product.entities.ProductDataFilter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
@@ -28,7 +26,7 @@ class RealProductDataRepository @Inject constructor(
 
 
     override suspend fun getProductById(id: String): ProductDBO {
-        TODO()
+       TODO()
     }
 
     override suspend fun getAllTags(): List<String> {
@@ -39,8 +37,6 @@ class RealProductDataRepository @Inject constructor(
     override fun getProducts(filter: ProductDataFilter): Flow<Container<List<ProductDBO>>> {
         return updateNotifierFlow.flatMapLatest{
             val getProductsDTO = onlineMarketApi.getProductsList()
-            Core.logger.log("Get product DTO obj: $getProductsDTO")
-            delay(1000)
             lazyFlowSubjectFactory.create {
                 getProductsDTO.items.map { product ->
                     val productImages = productsDataSource.getImageProducts()

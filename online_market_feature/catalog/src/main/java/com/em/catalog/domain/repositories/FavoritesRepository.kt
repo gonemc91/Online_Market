@@ -9,17 +9,22 @@ interface FavoritesRepository {
      * Listen for all product IDs already added to the favorites.
      * @return infinite flow, always success; errors are delivered to [Container]
      */
-    fun getProduceIdentifiersInFavorites(): Flow<Container<Set<String>>>
+    fun getProductIdIdentifiersInFavorites(): Flow<Container<Set<String>>>
 
     /**
-     * Reload the flow returned by [getProduceIdentifiersInCart]
+     * Reload the flow returned
      */
     fun reload()
 
     /**
-     * Add a new product to the cart.
+     * Add a new product to the favorites.
      */
 
     suspend fun addToFavorites(productId: String)
+
+    /**
+     * Delete product in the favorites.
+     */
+    suspend fun deleteToFavorites(productId: String)
 
 }

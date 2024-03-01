@@ -5,7 +5,6 @@ import com.em.common.Core
 import com.em.online_market_data.accounts.entities.AccountDataEntity
 import com.em.online_market_data.accounts.entities.AuthorizationDataEntity
 import com.em.online_market_data.settings.SettingDataSource
-import com.example.data.accounts.sources.AccountsDataSource
 import kotlinx.coroutines.delay
 import java.util.UUID
 import javax.inject.Inject
@@ -42,16 +41,30 @@ class InMemoryAccountsDataSource @Inject constructor(
                 ),
                 token = UUID.randomUUID().toString()
             )
-            Core.logger.log("${newRecord.account}")
+            Core.logger.log("authorization: ${newRecord.account}; token: ${newRecord.token}")
             records.add(newRecord)
+            settings.setToken(newRecord.token)
+            settings.setAccountInfo(newRecord.account)
             newRecord.account
-
         }
     }
 
     override suspend fun getAccount(): AccountDataEntity {
-        val token = settings.getToken() ?: throw AuthException()
+        val token = settings.getToken()
+
+        if (token != null) {
+            val account = settings.getAccountInfo()
+            records.add(
+                Record(
+                    account = account,
+                    token = token
+                )
+            )
+        } else
+            throw AuthException()
+
         val record = records.firstOrNull { it.token == token } ?: throw AuthException()
+        Core.logger.log("Account from Shared:  ${record.account} token:  ${record.token}")
         return record.account
     }
 

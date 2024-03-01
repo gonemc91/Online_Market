@@ -1,4 +1,4 @@
-package com.example.data.accounts.sources
+package com.em.online_market_data.accounts.sources
 
 import com.em.online_market_data.accounts.entities.AccountDataEntity
 import com.em.online_market_data.accounts.entities.AuthorizationDataEntity

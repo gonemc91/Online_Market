@@ -22,6 +22,10 @@
         android:name="com.em.catalog.presentation.catalog.CatalogFragment"
         android:label="@string/tabs_catalog"
         tools:layout="@layout/fragment_catalog" />
+    <fragment
+        android:id="@+id/productDetailsFragment"
+        android:name="com.em.catalog.presentation.details.ProductDetailsFragment"
+        android:label="Продукт" />
 
 
 </navigation>

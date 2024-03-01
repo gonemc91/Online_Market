@@ -6,8 +6,8 @@ import com.em.common.flow.LazyFlowSubjectFactory
 import com.em.online_market_data.AccountsDataRepository
 import com.em.online_market_data.accounts.entities.AccountDataEntity
 import com.em.online_market_data.accounts.entities.AuthorizationDataEntity
+import com.em.online_market_data.accounts.sources.AccountsDataSource
 import com.em.online_market_data.settings.SettingDataSource
-import com.example.data.accounts.sources.AccountsDataSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch

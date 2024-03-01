@@ -1,7 +1,7 @@
 package com.em.catalog.domain
 
 import com.em.catalog.domain.entitys.filter.ProductFilter
-import com.em.catalog.domain.entitys.product.ProductWithCartInfo
+import com.em.catalog.domain.entitys.product.Product
 import com.em.catalog.domain.repositories.ProductsRepository
 import com.em.common.Container
 import kotlinx.coroutines.flow.Flow
@@ -20,30 +20,15 @@ class GetCatalogUseCase  @Inject constructor(
      * @return infinite flow, always success; errors are delivered to [Container]
      */
 
-    /*    fun getProducts(filter: ProductFilter): Flow<Container<List<ProductWithCartInfo>>> {
-        return combine(
-            productsRepository.getProducts(filter),
-            favoritesRepository.getProduceIdentifiersInFavorites()
-        ){productsContainer, idsInCartContainer ->
-            if(productsContainer !is Container.Success) return@combine productsContainer.map()
-            if(idsInCartContainer !is Container.Success) return@combine idsInCartContainer.map()
-            val products = productsContainer.value
-            val idsInFavorites = idsInCartContainer.value
-            val productsWithCartInfo = products.map { ProductWithCartInfo(it, idsInFavorites.contains(it.id)) }
-            return@combine Container.Success(productsWithCartInfo)
-        }
-    }*/
 
-    fun getProducts(filter: ProductFilter): Flow<Container<List<ProductWithCartInfo>>> {
+    fun getProducts(filter: ProductFilter = ProductFilter.EMPTY): Flow<Container<List<Product>>> {
         return combine(
             productsRepository.getProducts(filter),
             MutableStateFlow(null)
         ) { productsContainer, idsInCartContainer ->
             if (productsContainer !is Container.Success) return@combine productsContainer.map()
             val products = productsContainer.value
-            val idsInFavorites = false
-            val productsWithCartInfo = products.map { ProductWithCartInfo(it, false) }
-            return@combine Container.Success(productsWithCartInfo)
+            return@combine Container.Success(products)
         }
     }
 }
