@@ -13,57 +13,49 @@ import com.elveum.elementadapter.simpleAdapter
 import com.em.catalog.R
 import com.em.catalog.databinding.FragmentCatalogBinding
 import com.em.catalog.databinding.ItemProductBinding
+import com.em.catalog.databinding.ItemTagBinding
 import com.em.catalog.domain.entitys.filter.ProductFilter
 import com.em.catalog.domain.entitys.filter.SortBy
 import com.em.catalog.domain.entitys.filter.SortOrder
+import com.em.catalog.domain.entitys.filter.Tag
 import com.em.catalog.domain.entitys.product.ProductWithInfo
-import com.em.common.Core
 import com.em.presentation.loadResources
 import com.em.presentation.viewBinding
 import com.em.presentation.views.observe
 import com.em.presentation.views.setupGridLayout
+import com.em.presentation.views.simpleListHorizontal
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class CatalogFragment : Fragment(R.layout.fragment_catalog) {
 
-
     private val binding by viewBinding<FragmentCatalogBinding>()
 
-
     private val viewModel by viewModels<CatalogViewModel>()
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = createAdapter()
+        viewModel.toggleSelectedTAG(AllTAGS)
 
+        val adapter = createCatalogAdapter()
+
+        val adapterTags = createTagsAdapter()
 
 
         with(binding){
             observeState(adapter)
+            observeStateTags(adapterTags)
             setupList(adapter)
+            setupTagsList(adapterTags)
             setupListeners()
             setupSpinnerFilterSortBy()
         }
     }
 
-
-    private fun FragmentCatalogBinding.observeState(adapter: SimpleBindingAdapter<ProductWithInfo>){
-        root.observe(viewLifecycleOwner, viewModel.stateLiveValue) { state ->
-            adapter.submitList(state.products)
-        }
-
-    }
-
-    private fun FragmentCatalogBinding.setupList(adapter: SimpleBindingAdapter<ProductWithInfo>){
-        productsRecyclerView.setupGridLayout()
-        productsRecyclerView.adapter = adapter
-    }
-
     private fun FragmentCatalogBinding.setupListeners(){
+
         filterSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(
                 adapterView: AdapterView<*>?,
@@ -87,7 +79,6 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
 
     }
 
-
     private fun FragmentCatalogBinding.setupSpinnerFilterSortBy() {
         val items = listOf(POPULARITY, ASCENDING_PRICE, DESCENDING_PRICE).toList()
         val adapter = ArrayAdapter(requireContext(),  android.R.layout.simple_list_item_1, items)
@@ -95,12 +86,62 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
     }
 
 
+    private fun FragmentCatalogBinding.setupTagsList(adapter: SimpleBindingAdapter<Tag>) {
+        tagsRecyclerView.simpleListHorizontal()
+        tagsRecyclerView.adapter = adapter
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun createTagsAdapter() = simpleAdapter<Tag, ItemTagBinding> {
+        areContentsSame = {oldItem, newItem -> oldItem == newItem }
+        bind {
+
+            if (it.active){
+                root.background.setTint(context?.getColor(com.em.theme.R.color.element_dark_blue)!!)
+                textViewTag.setTextColor(context?.getColor(com.em.theme.R.color.text_white)!!)
+                deleteTag.visibility = View.VISIBLE
+            }else{
+                root.background.setTint(context?.getColor(com.em.theme.R.color.background_light_grey)!!)
+                textViewTag.setTextColor(context?.getColor(com.em.theme.R.color.text_grey)!!)
+                deleteTag.visibility = View.INVISIBLE
+            }
+            textViewTag.text = it.tags
+        }
 
 
+        listeners {
+            root.onClick {
+
+                viewModel.toggleSelectedTAG(it.tags)
+            }
+        }
+    }
+
+
+    private fun FragmentCatalogBinding.observeState(adapter: SimpleBindingAdapter<ProductWithInfo>,
+    ){
+        root.observe(viewLifecycleOwner, viewModel.stateLiveValue) { state ->
+            adapter.submitList(state.products)
+        }
+    }
+
+    private fun FragmentCatalogBinding.observeStateTags(adapter: SimpleBindingAdapter<Tag>,
+    ){
+        root.observe(viewLifecycleOwner, viewModel.stateLiveValue) { state ->
+            adapter.submitList(state.listTag)
+        }
+    }
+
+
+
+    private fun FragmentCatalogBinding.setupList(adapter: SimpleBindingAdapter<ProductWithInfo>){
+        productsRecyclerView.setupGridLayout()
+        productsRecyclerView.adapter = adapter
+    }
 
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun createAdapter() = simpleAdapter<ProductWithInfo, ItemProductBinding> {
+    private fun createCatalogAdapter() = simpleAdapter<ProductWithInfo, ItemProductBinding> {
         areItemsSame = {oldItem, newItem ->  oldItem.product.id == newItem.product.id}
         areContentsSame = {oldItem, newItem -> oldItem == newItem }
 
@@ -150,7 +191,6 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
                 append(")")
             }
 
-            Core.logger.log("${productWithCartInfo.product.title} Favorites state: ${productWithCartInfo.favourite}")
 
             if (productWithCartInfo.favourite) {
                 favoriteButton.setImageResource(com.em.theme.R.drawable.ic_type_heart__state_active)
@@ -163,20 +203,18 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
                 root.onClick { productWithCartInfo ->
                     viewModel.launchDetails(productWithCartInfo)
                 }
-                favoriteButton.onClick {
-                    val stateFavouriteButton = productWithCartInfo.favourite
-                    if (stateFavouriteButton) {
-                        viewModel.deleteOnFavorites(product.id)
-                    }else{
-                        viewModel.addToFavorites(product.id)
-                    }
-                }
+
+                favoriteButton.onClick {viewModel.toggleFavouriteFlag(it)}
             }
         }
     }
-    companion object{
+
+
+    companion object {
         const val DESCENDING_PRICE = "По уменьшению цены"
         const val ASCENDING_PRICE = "По возрастанию цены"
         const val POPULARITY = "По популярности"
+        const val AllTAGS = "Смотреть все"
+
     }
 }

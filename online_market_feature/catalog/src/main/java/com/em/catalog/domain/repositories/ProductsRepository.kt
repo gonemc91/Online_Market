@@ -20,9 +20,9 @@ interface ProductsRepository {
     suspend fun getProduct(id: String): Product
 
     /**
-     * Get min possible product price.
+     * Get all product tags.
      */
 
-    suspend fun getAllCategories(): List<String>
+    suspend fun getAllTags(): Set<String>
 
 }

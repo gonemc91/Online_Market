@@ -6,11 +6,14 @@ import com.em.catalog.domain.DeleteFavouritesUseCase
 import com.em.catalog.domain.GetCatalogUseCase
 import com.em.catalog.domain.GetFavouritesUseCase
 import com.em.catalog.domain.entitys.filter.ProductFilter
+import com.em.catalog.domain.entitys.filter.Tag
 import com.em.catalog.domain.entitys.product.Product
 import com.em.catalog.domain.entitys.product.ProductWithInfo
+import com.em.catalog.domain.repositories.ProductsRepository
 import com.em.common.Container
 import com.em.common.Core
 import com.em.common.entities.OnChange
+import com.em.common.unwrapFirst
 import com.em.presentation.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -28,11 +31,32 @@ class CatalogViewModel @Inject constructor(
     private val deleteFavouritesUseCase: DeleteFavouritesUseCase,
     private val addToFavoritesUseCase: AddToFavoritesUseCase,
     private val catalogRouter: CatalogRouter,
+    private val productsRepository: ProductsRepository,
 ) : BaseViewModel() {
+
+    private val tags = mutableSetOf<String>()
+    private val tagsFlow = MutableStateFlow(OnChange(tags))
 
     private val filterFLow = MutableStateFlow(OnChange(ProductFilter.EMPTY))
 
 
+    private val selectionsFavorite = Selections()
+    private val selectionsFilterTags = MutableStateFlow(AllTAGS)
+
+
+    init {
+        viewModelScope.launch {
+            val favouritesIds = getFavouritesUseCase.getFavouritesId().unwrapFirst()
+            favouritesIds.forEach {
+                selectionsFavorite.toggle(it)
+            }
+            productsRepository.getAllTags().forEach{
+                tags.add(it)
+            }
+
+
+        }
+    }
 
     var filter: ProductFilter
         get() = filterFLow.value.value
@@ -40,53 +64,60 @@ class CatalogViewModel @Inject constructor(
             filterFLow.value = OnChange(value)
         }
 
-
     @OptIn(ExperimentalCoroutinesApi::class)
     val productWithFilterFlow = filterFLow
         .flatMapLatest { filter->
             getCatalogUseCase.getProducts(filter.value)
         }
 
-
     val stateLiveValue = combine(
         productWithFilterFlow,
-        getFavouritesUseCase.getFavouritesId(),
+        selectionsFavorite.flow(),
+        selectionsFilterTags,
         filterFLow,
         ::merge
     ).toLiveValue()
 
 
-
     private fun merge(
         productList: Container<List<Product>>,
-        getFavouritesIDs: Container<Set<String>>,
+        selectionsFavorites: SelectionState,
+        selectionsTags: String,
         filter: OnChange<ProductFilter>,
     ): Container<State> {
         return productList.map { listProducts ->
-            Core.logger.log(" Filter ${filter.value}")
             val productListWithInfo = emptyList<ProductWithInfo>().toMutableList()
             val tagsList  = emptyList<String>().toMutableList()
+            tagsList.add(AllTAGS)
+            Core.logger.log("${filter.value}")
+
+            val tags = emptyList<Tag>().toMutableSet()
+
             listProducts.map { product ->
-                product.tags.forEach{
+                product.tags.forEach {
                     tagsList.add(it)
                 }
+                tagsList.map {
 
-                val favouritesIds = getFavouritesIDs.unwrap()
-                val favoriteId = favouritesIds.contains(product.id)
-                if (favoriteId) {
-                    productListWithInfo.add(
-                        ProductWithInfo(product, true)
-                    )
-                } else {
-                    productListWithInfo.add(
-                        ProductWithInfo(product, false)
+                    tags.add(
+                        Tag(
+                            tags = it,
+                            active = it == selectionsTags
+                        )
                     )
                 }
+
+                productListWithInfo.add(
+                    ProductWithInfo(
+                        product = product,
+                        favourite = selectionsFavorites.isChecked(product.id)
+                    )
+                )
             }
             State(
                 filter = filter.value,
                 products = productListWithInfo,
-                listTag = tagsList.toSet()
+                listTag = tags.toList()
             )
         }
     }
@@ -110,10 +141,31 @@ class CatalogViewModel @Inject constructor(
         }
     }
 
+    fun toggleFavouriteFlag(product: ProductWithInfo) = viewModelScope.launch {
+        selectionsFavorite.toggle(product.product.id)
+            addToFavoritesUseCase.addToFavorites(product.product.id)
+    }
+
+    fun toggleSelectedTAG(it: String) {
+        filter = if (it == AllTAGS){
+            ProductFilter(tag = null)
+        }else{
+            ProductFilter(tag = it)
+        }
+
+        selectionsFilterTags.value = it
+    }
+
+
 
     class State(
         val products: List<ProductWithInfo>,
         val filter: ProductFilter,
-        val listTag: Set<String>,
-    )
+        val listTag: List<Tag>,
+        )
+
+    companion object {
+        const val AllTAGS = "Смотреть все"
+    }
 }
+

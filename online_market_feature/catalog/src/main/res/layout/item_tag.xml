@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="28dp"
+    android:background="@drawable/background_shape_tags_light_gray"
+    tools:backgroundTint="@color/element_dark_blue"
+    android:clickable="true"
+    android:focusable="true"
+    >
+
+
+
+    <TextView
+        android:id="@+id/textViewTag"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/deleteTag"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Test"
+        android:layout_marginBottom="3dp"
+        android:layout_marginStart="12dp"
+        style="@style/AppTagsStyle"
+        android:textColor="@color/text_grey"
+        app:layout_goneMarginEnd="12dp"
+        />
+
+
+
+
+    <ImageView
+        android:id="@+id/deleteTag"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/ic_type_big_close__state_default"
+        android:layout_marginEnd="12dp"
+        android:backgroundTint="@color/element_white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/textViewTag"
+        tools:visibility="visible"
+        android:visibility="gone"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

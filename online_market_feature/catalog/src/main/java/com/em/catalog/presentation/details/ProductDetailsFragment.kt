@@ -129,8 +129,4 @@ class ProductDetailsFragment: Fragment(R.layout.fragment_product_details) {
     }
 
 
-
-
-
-
 }

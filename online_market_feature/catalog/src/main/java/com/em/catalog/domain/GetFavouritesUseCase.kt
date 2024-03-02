@@ -5,7 +5,7 @@ import com.em.common.Container
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetFavouritesUseCase @Inject constructor(
+class  GetFavouritesUseCase @Inject constructor(
     private val favoritesRepository: FavoritesRepositoryCatalog,
 ){
 

@@ -6,10 +6,13 @@ import com.example.data.product.entities.ProductDataFilter
 
 interface ProductsDataSource {
     suspend fun getImageProducts():  Map<String, ProductImagesDBO>
+
     suspend fun mapDataToLocalStorage(productDBO: ProductDBO)
+
+    suspend fun getProductById(id: String): ProductDBO
 
     suspend fun getProductDBOWithFilter(filter: ProductDataFilter): List<ProductDBO>
 
-    suspend fun getTags(): List<String>
+    suspend fun getAllTags(): Set<String>
 
 }

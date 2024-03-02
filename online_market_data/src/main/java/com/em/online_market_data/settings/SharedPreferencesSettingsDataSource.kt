@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
-import android.util.Log
 import androidx.core.content.edit
 import com.em.online_market_data.accounts.entities.AccountDataEntity
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -30,19 +29,16 @@ class SharedPreferencesSettingsDataSource @Inject constructor(
 
     @SuppressLint("SuspiciousIndentation")
     override fun setToken(token: String?) {
-        Log.d("myToken", "set token: $token")
         preference.edit {
             if (token == null) {
                 remove(PREF_TOKEN)
             } else
-                Log.d("myToken", "put token: $token")
                 putString(PREF_TOKEN, token)
         }
     }
 
     override fun getToken(): String? {
         val token = preference.getString(PREF_TOKEN, null)
-        Log.d("myToken", "get token: $token")
         return token
     }
 
@@ -88,8 +84,6 @@ class SharedPreferencesSettingsDataSource @Inject constructor(
         const val PREF_SURNAME = "surname"
         const val PREF_TEL_NUMBER = "tel_number"
         const val PREF_DATE_CREATE = "create_at"
-
-
         const val NO_DATA = "NO DATA"
 
 

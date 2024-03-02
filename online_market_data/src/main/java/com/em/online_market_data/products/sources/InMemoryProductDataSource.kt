@@ -1,6 +1,6 @@
 package com.em.online_market_data.products.sources
 
-import com.em.common.Core
+import com.em.common.AppException
 import com.em.online_market_data.R.drawable
 import com.em.online_market_data.products.entites.filter_models.SortOrderDataValue
 import com.em.online_market_data.products.entites.product_models.ProductDBO
@@ -13,7 +13,7 @@ import javax.inject.Inject
 class InMemoryProductDataSource @Inject constructor (
 ): ProductsDataSource {
 
-    private val mapProductDBO = emptyMap<String,ProductDBO>().toMutableMap()
+    private val localMapProductDBO = emptyMap<String,ProductDBO>().toMutableMap()
 
 
     private val availableImages = mapOf<String, ProductImagesDBO>(
@@ -73,20 +73,22 @@ class InMemoryProductDataSource @Inject constructor (
 
 
     override suspend fun mapDataToLocalStorage(productDBO: ProductDBO) {
-        mapProductDBO[productDBO.id] = productDBO
+        localMapProductDBO[productDBO.id] = productDBO
+    }
+
+    override suspend fun getProductById(id: String): ProductDBO {
+        return localMapProductDBO[id]?: throw AppException(message = "No data about Product")
     }
 
     override suspend fun getProductDBOWithFilter(filter: ProductDataFilter): List<ProductDBO> {
-
-        Core.logger.log("filter in data $filter")
-        val productList =  mapProductDBO.values.toList()
+        val productList =  localMapProductDBO.values.toList()
 
         val filterList = productList.filter { filterProduct(it, filter) }
 
         val sortedList = when(filter.sortBy){
-            SortByDataValue.NAME -> productList.sortedBy { it.title }
-            SortByDataValue.PRICE -> productList.sortedBy {it.price.price}
-            SortByDataValue.RATING -> productList.sortedBy { it.feedback.rating }
+            SortByDataValue.NAME -> filterList.sortedBy { it.title }
+            SortByDataValue.PRICE -> filterList.sortedBy {it.price.price}
+            SortByDataValue.RATING -> filterList.sortedBy { it.feedback.rating }
         }
 
         return if (filter.sortOrder == SortOrderDataValue.DESC){
@@ -95,9 +97,9 @@ class InMemoryProductDataSource @Inject constructor (
             sortedList
         }
     }
-    override suspend fun getTags(): List<String> {
-        val tagsList = emptyList<String>().toMutableList()
-        val listProduct = mapProductDBO.values.toList()
+    override suspend fun getAllTags(): Set<String> {
+        val tagsList = emptySet<String>().toMutableSet()
+        val listProduct = localMapProductDBO.values
         listProduct.forEach { productDBO ->
             productDBO.tags.forEach {
                 tagsList.add(it)
@@ -106,7 +108,7 @@ class InMemoryProductDataSource @Inject constructor (
         return tagsList
     }
 
-    private suspend fun filterProduct(product: ProductDBO, filter: ProductDataFilter):Boolean{
+    private fun filterProduct(product: ProductDBO, filter: ProductDataFilter):Boolean{
         return !(filter.tag != null && !product.tags.contains(filter.tag))
     }
 

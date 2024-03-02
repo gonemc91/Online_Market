@@ -15,3 +15,9 @@ fun RecyclerView.simpleList(){
     layoutManager = LinearLayoutManager(context)
     (itemAnimator as? DefaultItemAnimator)?.supportsChangeAnimations = false
 }
+
+
+fun RecyclerView.simpleListHorizontal(){
+    layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+    (itemAnimator as? DefaultItemAnimator)?.supportsChangeAnimations = false
+}

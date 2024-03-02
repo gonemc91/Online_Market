@@ -5,7 +5,6 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/element_pink</item>
-        <item name="android:background">@color/background_white</item>
         <item name="android:statusBarColor">@color/background_white</item>
         <item name="toolbarStyle">@style/custom_toolbar</item>
         <item name="buttonStyle">@style/AppButtonStyle</item>
@@ -39,6 +38,13 @@
         <item name="android:backgroundTint">@color/element_pink</item>
         <item name="minHeight">51dp</item>
         <item name="android:background">@drawable/background_shape_button</item>
+        <item name="android:textAppearance">@style/Button_text_2</item>
+    </style>
+
+
+
+    <style name="AppTagsStyle" >
+        <item name="android:textColor">@color/text_white</item>
         <item name="android:textAppearance">@style/Button_text_2</item>
     </style>
 

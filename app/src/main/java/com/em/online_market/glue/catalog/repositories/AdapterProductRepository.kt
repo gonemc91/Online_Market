@@ -34,8 +34,8 @@ class AdapterProductRepository @Inject constructor(
     }
 
 
-    override suspend fun getAllCategories(): List<String> {
-        TODO()
-       /* return productsDataRepository.getAllCategories()*/
+
+    override suspend fun getAllTags(): Set<String> {
+        return productsDataRepository.getAllTags()
     }
 }

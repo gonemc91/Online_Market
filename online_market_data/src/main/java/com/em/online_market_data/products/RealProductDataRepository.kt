@@ -24,16 +24,16 @@ class RealProductDataRepository @Inject constructor(
 
     private val updateNotifierFlow = MutableStateFlow(OnChange(Unit))
 
-    private val listProductDBO = emptyList<ProductDBO>().toMutableList()
+
 
 
 
     override suspend fun getProductById(id: String): ProductDBO {
-       TODO()
+       return productsDataSource.getProductById(id)
     }
 
-    override suspend fun getAllTags(): List<String> {
-       TODO()
+    override suspend fun getAllTags(): Set<String> {
+       return productsDataSource.getAllTags()
     }
 
 
