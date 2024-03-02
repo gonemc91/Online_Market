@@ -71,6 +71,10 @@ class SharedPreferencesSettingsDataSource @Inject constructor(
         )
     }
 
+    override fun deleteAllDataInfo() {
+        preference.edit().clear().apply()
+    }
+
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         tokenFlow.value = getToken()

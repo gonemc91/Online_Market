@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_fragment_favourites">Избранное</string>
+    <string name="settings_fragment_shop">Магазин</string>
+    <string name="settings_fragment_feedback">Обратная связь</string>
+    <string name="settings_fragment_return_product">Возврат товара</string>
+    <string name="settings_fragment_return_offer">Оферта</string>
+    <string name="settings_fragment_exit">Выход</string>
+</resources>

@@ -1,8 +1,5 @@
 package com.em.online_market.glue.favourites.di
 
-import com.em.catalog.domain.repositories.FavoritesRepository
-import com.em.online_market.glue.favourites.repositories.AdapterFavoritesRepository
-import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
@@ -13,10 +10,10 @@ import dagger.hilt.components.SingletonComponent
 
 interface RepositoryModule {
 
-    @Binds
+/*    @Binds
     fun provideFavoritesRepository(
         repository: AdapterFavoritesRepository
-    ): FavoritesRepository
+    ): FavoritesRepository*/
 
 
 }

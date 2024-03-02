@@ -4,10 +4,8 @@
     <style name="Theme.OnlineMarketCore" parent="Theme.Material3.Light">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-
         <item name="colorPrimary">@color/element_pink</item>
-
-
+        <item name="android:background">@color/background_white</item>
         <item name="android:statusBarColor">@color/background_white</item>
         <item name="toolbarStyle">@style/custom_toolbar</item>
         <item name="buttonStyle">@style/AppButtonStyle</item>

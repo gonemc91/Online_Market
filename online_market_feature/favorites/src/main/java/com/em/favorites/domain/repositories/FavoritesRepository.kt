@@ -1,4 +1,4 @@
-package com.em.catalog.domain.repositories
+package com.em.favorites.domain.repositories
 
 import com.em.common.Container
 import kotlinx.coroutines.flow.Flow

@@ -1,6 +1,6 @@
 package com.em.online_market.glue.favourites.repositories
 
-import com.em.catalog.domain.repositories.FavoritesRepository
+import com.em.catalog.domain.repositories.FavoritesRepositoryCatalog
 import com.em.common.Container
 import com.em.online_market_data.FavoritesDataRepository
 import kotlinx.coroutines.flow.Flow
@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class AdapterFavoritesRepository @Inject constructor(
     private val favoritesRepository: FavoritesDataRepository,
-): FavoritesRepository {
+): FavoritesRepositoryCatalog {
 
     override fun getProductIdIdentifiersInFavorites(): Flow<Container<Set<String>>> {
         return favoritesRepository.getFavorites().map { container ->

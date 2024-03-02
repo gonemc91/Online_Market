@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.em.presentation.views.ResultView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.em.profile.presentation.ProfileFragment"
+    >
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/startGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="16dp"
+            />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/endGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="16dp"
+            />
+
+
+        <ImageView
+            android:id="@+id/userInfo"
+            android:layout_width="0dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@id/startGuideline"
+            app:layout_constraintEnd_toEndOf="@id/endGuideline"
+            android:background="@drawable/background_shape_button"
+            tools:ignore="ContentDescription"
+            style="@style/ClickableIcon"/>
+        
+        
+        <ImageView
+            android:id="@+id/buttonFavouritesBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/userInfo"
+            app:layout_constraintTop_toTopOf="@id/userInfo"
+            app:layout_constraintBottom_toBottomOf="@id/userInfo"
+            android:src="@drawable/ic_back_button_over"
+            android:elevation="1dp"
+            app:tint="@color/element_black"
+            android:layout_marginEnd="8dp"
+            style="@style/ClickableIcon"
+            />
+
+        <ImageView
+            android:id="@+id/userIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:elevation="1dp"
+            android:src="@drawable/ic_type_account__state_default"
+            app:layout_constraintBottom_toBottomOf="@id/userInfo"
+            app:layout_constraintStart_toStartOf="@+id/userInfo"
+            app:layout_constraintTop_toTopOf="@id/userInfo"
+            app:tint="@color/element_black" />
+
+        <TextView
+            android:id="@+id/userFullName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/userIcon"
+            app:layout_constraintTop_toTopOf="@id/userInfo"
+            app:layout_constraintBottom_toTopOf="@id/userTelephone"
+            android:layout_marginStart="16dp"
+            style="@style/List_Title_2"
+            tools:text = "Марина Иванова"
+            />
+
+        <TextView
+            android:id="@+id/userTelephone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/userIcon"
+            app:layout_constraintTop_toBottomOf="@id/userFullName"
+            app:layout_constraintBottom_toBottomOf="@id/userInfo"
+            android:layout_marginStart="16dp"
+            style="@style/Caption_1"
+            android:textColor="@color/text_grey"
+            tools:text = "+ 7 993 877 44 02"
+            />
+
+
+
+
+
+
+        <ImageView
+            android:id="@+id/favourites"
+            android:layout_width="0dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/userInfo"
+            app:layout_constraintStart_toStartOf="@id/startGuideline"
+            app:layout_constraintEnd_toEndOf="@id/endGuideline"
+            android:background="@drawable/background_shape_button"
+            tools:ignore="ContentDescription"
+            style="@style/ClickableIcon"/>
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:layout_constraintEnd_toEndOf="@+id/favourites"
+            app:layout_constraintTop_toTopOf="@id/favourites"
+            app:layout_constraintBottom_toBottomOf="@id/favourites"
+            android:src="@drawable/ic_back_button"
+            android:elevation="1dp"
+            app:tint="@color/element_black"
+            android:layout_marginEnd="8dp"
+            style="@style/ClickableIcon"
+            />
+
+
+        <ImageView
+            android:id="@+id/imageFavourites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/ic_type_heart__state_default"
+            android:backgroundTint="@color/element_pink"
+            android:elevation="1dp"
+            app:layout_constraintBottom_toBottomOf="@id/favourites"
+            app:layout_constraintStart_toStartOf="@+id/favourites"
+            app:layout_constraintTop_toTopOf="@id/favourites" />
+
+
+        <TextView
+            android:id="@+id/favouritesTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/imageFavourites"
+            app:layout_constraintTop_toTopOf="@id/favourites"
+            app:layout_constraintBottom_toTopOf="@id/availableProduct"
+            android:layout_marginStart="16dp"
+            style="@style/List_Title_2"
+            android:text = "@string/settings_fragment_favourites"
+            />
+
+        <TextView
+            android:id="@+id/availableProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/imageFavourites"
+            app:layout_constraintTop_toBottomOf="@id/favouritesTitle"
+            app:layout_constraintBottom_toBottomOf="@id/favourites"
+            android:layout_marginStart="16dp"
+            style="@style/Caption_1"
+            android:textColor="@color/text_grey"
+            tools:text = "1 товар"
+            />
+
+
+        <ImageView
+            android:id="@+id/shop"
+            android:layout_width="0dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/favourites"
+            app:layout_constraintStart_toStartOf="@id/startGuideline"
+            app:layout_constraintEnd_toEndOf="@id/endGuideline"
+            android:background="@drawable/background_shape_button"
+            tools:ignore="ContentDescription"
+            style="@style/ClickableIcon"/>
+
+        <ImageView
+            android:id="@+id/backButtonShop"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:layout_constraintEnd_toEndOf="@+id/shop"
+            app:layout_constraintTop_toTopOf="@id/shop"
+            app:layout_constraintBottom_toBottomOf="@id/shop"
+            android:src="@drawable/ic_back_button"
+            android:elevation="1dp"
+            app:tint="@color/element_black"
+            android:layout_marginEnd="8dp"
+            style="@style/ClickableIcon"
+            />
+
+
+        <ImageView
+            android:id="@+id/imageShop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/ic_type_shop__state_default"
+            android:elevation="1dp"
+            app:layout_constraintBottom_toBottomOf="@id/shop"
+            app:layout_constraintStart_toStartOf="@+id/shop"
+            app:layout_constraintTop_toTopOf="@id/shop" />
+
+
+        <TextView
+            android:id="@+id/shopTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/imageShop"
+            app:layout_constraintTop_toTopOf="@id/shop"
+            app:layout_constraintBottom_toBottomOf="@id/shop"
+            android:layout_marginStart="16dp"
+            style="@style/List_Title_2"
+            android:text = "@string/settings_fragment_shop"
+            />
+
+
+        <ImageView
+            android:id="@+id/feedback"
+            android:layout_width="0dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/shop"
+            app:layout_constraintStart_toStartOf="@id/startGuideline"
+            app:layout_constraintEnd_toEndOf="@id/endGuideline"
+            android:background="@drawable/background_shape_button"
+            style="@style/ClickableIcon"
+            />
+
+        <ImageView
+            android:id="@+id/backButtonFeedBack"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:layout_constraintEnd_toEndOf="@+id/feedback"
+            app:layout_constraintTop_toTopOf="@id/feedback"
+            app:layout_constraintBottom_toBottomOf="@id/feedback"
+            android:src="@drawable/ic_back_button"
+            android:elevation="1dp"
+            app:tint="@color/element_black"
+            android:layout_marginEnd="8dp"
+            style="@style/ClickableIcon"
+            />
+
+
+        <ImageView
+            android:id="@+id/imageFeedBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/ic_type_feedback__state_default"
+            android:elevation="1dp"
+            app:layout_constraintBottom_toBottomOf="@id/feedback"
+            app:layout_constraintStart_toStartOf="@id/feedback"
+            app:layout_constraintTop_toTopOf="@id/feedback" />
+
+
+        <TextView
+            android:id="@+id/feedbackTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/imageFeedBack"
+            app:layout_constraintTop_toTopOf="@id/feedback"
+            app:layout_constraintBottom_toBottomOf="@id/feedback"
+            android:layout_marginStart="16dp"
+            style="@style/List_Title_2"
+            android:text = "@string/settings_fragment_feedback"
+            />
+
+
+
+        <ImageView
+            android:id="@+id/offer"
+            android:layout_width="0dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/feedback"
+            app:layout_constraintStart_toStartOf="@id/startGuideline"
+            app:layout_constraintEnd_toEndOf="@id/endGuideline"
+            android:background="@drawable/background_shape_button"
+            tools:ignore="ContentDescription"
+            style="@style/ClickableIcon"
+            />
+
+        <ImageView
+            android:id="@+id/backButtonOffer"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:layout_constraintEnd_toEndOf="@+id/offer"
+            app:layout_constraintTop_toTopOf="@id/offer"
+            app:layout_constraintBottom_toBottomOf="@id/offer"
+            android:src="@drawable/ic_back_button"
+            android:elevation="1dp"
+            app:tint="@color/element_black"
+            android:layout_marginEnd="8dp"
+            style="@style/ClickableIcon"
+            />
+
+
+        <ImageView
+            android:id="@+id/imageOffer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/ic_type_catalog__state_default"
+            android:elevation="1dp"
+            app:layout_constraintBottom_toBottomOf="@id/offer"
+            app:layout_constraintStart_toStartOf="@id/offer"
+            app:layout_constraintTop_toTopOf="@id/offer" />
+
+
+        <TextView
+            android:id="@+id/offerTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/imageOffer"
+            app:layout_constraintTop_toTopOf="@id/offer"
+            app:layout_constraintBottom_toBottomOf="@id/offer"
+            android:layout_marginStart="16dp"
+            style="@style/List_Title_2"
+            android:text = "@string/settings_fragment_return_offer"
+            />
+
+
+
+
+        <ImageView
+            android:id="@+id/returnProduct"
+            android:layout_width="0dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/offer"
+            app:layout_constraintStart_toStartOf="@id/startGuideline"
+            app:layout_constraintEnd_toEndOf="@id/endGuideline"
+            android:background="@drawable/background_shape_button"
+            tools:ignore="ContentDescription"
+            style="@style/ClickableIcon"
+            />
+
+        <ImageView
+            android:id="@+id/backButtonReturnProduct"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:layout_constraintEnd_toEndOf="@+id/returnProduct"
+            app:layout_constraintTop_toTopOf="@id/returnProduct"
+            app:layout_constraintBottom_toBottomOf="@id/returnProduct"
+            android:src="@drawable/ic_back_button"
+            android:elevation="1dp"
+            app:tint="@color/element_black"
+            android:layout_marginEnd="8dp"
+            style="@style/ClickableIcon"
+            />
+
+
+        <ImageView
+            android:id="@+id/imageReturnProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/ic_type_refund__state_default"
+            android:elevation="1dp"
+            app:layout_constraintBottom_toBottomOf="@id/returnProduct"
+            app:layout_constraintStart_toStartOf="@id/returnProduct"
+            app:layout_constraintTop_toTopOf="@id/returnProduct" />
+
+
+        <TextView
+            android:id="@+id/returnProductTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/imageReturnProduct"
+            app:layout_constraintTop_toTopOf="@id/returnProduct"
+            app:layout_constraintBottom_toBottomOf="@id/returnProduct"
+            android:layout_marginStart="16dp"
+            style="@style/List_Title_2"
+            android:text = "@string/settings_fragment_return_product"
+            />
+
+
+
+
+
+
+        <ImageView
+            android:id="@+id/buttonExit"
+            android:layout_width="0dp"
+            android:layout_height="49dp"
+            android:layout_marginBottom="32dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/startGuideline"
+            app:layout_constraintEnd_toEndOf="@id/endGuideline"
+            android:background="@drawable/background_shape_button"
+            tools:ignore="ContentDescription"
+            style="@style/ClickableIcon"
+            />
+
+
+        <TextView
+            android:id="@+id/exitTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/buttonExit"
+            app:layout_constraintEnd_toEndOf="@id/buttonExit"
+            app:layout_constraintTop_toTopOf="@id/buttonExit"
+            app:layout_constraintBottom_toBottomOf="@id/buttonExit"
+            android:layout_marginStart="16dp"
+            style="@style/List_Title_2"
+            android:text = "@string/settings_fragment_exit"
+            />
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</com.em.presentation.views.ResultView>

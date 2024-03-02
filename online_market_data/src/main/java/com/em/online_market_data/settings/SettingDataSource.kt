@@ -30,4 +30,7 @@ interface SettingDataSource {
 
      fun getAccountInfo(): AccountDataEntity
 
+
+     fun deleteAllDataInfo()
+
 }

@@ -3,6 +3,8 @@ package com.em.catalog.presentation.catalog
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -21,19 +23,21 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class CatalogFragment(
-
-) : Fragment(R.layout.fragment_catalog) {
+class CatalogFragment : Fragment(R.layout.fragment_catalog) {
 
 
     private val binding by viewBinding<FragmentCatalogBinding>()
 
+
     private val viewModel by viewModels<CatalogViewModel>()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = createAdapter()
+
+        setupSpinnerFilterSortBy()
 
         with(binding){
             observeState(adapter)
@@ -46,7 +50,10 @@ class CatalogFragment(
     private fun FragmentCatalogBinding.observeState(adapter: SimpleBindingAdapter<ProductWithInfo>){
         root.observe(viewLifecycleOwner, viewModel.stateLiveValue) { state ->
             adapter.submitList(state.products)
+
+
         }
+
     }
 
     private fun FragmentCatalogBinding.setupList(adapter: SimpleBindingAdapter<ProductWithInfo>){
@@ -56,13 +63,27 @@ class CatalogFragment(
 
     private fun FragmentCatalogBinding.setupListeners(){
 
+
     }
+
+
+    private fun setupSpinnerFilterSortBy() {
+        val items = listOf("По популярности", "По уменьшению цены", "По возрастанию цены").toList()
+
+        val adapter = ArrayAdapter(requireContext(),  android.R.layout.simple_list_item_1, items)
+
+        val spinner = view?.findViewById<Spinner>(R.id.filterSpinner)
+        spinner?.adapter = adapter
+    }
+
+
 
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun createAdapter() = simpleAdapter<ProductWithInfo, ItemProductBinding> {
         areItemsSame = {oldItem, newItem ->  oldItem.product.id == newItem.product.id}
         areContentsSame = {oldItem, newItem -> oldItem == newItem }
+
 
         bind { productWithCartInfo ->
             val product = productWithCartInfo.product

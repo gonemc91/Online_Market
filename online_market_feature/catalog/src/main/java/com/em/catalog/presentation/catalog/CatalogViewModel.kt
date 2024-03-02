@@ -32,12 +32,15 @@ class CatalogViewModel @Inject constructor(
 
 
 
+
+
+
+
     @OptIn(ExperimentalCoroutinesApi::class)
     val productWithFilterFlow = filterFLow
         .flatMapLatest { filter->
             getCatalogUseCase.getProducts(filter)
         }
-
 
 
 
@@ -47,7 +50,6 @@ class CatalogViewModel @Inject constructor(
         filterFLow,
         ::merge
     ).toLiveValue()
-
 
 
 
@@ -79,7 +81,6 @@ class CatalogViewModel @Inject constructor(
     }
 
 
-
     fun launchDetails(productWithCartInfo: ProductWithInfo) = debounce {
         catalogRouter.launchDetails(productWithCartInfo)
     }
@@ -97,6 +98,13 @@ class CatalogViewModel @Inject constructor(
             addToFavoritesUseCase.addToFavorites(productId)
         }
     }
+
+
+
+
+
+
+
 
     class State(
         val products: List<ProductWithInfo>,

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.em.presentation.views.ResultView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.em.presentation.views.ResultView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,7 +22,7 @@
             >
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/startGuideline"
+                android:id="@+id/topGuideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -43,7 +44,7 @@
                 android:layout_height="368dp"
                 android:scaleType="centerCrop"
                 tools:background="#ababab"
-                app:layout_constraintStart_toStartOf="@+id/startGuideline"
+                app:layout_constraintStart_toStartOf="@+id/topGuideline"
                 app:layout_constraintEnd_toEndOf="@+id/endGuideline"
                 app:layout_constraintTop_toTopOf="parent"
                 />
@@ -69,7 +70,7 @@
                 android:textColor="@color/text_grey"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintStart_toStartOf="@id/topGuideline"
                 app:layout_constraintTop_toBottomOf="@+id/productImageView"
                 android:layout_marginStart="@dimen/card_border_padding"
                 android:layout_marginTop="@dimen/card_vertical_padding"
@@ -86,7 +87,7 @@
                 android:gravity="start"
                 android:textAllCaps="true"
                 app:layout_constraintEnd_toEndOf="@id/endGuideline"
-                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintStart_toStartOf="@id/topGuideline"
                 app:layout_constraintTop_toBottomOf="@id/title"
                 tools:text="Пенка для умывания`A`PIEU` `DEEP CLEAN` 200 мл" />
 
@@ -97,7 +98,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/subTitle"
                 app:layout_constraintEnd_toEndOf="@id/endGuideline"
-                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintStart_toStartOf="@id/topGuideline"
                 tools:text="Доступно для заказа 30 штук"
                 android:layout_marginTop="10dp"
                 style="@style/Text_1"
@@ -111,7 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_type_small_star__state_default"
-                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintStart_toStartOf="@id/topGuideline"
                 app:layout_constraintTop_toBottomOf="@+id/productAvailable"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 android:layout_marginTop="20dp"
@@ -174,7 +175,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/ratingImage5"
-                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintStart_toStartOf="@id/topGuideline"
                 android:layout_marginTop="16dp"
                 android:textSize="24sp"
                 tools:text="489 ₽"
@@ -234,7 +235,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/finalPriceTextView"
-                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintStart_toStartOf="@id/topGuideline"
                 android:layout_marginTop="16dp"
                 android:text="@string/details_description"
                 />
@@ -244,7 +245,7 @@
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 app:layout_constraintTop_toBottomOf="@+id/descriptionTitle"
-                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintStart_toStartOf="@id/topGuideline"
                 app:layout_constraintEnd_toEndOf="@id/endGuideline"
                 android:background="@drawable/background_shape_button"
                 tools:ignore="ContentDescription" />
@@ -275,7 +276,7 @@
                 style="@style/Text_1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintStart_toStartOf="@id/topGuideline"
                 app:layout_constraintEnd_toStartOf="@id/endGuideline"
                 app:layout_constraintTop_toBottomOf="@id/buttonLabel"
                 tools:text="@string/lorem_description" />
@@ -286,7 +287,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/textDescription"
-                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintStart_toStartOf="@id/topGuideline"
                 android:text="@string/details_hide_button"
                 android:layout_marginTop="10dp"
                 >
@@ -300,7 +301,7 @@
                 style="@style/List_Title_1"
                 android:text="@string/details_characteristic_text"
                 app:layout_constraintTop_toBottomOf="@+id/buttonHide"
-                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintStart_toStartOf="@id/topGuideline"
                 android:layout_marginTop="34dp"
                 />
 
@@ -310,7 +311,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
                 app:layout_constraintEnd_toStartOf="@+id/endGuideline"
-                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintStart_toStartOf="@id/topGuideline"
                 app:layout_constraintTop_toBottomOf="@+id/characteristic"
                 tools:itemCount="3"
                 tools:listitem="@layout/item_info"
@@ -423,7 +424,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/productInfoRecyclerView"
-                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintStart_toStartOf="@id/topGuideline"
                 android:layout_marginTop="34dp"
                 android:text="@string/details_composition_title_text"
                 />
@@ -433,7 +434,7 @@
                 style="@style/Text_1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintStart_toStartOf="@id/topGuideline"
                 app:layout_constraintEnd_toStartOf="@id/endGuideline"
                 app:layout_constraintTop_toBottomOf="@+id/compositionTitle"
                 tools:text="@string/lorem_description"
@@ -448,7 +449,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/textComposition"
-                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintStart_toStartOf="@id/topGuideline"
                 android:text="@string/details_button_text"
                 android:layout_marginTop="10dp"
                 >
@@ -463,7 +464,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:text="@string/details_add_to_cart_button"
-                app:layout_constraintEnd_toEndOf="@id/startGuideline"
+                app:layout_constraintEnd_toEndOf="@id/topGuideline"
                 app:layout_constraintStart_toStartOf="@id/endGuideline"
                 app:layout_constraintTop_toBottomOf="@id/buttonMore"
                 android:layout_marginStart="16dp"

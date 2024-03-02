@@ -10,4 +10,5 @@
     <string name="details_composition_title_text">Состав</string>
     <string name="details_button_text">Подробнее</string>
     <string name="details_add_to_cart_button">Добавить корзину</string>
+    <string name="filter_label_titlte">Фильтры</string>
 </resources>

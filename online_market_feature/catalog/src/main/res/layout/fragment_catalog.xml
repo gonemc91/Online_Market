@@ -8,32 +8,101 @@
     tools:context = "com.em.catalog.presentation.catalog.CatalogFragment"
     >
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
 
-    <include
-        android:id="@+id/toolbarFilter"
-        layout="@layout/toolbar_filter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        >
-    </include>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/startGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="16dp"
+            />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/endGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="16dp"
+            />
+
+
+
+        <ImageView
+            android:id="@+id/buttonSortByState"
+            style="@style/ClickableIcon"
+            android:src="@drawable/ic_type_sort_by__state_default"
+            app:layout_constraintStart_toStartOf="@id/startGuideline"
+            app:layout_constraintTop_toTopOf="@id/filterLabel2"
+            app:layout_constraintBottom_toBottomOf="@id/filterLabel2"
+            tools:ignore="ContentDescription"
+
+            />
+
+
+
+        <Spinner
+            android:id="@+id/filterSpinner"
+            style="@style/List_Title_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/buttonSortByState"
+            app:layout_constraintTop_toTopOf="@id/filterLabel2"
+            app:layout_constraintBottom_toBottomOf="@id/filterLabel2"
+            android:background="@drawable/ic_spinner"
+            android:gravity="left"
+            />
+
+
+
+        <ImageView
+            android:id="@+id/buttonFilterButton"
+            style="@style/ClickableIcon"
+            android:src="@drawable/ic_type_filter__state_default"
+            app:layout_constraintEnd_toStartOf="@id/filterLabel2"
+            app:layout_constraintTop_toTopOf="@id/filterLabel2"
+            app:layout_constraintBottom_toBottomOf="@id/filterLabel2"
+            android:layout_marginEnd="8dp"
+            tools:ignore="ContentDescription" />
+
+
+        <TextView
+            android:id="@+id/filterLabel2"
+            style="@style/List_Title_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_label_titlte"
+            app:layout_constraintEnd_toEndOf="@id/endGuideline"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/topGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="30dp"
+            />
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/productsRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:paddingTop="5dp"
         tools:itemCount="2"
-        tools:listitem="@layout/item_product" />
+        tools:listitem="@layout/item_product"
+        app:layout_constraintTop_toTopOf="@id/topGuideline"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/startGuideline"
+        app:layout_constraintEnd_toEndOf="@id/endGuideline"
 
-</LinearLayout>
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </com.em.presentation.views.ResultView>

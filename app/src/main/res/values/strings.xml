@@ -8,4 +8,8 @@
     <string name="tabs_discount">Акции</string>
     <string name="tabs_profile">Профиль</string>
 
+    <string name="favorites_fragment">Избранное</string>
+
+
+
 </resources>

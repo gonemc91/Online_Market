@@ -1,7 +1,7 @@
 package com.em.favorites.domain
 
-import com.em.catalog.domain.repositories.FavoritesRepository
 import com.em.common.Container
+import com.em.favorites.domain.repositories.FavoritesRepository
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject

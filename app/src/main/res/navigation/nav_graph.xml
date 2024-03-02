@@ -26,6 +26,12 @@
         android:id="@+id/productDetailsFragment"
         android:name="com.em.catalog.presentation.details.ProductDetailsFragment"
         android:label="Продукт" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.em.profile.presentation.ProfileFragment"
+        android:label="@string/tabs_profile"
+        tools:layout="@layout/fragment_profile" />
+
 
 
 </navigation>

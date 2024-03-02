@@ -1,7 +1,7 @@
 package com.em.catalog.domain
 
 import com.em.catalog.domain.entitys.product.ProductWithInfo
-import com.em.catalog.domain.repositories.FavoritesRepository
+import com.em.catalog.domain.repositories.FavoritesRepositoryCatalog
 import com.em.catalog.domain.repositories.ProductsRepository
 import com.em.common.Container
 import kotlinx.coroutines.flow.Flow
@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class GetProductsDetailsUseCase  @Inject constructor(
     private val productsRepository: ProductsRepository,
-    private val favoritesRepository: FavoritesRepository,
+    private val favoritesRepository: FavoritesRepositoryCatalog,
 ){
 
     /**

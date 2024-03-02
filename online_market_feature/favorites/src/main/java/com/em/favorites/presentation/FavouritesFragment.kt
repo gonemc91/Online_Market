@@ -11,20 +11,19 @@ import com.elveum.elementadapter.simpleAdapter
 import com.em.catalog.domain.entitys.product.ProductWithInfo
 import com.em.common.Core
 import com.em.favorites.R
-import com.em.favorites.databinding.FargmentFavouritesBinding
+import com.em.favorites.databinding.FragmentFavouritesBinding
 import com.em.favorites.databinding.ItemProductBinding
 import com.em.presentation.loadResources
 import com.em.presentation.viewBinding
-import com.em.presentation.views.observe
 import com.em.presentation.views.setupGridLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class FavouritesFragment() : Fragment(R.layout.fargment_favourites) {
+class FavouritesFragment() : Fragment(R.layout.fragment_favourites) {
 
 
-    private val binding by viewBinding<FargmentFavouritesBinding>()
+    private val binding by viewBinding<FragmentFavouritesBinding>()
 
     private val viewModel by viewModels<FavouritesViewModel>()
 
@@ -41,18 +40,18 @@ class FavouritesFragment() : Fragment(R.layout.fargment_favourites) {
     }
 
 
-    private fun FargmentFavouritesBinding.observeState(adapter: SimpleBindingAdapter<ProductWithInfo>){
-        root.observe(viewLifecycleOwner, viewModel.stateLiveValue) { state ->
+    private fun FragmentFavouritesBinding.observeState(adapter: SimpleBindingAdapter<ProductWithInfo>){
+       /* root.observe(viewLifecycleOwner, viewModel.stateLiveValue) { state ->
             adapter.submitList(state.products)
-        }
+        }*/
     }
 
-    private fun FargmentFavouritesBinding.setupList(adapter: SimpleBindingAdapter<ProductWithInfo>){
+    private fun FragmentFavouritesBinding.setupList(adapter: SimpleBindingAdapter<ProductWithInfo>){
         productsRecyclerView.setupGridLayout()
         productsRecyclerView.adapter = adapter
     }
 
-    private fun FargmentFavouritesBinding.setupListeners(){
+    private fun FragmentFavouritesBinding.setupListeners(){
 
 
     }
@@ -118,9 +117,7 @@ class FavouritesFragment() : Fragment(R.layout.fargment_favourites) {
 
 
             listeners {
-                root.onClick { productWithCartInfo ->
-                    viewModel.launchDetails(productWithCartInfo)
-                }
+
                 favoriteButton.onClick {
                     val stateFavouriteButton = productWithCartInfo.favourite
                     if (stateFavouriteButton) {
