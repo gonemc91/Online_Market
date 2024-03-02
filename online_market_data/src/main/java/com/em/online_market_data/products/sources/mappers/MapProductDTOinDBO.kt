@@ -29,7 +29,7 @@ fun mapProductDTOInDBO(productDTO: ProductDTO, productImages:  Map<String, Produ
 
 private fun mapProductPriceDTOInDBO(productPriceDTO: PriceDTO): PriceDBO {
     return PriceDBO(
-        price = productPriceDTO.price,
+        price = productPriceDTO.price.toInt(),
         discount = productPriceDTO.discount,
         unit = productPriceDTO.unit,
         priceWithDiscount = productPriceDTO.priceWithDiscount

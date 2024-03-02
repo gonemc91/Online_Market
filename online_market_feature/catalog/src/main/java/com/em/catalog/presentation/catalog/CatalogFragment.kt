@@ -3,8 +3,8 @@ package com.em.catalog.presentation.catalog
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,6 +13,9 @@ import com.elveum.elementadapter.simpleAdapter
 import com.em.catalog.R
 import com.em.catalog.databinding.FragmentCatalogBinding
 import com.em.catalog.databinding.ItemProductBinding
+import com.em.catalog.domain.entitys.filter.ProductFilter
+import com.em.catalog.domain.entitys.filter.SortBy
+import com.em.catalog.domain.entitys.filter.SortOrder
 import com.em.catalog.domain.entitys.product.ProductWithInfo
 import com.em.common.Core
 import com.em.presentation.loadResources
@@ -37,12 +40,13 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
 
         val adapter = createAdapter()
 
-        setupSpinnerFilterSortBy()
+
 
         with(binding){
             observeState(adapter)
             setupList(adapter)
             setupListeners()
+            setupSpinnerFilterSortBy()
         }
     }
 
@@ -50,8 +54,6 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
     private fun FragmentCatalogBinding.observeState(adapter: SimpleBindingAdapter<ProductWithInfo>){
         root.observe(viewLifecycleOwner, viewModel.stateLiveValue) { state ->
             adapter.submitList(state.products)
-
-
         }
 
     }
@@ -62,19 +64,37 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
     }
 
     private fun FragmentCatalogBinding.setupListeners(){
+        filterSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                adapterView: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val filter = when(adapterView?.adapter?.getItem(position)){
+                    POPULARITY -> { ProductFilter.EMPTY.copy(sortBy = SortBy.RATING)}
+                    ASCENDING_PRICE -> {ProductFilter.EMPTY.copy(sortBy = SortBy.PRICE, sortOrder =  SortOrder.ASC)}
+                    DESCENDING_PRICE -> {ProductFilter.EMPTY.copy(sortBy = SortBy.PRICE, sortOrder =  SortOrder.DESC)}
+                    else -> {ProductFilter.EMPTY }
+                }
+                viewModel.filter = filter
 
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+        }
 
     }
 
 
-    private fun setupSpinnerFilterSortBy() {
-        val items = listOf("По популярности", "По уменьшению цены", "По возрастанию цены").toList()
-
+    private fun FragmentCatalogBinding.setupSpinnerFilterSortBy() {
+        val items = listOf(POPULARITY, ASCENDING_PRICE, DESCENDING_PRICE).toList()
         val adapter = ArrayAdapter(requireContext(),  android.R.layout.simple_list_item_1, items)
-
-        val spinner = view?.findViewById<Spinner>(R.id.filterSpinner)
-        spinner?.adapter = adapter
+        filterSpinner.adapter = adapter
     }
+
+
 
 
 
@@ -94,7 +114,7 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
                 discountPercentage.isInvisible = true
 
                 finalPriceTextView.text = buildString {
-                    append(product.price.price)
+                    append(product.price.price.toString())
                     append(" ")
                     append(product.price.unit)
                 }
@@ -153,5 +173,10 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
                 }
             }
         }
+    }
+    companion object{
+        const val DESCENDING_PRICE = "По уменьшению цены"
+        const val ASCENDING_PRICE = "По возрастанию цены"
+        const val POPULARITY = "По популярности"
     }
 }

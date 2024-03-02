@@ -1,12 +1,19 @@
 package com.em.online_market_data.products.sources
 
+import com.em.common.Core
 import com.em.online_market_data.R.drawable
+import com.em.online_market_data.products.entites.filter_models.SortOrderDataValue
+import com.em.online_market_data.products.entites.product_models.ProductDBO
 import com.em.online_market_data.products.entites.product_models.ProductImagesDBO
+import com.example.data.product.entities.ProductDataFilter
+import com.example.data.product.entities.SortByDataValue
 import javax.inject.Inject
 
 
 class InMemoryProductDataSource @Inject constructor (
 ): ProductsDataSource {
+
+    private val mapProductDBO = emptyMap<String,ProductDBO>().toMutableMap()
 
 
     private val availableImages = mapOf<String, ProductImagesDBO>(
@@ -63,6 +70,46 @@ class InMemoryProductDataSource @Inject constructor (
     override suspend fun getImageProducts(): Map<String, ProductImagesDBO> {
         return availableImages
     }
+
+
+    override suspend fun mapDataToLocalStorage(productDBO: ProductDBO) {
+        mapProductDBO[productDBO.id] = productDBO
+    }
+
+    override suspend fun getProductDBOWithFilter(filter: ProductDataFilter): List<ProductDBO> {
+
+        Core.logger.log("filter in data $filter")
+        val productList =  mapProductDBO.values.toList()
+
+        val filterList = productList.filter { filterProduct(it, filter) }
+
+        val sortedList = when(filter.sortBy){
+            SortByDataValue.NAME -> productList.sortedBy { it.title }
+            SortByDataValue.PRICE -> productList.sortedBy {it.price.price}
+            SortByDataValue.RATING -> productList.sortedBy { it.feedback.rating }
+        }
+
+        return if (filter.sortOrder == SortOrderDataValue.DESC){
+            sortedList.reversed()
+        }else{
+            sortedList
+        }
+    }
+    override suspend fun getTags(): List<String> {
+        val tagsList = emptyList<String>().toMutableList()
+        val listProduct = mapProductDBO.values.toList()
+        listProduct.forEach { productDBO ->
+            productDBO.tags.forEach {
+                tagsList.add(it)
+            }
+        }
+        return tagsList
+    }
+
+    private suspend fun filterProduct(product: ProductDBO, filter: ProductDataFilter):Boolean{
+        return !(filter.tag != null && !product.tags.contains(filter.tag))
+    }
+
 
 
 }

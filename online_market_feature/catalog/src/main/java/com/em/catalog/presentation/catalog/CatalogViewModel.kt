@@ -9,6 +9,8 @@ import com.em.catalog.domain.entitys.filter.ProductFilter
 import com.em.catalog.domain.entitys.product.Product
 import com.em.catalog.domain.entitys.product.ProductWithInfo
 import com.em.common.Container
+import com.em.common.Core
+import com.em.common.entities.OnChange
 import com.em.presentation.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -28,20 +30,22 @@ class CatalogViewModel @Inject constructor(
     private val catalogRouter: CatalogRouter,
 ) : BaseViewModel() {
 
-    private val filterFLow = MutableStateFlow(ProductFilter.EMPTY)
+    private val filterFLow = MutableStateFlow(OnChange(ProductFilter.EMPTY))
 
 
 
-
-
+    var filter: ProductFilter
+        get() = filterFLow.value.value
+        set(value){
+            filterFLow.value = OnChange(value)
+        }
 
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val productWithFilterFlow = filterFLow
         .flatMapLatest { filter->
-            getCatalogUseCase.getProducts(filter)
+            getCatalogUseCase.getProducts(filter.value)
         }
-
 
 
     val stateLiveValue = combine(
@@ -56,11 +60,17 @@ class CatalogViewModel @Inject constructor(
     private fun merge(
         productList: Container<List<Product>>,
         getFavouritesIDs: Container<Set<String>>,
-        filter: ProductFilter,
+        filter: OnChange<ProductFilter>,
     ): Container<State> {
         return productList.map { listProducts ->
+            Core.logger.log(" Filter ${filter.value}")
             val productListWithInfo = emptyList<ProductWithInfo>().toMutableList()
+            val tagsList  = emptyList<String>().toMutableList()
             listProducts.map { product ->
+                product.tags.forEach{
+                    tagsList.add(it)
+                }
+
                 val favouritesIds = getFavouritesIDs.unwrap()
                 val favoriteId = favouritesIds.contains(product.id)
                 if (favoriteId) {
@@ -74,8 +84,9 @@ class CatalogViewModel @Inject constructor(
                 }
             }
             State(
-                filter = filter,
-                products = productListWithInfo
+                filter = filter.value,
+                products = productListWithInfo,
+                listTag = tagsList.toSet()
             )
         }
     }
@@ -100,14 +111,9 @@ class CatalogViewModel @Inject constructor(
     }
 
 
-
-
-
-
-
-
     class State(
         val products: List<ProductWithInfo>,
         val filter: ProductFilter,
+        val listTag: Set<String>,
     )
 }

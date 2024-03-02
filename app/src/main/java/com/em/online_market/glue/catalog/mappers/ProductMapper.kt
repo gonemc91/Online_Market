@@ -34,7 +34,7 @@ private fun mapProductPriceFromDBO(productPriceDBO: PriceDBO): Price {
         price = productPriceDBO.price,
         discount = productPriceDBO.discount,
         unit = productPriceDBO.unit,
-        priceWithDiscount = productPriceDBO.priceWithDiscount
+        priceWithDiscount = productPriceDBO.priceWithDiscount.toString()
     )
 }
 

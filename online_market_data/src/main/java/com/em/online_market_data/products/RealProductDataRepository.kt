@@ -24,6 +24,9 @@ class RealProductDataRepository @Inject constructor(
 
     private val updateNotifierFlow = MutableStateFlow(OnChange(Unit))
 
+    private val listProductDBO = emptyList<ProductDBO>().toMutableList()
+
+
 
     override suspend fun getProductById(id: String): ProductDBO {
        TODO()
@@ -33,15 +36,20 @@ class RealProductDataRepository @Inject constructor(
        TODO()
     }
 
-    @ExperimentalCoroutinesApi
+
+
+
+    @OptIn(ExperimentalCoroutinesApi::class)
     override fun getProducts(filter: ProductDataFilter): Flow<Container<List<ProductDBO>>> {
         return updateNotifierFlow.flatMapLatest{
             val getProductsDTO = onlineMarketApi.getProductsList()
+            getProductsDTO.items.map {product ->
+                val productImages = productsDataSource.getImageProducts()
+                productsDataSource.mapDataToLocalStorage(mapProductDTOInDBO(product, productImages))
+            }
+
             lazyFlowSubjectFactory.create {
-                getProductsDTO.items.map { product ->
-                    val productImages = productsDataSource.getImageProducts()
-                    mapProductDTOInDBO(product, productImages)
-                }
+                productsDataSource.getProductDBOWithFilter(filter)
             }.listen()
         }
     }
