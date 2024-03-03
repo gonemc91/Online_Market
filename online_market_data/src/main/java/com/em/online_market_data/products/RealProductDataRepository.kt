@@ -25,6 +25,9 @@ class RealProductDataRepository @Inject constructor(
     private val updateNotifierFlow = MutableStateFlow(OnChange(Unit))
 
 
+    private val tagsSubject = lazyFlowSubjectFactory.create {
+        productsDataSource.getAllTags()
+    }
 
 
 
@@ -32,11 +35,14 @@ class RealProductDataRepository @Inject constructor(
        return productsDataSource.getProductById(id)
     }
 
-    override suspend fun getAllTags(): Set<String> {
-       return productsDataSource.getAllTags()
+    override fun getAllTags():  Flow<Container<Set<String>>> {
+           return tagsSubject.listen()
     }
 
 
+    fun reload() {
+            tagsSubject.newAsyncLoad(silently = true)
+    }
 
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -47,7 +53,7 @@ class RealProductDataRepository @Inject constructor(
                 val productImages = productsDataSource.getImageProducts()
                 productsDataSource.mapDataToLocalStorage(mapProductDTOInDBO(product, productImages))
             }
-
+            reload()
             lazyFlowSubjectFactory.create {
                 productsDataSource.getProductDBOWithFilter(filter)
             }.listen()

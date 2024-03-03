@@ -23,7 +23,7 @@ interface FavoritesDataRepository {
     /**
      * Delete the specified favorite items.
      */
-    suspend fun deleteFavoritesItem(id: String)
+    suspend fun deleteFavorites(productId: String)
 
 
     /**

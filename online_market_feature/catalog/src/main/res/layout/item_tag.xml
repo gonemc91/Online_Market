@@ -37,7 +37,7 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:background="@drawable/ic_type_big_close__state_default"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="8dp"
         android:backgroundTint="@color/element_white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

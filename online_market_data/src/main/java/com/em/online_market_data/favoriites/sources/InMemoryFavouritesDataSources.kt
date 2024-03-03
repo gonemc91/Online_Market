@@ -1,26 +1,29 @@
 package com.em.online_market_data.favoriites.sources
 
+import com.em.common.Core
 import com.em.online_market_data.favoriites.entities.FavoritesProduct
 import javax.inject.Inject
 
 class InMemoryFavouritesDataSources @Inject constructor() : FavoritesDataSource {
 
 
-    private val favorites = mutableListOf<FavoritesProduct>()
+    private val favorites = mutableSetOf<FavoritesProduct>().toMutableSet()
 
 
     override suspend fun getFavorites(): List<FavoritesProduct> {
-        favorites.add(FavoritesProduct
-            (id="54a876a5-2205-48ba-9498-cfecff4baa6e", favorite=true))
-        return favorites
+        return favorites.toList()
     }
 
     override suspend fun saveToFavorites(productId: String) {
+
+        Core.logger.log("Save to local $productId")
         favorites.add(FavoritesProduct(id = productId, favorite = true))
 
     }
 
-    override suspend fun delete(favoritesItemId: String) {
-        favorites.removeAll { it.id == favoritesItemId }
+    override suspend fun delete(productId: String) {
+
+        Core.logger.log("Delete to local $productId")
+        favorites.removeAll { it.id == productId }
     }
 }

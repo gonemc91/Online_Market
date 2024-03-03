@@ -9,7 +9,7 @@ interface FavoritesDataSource {
 
     suspend fun saveToFavorites(productId: String)
 
-    suspend fun delete(favoritesItemId: String)
+    suspend fun delete(productId: String)
 
 
 }

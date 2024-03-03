@@ -18,10 +18,6 @@ class MainViewModel @Inject constructor(
 
 
 
-
-
-
-
     private fun merge(
         title: String
     ): ToolbarState{
@@ -30,14 +26,9 @@ class MainViewModel @Inject constructor(
         )
     }
 
+
     private fun observeDestinationIdForToolbarInfo(){
-     /*   viewModelScope.launch {
-            if (destinationId == com.em.authorization.R.layout.fragment_authorization){
-                titleFlow.value = Core.resources.getString(com.em.online_market.R.string.authorization_title)
-                showToolbarButtonsFlow.value = false
-                showToolbarFilterFlow.value = false
-            }
-        }*/
+
     }
 
 

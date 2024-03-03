@@ -30,52 +30,62 @@ class MainActivity : AppCompatActivity(), RouterHolder {
 
     private val viewModel by viewModels<MainViewModel>()
 
-    private val binding by lazy(LazyThreadSafetyMode.NONE){
+    private val binding by lazy(LazyThreadSafetyMode.NONE) {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    private val navComponentRouter by lazy(LazyThreadSafetyMode.NONE){
+    private val navComponentRouter by lazy(LazyThreadSafetyMode.NONE) {
         navComponentRouterFactory.create(R.id.fragmentContainer)
     }
+
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             navComponentRouter.onRestoreInstanceState(savedInstanceState)
         }
 
         navComponentRouter.onCreate()
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             navComponentRouter.switchToStack(destinationsProvider.provideStartDestinationId())
         }
-        activityRequiredSet.forEach{
+        activityRequiredSet.forEach {
             it.onCreated(this)
         }
 
-        binding.toolbarMain.toolbar.setNavigationIconTint(drawable.ic_type_left_arrow__state_default)
-        setSupportActionBar(binding.toolbarMain.toolbar)
+        setSupportActionBar(binding.toolbar)
 
+        with(binding){
+            setupListeners()
+        }
 
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return (navComponentRouter.onNavigateUp()) || super.onSupportNavigateUp()
     }
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
         super.onSaveInstanceState(outState, outPersistentState)
         navComponentRouter.onSavedInstantState(outState)
     }
+
     override fun onStart() {
         super.onStart()
-        activityRequiredSet.forEach{it.onStarted()}
+        activityRequiredSet.forEach { it.onStarted() }
     }
+
     override fun onStop() {
         super.onStop()
-        activityRequiredSet.forEach{it.onStopped()}
+        activityRequiredSet.forEach { it.onStopped() }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         navComponentRouter.onDestroy()
-        activityRequiredSet.forEach{it.onDestroyed()}
+        activityRequiredSet.forEach { it.onDestroyed() }
     }
 
     override fun requireRouter(): NavComponentRouter {
@@ -83,5 +93,7 @@ class MainActivity : AppCompatActivity(), RouterHolder {
     }
 
 
+    private fun ActivityMainBinding.setupListeners() {
 
+    }
 }

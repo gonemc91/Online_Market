@@ -10,10 +10,6 @@ import dagger.hilt.components.SingletonComponent
 
 interface RepositoryModule {
 
-/*    @Binds
-    fun provideFavoritesRepository(
-        repository: AdapterFavoritesRepository
-    ): FavoritesRepository*/
 
 
 }

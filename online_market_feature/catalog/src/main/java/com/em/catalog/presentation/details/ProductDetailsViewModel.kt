@@ -2,7 +2,9 @@ package com.em.catalog.presentation.details
 
 
 import com.em.catalog.domain.AddToFavoritesUseCase
+import com.em.catalog.domain.DeleteFavouritesUseCase
 import com.em.catalog.domain.GetProductsDetailsUseCase
+import com.em.catalog.domain.entitys.product.Product
 import com.em.catalog.domain.entitys.product.ProductWithInfo
 import com.em.common.Container
 import com.em.presentation.BaseViewModel
@@ -18,10 +20,13 @@ class ProductDetailsViewModel @AssistedInject constructor(
     @Assisted private val screen: ProductDetailsFragment.Screen,
     private val getProductsDetailsUseCase: GetProductsDetailsUseCase,
     private val addToFavoritesUseCase: AddToFavoritesUseCase,
+    private val deleteFavouritesUseCase: DeleteFavouritesUseCase,
 ) : BaseViewModel(){
 
-    private val addFavoritesInFavoriteFlow = MutableStateFlow(false)
+    private val addFavoritesInFavoriteFlow = MutableStateFlow(screen.productId.favourite)
     private val productFlow = MutableStateFlow(Container.Success(screen.productId))
+
+
 
     val stateLiveValue = combine(
         productFlow,
@@ -33,17 +38,21 @@ class ProductDetailsViewModel @AssistedInject constructor(
         getProductsDetailsUseCase.reload()
     }
 
-    fun addToFavorites() = debounce {
-        viewModelScope.launch {
-            val state = stateLiveValue.value.getOrNull() ?: return@launch
-            try {
-                addFavoritesInFavoriteFlow.value = true
-                //addToFavoritesUseCase.addToFavorite(state.product)
-            }finally {
-                addFavoritesInFavoriteFlow.value = false
-            }
+
+    fun  addToFavorites(product: Product) = viewModelScope.launch {
+
+        val isChecked = addFavoritesInFavoriteFlow.value
+
+        if(!isChecked){
+            addFavoritesInFavoriteFlow.value = true
+            addToFavoritesUseCase.addToFavorites(product.id)
+        }else{
+            addFavoritesInFavoriteFlow.value = false
+            deleteFavouritesUseCase.deleteFavouritesItem(product.id)
         }
+
     }
+
 
     private fun merge(
         productContainer: Container<ProductWithInfo>,

@@ -27,12 +27,14 @@ class RealFavoritesDataRepository @Inject constructor (
     }
 
     override suspend fun addToFavorites(productId: String) {
+        Core.logger.log("Add to local")
         favouriteDataSource.saveToFavorites(productId)
         notifyChanges()
     }
 
 
-    override suspend fun deleteFavoritesItem(productId: String) {
+    override suspend fun deleteFavorites(productId: String) {
+        Core.logger.log("Delete to local")
         favouriteDataSource.delete(productId)
         notifyChanges()
     }
@@ -45,7 +47,7 @@ class RealFavoritesDataRepository @Inject constructor (
     private suspend fun notifyChanges(){
         val get = favouriteDataSource.getFavorites()
         get.forEach {
-            Core.logger.log("Start favourite download ${it}")
+            Core.logger.log("Data favourites download ${it}")
         }
 
         favouritesSubject.updateWith(Container.Success(favouriteDataSource.getFavorites()))

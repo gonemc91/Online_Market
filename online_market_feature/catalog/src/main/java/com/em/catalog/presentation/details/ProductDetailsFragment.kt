@@ -24,10 +24,9 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProductDetailsFragment: Fragment(R.layout.fragment_product_details) {
-
-    class Screen    (
+    class Screen(
         val productId: ProductWithInfo,
-        ): BaseScreen
+    ) : BaseScreen
 
     @Inject
     lateinit var factory: ProductDetailsViewModel.Factory
@@ -44,7 +43,6 @@ class ProductDetailsFragment: Fragment(R.layout.fragment_product_details) {
             setupListeners()
         }
     }
-
 
     private fun FragmentProductDetailsBinding.observeState(adapter: SimpleBindingAdapter<InfoProduct>) {
         root.observe(viewLifecycleOwner, viewModel.stateLiveValue) { state ->
@@ -102,6 +100,9 @@ class ProductDetailsFragment: Fragment(R.layout.fragment_product_details) {
                     append(" ")
                     append(product.price.unit)
                 }
+                favoriteButton.setOnClickListener{
+                    viewModel.addToFavorites(product)
+                }
             }
         }
     }
@@ -125,7 +126,7 @@ class ProductDetailsFragment: Fragment(R.layout.fragment_product_details) {
 
     private fun FragmentProductDetailsBinding.setupListeners() {
         root.setTryAgainListener { viewModel.reload() }
-        favoriteButton.setOnClickListener { viewModel.addToFavorites() }
+
     }
 
 

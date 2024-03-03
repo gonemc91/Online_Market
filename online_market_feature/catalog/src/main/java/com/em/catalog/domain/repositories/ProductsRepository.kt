@@ -23,6 +23,6 @@ interface ProductsRepository {
      * Get all product tags.
      */
 
-    suspend fun getAllTags(): Set<String>
+    fun getAllTags(): Flow<Container<Set<String>>>
 
 }

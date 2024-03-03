@@ -18,4 +18,6 @@ interface FavoritesRepositoryModule {
     fun bindFavouritesRepository(
         productDataRepository: RealFavoritesDataRepository
     ): FavoritesDataRepository
+
+
 }

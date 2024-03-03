@@ -7,6 +7,7 @@ import com.em.online_market_data.products.entites.product_models.ProductDBO
 import com.em.online_market_data.products.entites.product_models.ProductImagesDBO
 import com.example.data.product.entities.ProductDataFilter
 import com.example.data.product.entities.SortByDataValue
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 
@@ -14,6 +15,7 @@ class InMemoryProductDataSource @Inject constructor (
 ): ProductsDataSource {
 
     private val localMapProductDBO = emptyMap<String,ProductDBO>().toMutableMap()
+
 
 
     private val availableImages = mapOf<String, ProductImagesDBO>(
@@ -98,19 +100,24 @@ class InMemoryProductDataSource @Inject constructor (
         }
     }
     override suspend fun getAllTags(): Set<String> {
-        val tagsList = emptySet<String>().toMutableSet()
-        val listProduct = localMapProductDBO.values
+        val tagsList = emptyList<String>().toMutableList()
+        val listProduct = localMapProductDBO.values.toList()
         listProduct.forEach { productDBO ->
             productDBO.tags.forEach {
                 tagsList.add(it)
             }
         }
-        return tagsList
+        tagsList.forEach{
+        }
+        return tagsList.toSet()
     }
 
     private fun filterProduct(product: ProductDBO, filter: ProductDataFilter):Boolean{
         return !(filter.tag != null && !product.tags.contains(filter.tag))
     }
+
+
+
 
 
 

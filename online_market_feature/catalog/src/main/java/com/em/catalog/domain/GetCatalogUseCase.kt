@@ -25,7 +25,7 @@ class GetCatalogUseCase  @Inject constructor(
         return combine(
             productsRepository.getProducts(filter),
             MutableStateFlow(null)
-        ) { productsContainer, idsInCartContainer ->
+        ) { productsContainer, idsInFavoritesContainer ->
             if (productsContainer !is Container.Success) return@combine productsContainer.map()
             val products = productsContainer.value
             return@combine Container.Success(products)

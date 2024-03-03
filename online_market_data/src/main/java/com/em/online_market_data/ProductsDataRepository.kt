@@ -29,6 +29,6 @@ interface ProductsDataRepository {
      * Get all available categories.
      */
 
-    suspend fun getAllTags(): Set<String>
+    fun getAllTags(): Flow<Container<Set<String>>>
 
 }

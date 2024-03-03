@@ -19,6 +19,7 @@ import com.em.catalog.domain.entitys.filter.SortBy
 import com.em.catalog.domain.entitys.filter.SortOrder
 import com.em.catalog.domain.entitys.filter.Tag
 import com.em.catalog.domain.entitys.product.ProductWithInfo
+import com.em.catalog.presentation.catalog.CatalogViewModel.Companion.AllTAGS
 import com.em.presentation.loadResources
 import com.em.presentation.viewBinding
 import com.em.presentation.views.observe
@@ -103,15 +104,15 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
             }else{
                 root.background.setTint(context?.getColor(com.em.theme.R.color.background_light_grey)!!)
                 textViewTag.setTextColor(context?.getColor(com.em.theme.R.color.text_grey)!!)
-                deleteTag.visibility = View.INVISIBLE
+                deleteTag.visibility = View.GONE
             }
             textViewTag.text = it.tags
         }
 
 
         listeners {
-            root.onClick {
 
+            root.onClick {
                 viewModel.toggleSelectedTAG(it.tags)
             }
         }
@@ -131,8 +132,6 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
             adapter.submitList(state.listTag)
         }
     }
-
-
 
     private fun FragmentCatalogBinding.setupList(adapter: SimpleBindingAdapter<ProductWithInfo>){
         productsRecyclerView.setupGridLayout()
@@ -203,7 +202,6 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
                 root.onClick { productWithCartInfo ->
                     viewModel.launchDetails(productWithCartInfo)
                 }
-
                 favoriteButton.onClick {viewModel.toggleFavouriteFlag(it)}
             }
         }
@@ -214,7 +212,6 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
         const val DESCENDING_PRICE = "По уменьшению цены"
         const val ASCENDING_PRICE = "По возрастанию цены"
         const val POPULARITY = "По популярности"
-        const val AllTAGS = "Смотреть все"
 
     }
 }

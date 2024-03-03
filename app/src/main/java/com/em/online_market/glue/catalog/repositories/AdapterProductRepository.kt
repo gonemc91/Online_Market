@@ -35,7 +35,7 @@ class AdapterProductRepository @Inject constructor(
 
 
 
-    override suspend fun getAllTags(): Set<String> {
+    override fun getAllTags(): Flow<Container<Set<String>>> {
         return productsDataRepository.getAllTags()
     }
 }

@@ -5,11 +5,11 @@ import com.em.catalog.domain.AddToFavoritesUseCase
 import com.em.catalog.domain.DeleteFavouritesUseCase
 import com.em.catalog.domain.GetCatalogUseCase
 import com.em.catalog.domain.GetFavouritesUseCase
+import com.em.catalog.domain.GetTagsValueUseCase
 import com.em.catalog.domain.entitys.filter.ProductFilter
 import com.em.catalog.domain.entitys.filter.Tag
 import com.em.catalog.domain.entitys.product.Product
 import com.em.catalog.domain.entitys.product.ProductWithInfo
-import com.em.catalog.domain.repositories.ProductsRepository
 import com.em.common.Container
 import com.em.common.Core
 import com.em.common.entities.OnChange
@@ -30,15 +30,12 @@ class CatalogViewModel @Inject constructor(
     private val getFavouritesUseCase: GetFavouritesUseCase,
     private val deleteFavouritesUseCase: DeleteFavouritesUseCase,
     private val addToFavoritesUseCase: AddToFavoritesUseCase,
+    getTagsValueUseCase: GetTagsValueUseCase,
     private val catalogRouter: CatalogRouter,
-    private val productsRepository: ProductsRepository,
 ) : BaseViewModel() {
 
-    private val tags = mutableSetOf<String>()
-    private val tagsFlow = MutableStateFlow(OnChange(tags))
 
     private val filterFLow = MutableStateFlow(OnChange(ProductFilter.EMPTY))
-
 
     private val selectionsFavorite = Selections()
     private val selectionsFilterTags = MutableStateFlow(AllTAGS)
@@ -50,11 +47,6 @@ class CatalogViewModel @Inject constructor(
             favouritesIds.forEach {
                 selectionsFavorite.toggle(it)
             }
-            productsRepository.getAllTags().forEach{
-                tags.add(it)
-            }
-
-
         }
     }
 
@@ -72,6 +64,7 @@ class CatalogViewModel @Inject constructor(
 
     val stateLiveValue = combine(
         productWithFilterFlow,
+        getTagsValueUseCase.getAllTags(),
         selectionsFavorite.flow(),
         selectionsFilterTags,
         filterFLow,
@@ -81,6 +74,7 @@ class CatalogViewModel @Inject constructor(
 
     private fun merge(
         productList: Container<List<Product>>,
+        tagList: Container<Set<String>>,
         selectionsFavorites: SelectionState,
         selectionsTags: String,
         filter: OnChange<ProductFilter>,
@@ -89,16 +83,15 @@ class CatalogViewModel @Inject constructor(
             val productListWithInfo = emptyList<ProductWithInfo>().toMutableList()
             val tagsList  = emptyList<String>().toMutableList()
             tagsList.add(AllTAGS)
-            Core.logger.log("${filter.value}")
+            Core.logger.log("Filter in combine  ${filter.value}")
 
             val tags = emptyList<Tag>().toMutableSet()
 
             listProducts.map { product ->
-                product.tags.forEach {
+                tagList.unwrap().forEach {
                     tagsList.add(it)
                 }
                 tagsList.map {
-
                     tags.add(
                         Tag(
                             tags = it,
@@ -122,28 +115,20 @@ class CatalogViewModel @Inject constructor(
         }
     }
 
-
     fun launchDetails(productWithCartInfo: ProductWithInfo) = debounce {
         catalogRouter.launchDetails(productWithCartInfo)
     }
 
 
-
-    fun deleteOnFavorites(productId: String) {
-        viewModelScope.launch {
-            deleteFavouritesUseCase.deleteFavouritesItem(productId)
-        }
-    }
-
-    fun addToFavorites(productId: String) {
-        viewModelScope.launch {
-            addToFavoritesUseCase.addToFavorites(productId)
-        }
-    }
-
     fun toggleFavouriteFlag(product: ProductWithInfo) = viewModelScope.launch {
         selectionsFavorite.toggle(product.product.id)
+
+        if(selectionsFavorite.isChecked(product.product.id)){
             addToFavoritesUseCase.addToFavorites(product.product.id)
+        }else{
+           deleteFavouritesUseCase.deleteFavouritesItem(product.product.id)
+        }
+
     }
 
     fun toggleSelectedTAG(it: String) {
@@ -157,12 +142,11 @@ class CatalogViewModel @Inject constructor(
     }
 
 
-
     class State(
         val products: List<ProductWithInfo>,
         val filter: ProductFilter,
         val listTag: List<Tag>,
-        )
+    )
 
     companion object {
         const val AllTAGS = "Смотреть все"
