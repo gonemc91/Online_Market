@@ -12,4 +12,8 @@ interface FavoritesDataSource {
     suspend fun delete(productId: String)
 
 
+    fun getFavouritesSize(): Int
+
+
+
 }

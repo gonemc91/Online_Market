@@ -65,9 +65,9 @@ dependencies {
     implementation(project(":online_market_feature:authorization"))
     implementation(project(":online_market_feature:catalog"))
     implementation(project(":online_market_feature:profile"))
+
+
     implementation(project(":online_market_data"))
-
-
     implementation(project(":online_market_core:common-impl"))
     implementation(project(":online_market_core:presentation"))
     implementation(project(":online_market_core:theme"))

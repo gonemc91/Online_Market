@@ -1,6 +1,6 @@
 package com.em.profile
 
-interface   ProfileRouter {
+interface ProfileRouter {
 
 
     /**

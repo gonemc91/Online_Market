@@ -25,13 +25,20 @@
     <fragment
         android:id="@+id/productDetailsFragment"
         android:name="com.em.catalog.presentation.details.ProductDetailsFragment"
-        android:label="Продукт" />
+        android:label="Продукт"
+        tools:layout="@layout/fragment_product_details"
+        />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.em.profile.presentation.ProfileFragment"
         android:label="@string/tabs_profile"
         tools:layout="@layout/fragment_profile" />
-
+    <fragment
+        android:id="@+id/favouritesFragment"
+        android:name="com.em.catalog.presentation.favourites.FavouritesFragment"
+        android:label="FavouritesFragment"
+        tools:layout="@layout/fragment_favourites"
+        />
 
 
 </navigation>

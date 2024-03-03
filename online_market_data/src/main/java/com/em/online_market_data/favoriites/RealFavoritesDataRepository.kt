@@ -21,22 +21,31 @@ class RealFavoritesDataRepository @Inject constructor (
     }
 
 
+    private val favouritesSize = lazyFlowSubjectFactory.create {
+        favouriteDataSource.getFavouritesSize()
+    }
+
+
+
     override fun getFavorites(): Flow<Container<List<FavoritesProduct>>> {
         favouritesSubject.newAsyncLoad(silently = true)
         return favouritesSubject.listen()
     }
 
     override suspend fun addToFavorites(productId: String) {
-        Core.logger.log("Add to local")
         favouriteDataSource.saveToFavorites(productId)
         notifyChanges()
     }
 
 
     override suspend fun deleteFavorites(productId: String) {
-        Core.logger.log("Delete to local")
         favouriteDataSource.delete(productId)
         notifyChanges()
+    }
+
+    override fun getAvailableFavouritesProducts(): Flow<Container<Int>> {
+        favouritesSize.newAsyncLoad(silently = true)
+        return favouritesSize.listen()
     }
 
     override fun reload() {
@@ -49,7 +58,10 @@ class RealFavoritesDataRepository @Inject constructor (
         get.forEach {
             Core.logger.log("Data favourites download ${it}")
         }
-
         favouritesSubject.updateWith(Container.Success(favouriteDataSource.getFavorites()))
+        favouritesSize.updateWith(Container.Success(favouriteDataSource.getFavouritesSize()))
+
+
+
     }
 }

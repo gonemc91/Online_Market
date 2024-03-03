@@ -2,8 +2,8 @@ package com.em.online_market.glue.catalog.di
 
 import com.em.catalog.domain.repositories.FavoritesRepositoryCatalog
 import com.em.catalog.domain.repositories.ProductsRepository
+import com.em.online_market.glue.catalog.repositories.AdapterFavoritesRepository
 import com.em.online_market.glue.catalog.repositories.AdapterProductRepository
-import com.em.online_market.glue.favourites.repositories.AdapterFavoritesRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

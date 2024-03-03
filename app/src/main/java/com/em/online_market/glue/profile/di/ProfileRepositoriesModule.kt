@@ -1,7 +1,9 @@
 package com.em.online_market.glue.profile.di
 
 import com.em.online_market.glue.profile.repositories.AdapterAuthTokenRepository
+import com.em.online_market.glue.profile.repositories.AdapterFavouritesItemRepository
 import com.em.online_market.glue.profile.repositories.AdapterProfileRepository
+import com.em.profile.domain.repositories.FavouritesRepository
 import com.example.profile.domain.repositories.AuthTokenRepository
 import com.example.profile.domain.repositories.ProfileRepository
 import dagger.Binds
@@ -28,4 +30,10 @@ interface ProfileRepositoriesModule {
     ): ProfileRepository
 
 
+
+
+    @Binds
+    fun bindFavouritesItemRepository(
+        adapterFavouritesRepository: AdapterFavouritesItemRepository
+    ): FavouritesRepository
 }

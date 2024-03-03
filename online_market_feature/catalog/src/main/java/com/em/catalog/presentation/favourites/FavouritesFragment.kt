@@ -1,4 +1,4 @@
-package com.em.favorites.presentation
+package com.em.catalog.presentation.favourites
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -8,20 +8,21 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.elveum.elementadapter.SimpleBindingAdapter
 import com.elveum.elementadapter.simpleAdapter
+import com.em.catalog.R
+import com.em.catalog.databinding.FragmentFavouritesBinding
+import com.em.catalog.databinding.ItemProductBinding
+import com.em.catalog.domain.entitys.filter.ProductFilter
+import com.em.catalog.domain.entitys.filter.SortBy
 import com.em.catalog.domain.entitys.product.ProductWithInfo
-import com.em.common.Core
-import com.em.favorites.R
-import com.em.favorites.databinding.FragmentFavouritesBinding
-import com.em.favorites.databinding.ItemProductBinding
 import com.em.presentation.loadResources
 import com.em.presentation.viewBinding
+import com.em.presentation.views.observe
 import com.em.presentation.views.setupGridLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class FavouritesFragment() : Fragment(R.layout.fragment_favourites) {
-
+class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
 
     private val binding by viewBinding<FragmentFavouritesBinding>()
 
@@ -29,38 +30,49 @@ class FavouritesFragment() : Fragment(R.layout.fragment_favourites) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val adapter = createAdapter()
-
+        val adapter = createCatalogAdapter()
         with(binding){
             observeState(adapter)
             setupList(adapter)
             setupListeners()
+
         }
     }
 
 
-    private fun FragmentFavouritesBinding.observeState(adapter: SimpleBindingAdapter<ProductWithInfo>){
-       /* root.observe(viewLifecycleOwner, viewModel.stateLiveValue) { state ->
-            adapter.submitList(state.products)
-        }*/
+    private fun FragmentFavouritesBinding.setupListeners() {
+        productButtonFilter.setOnClickListener {
+            if (productButtonFilter.isEnabled){
+                productButtonFilter.setTextColor(context?.getColor(com.em.theme.R.color.text_black)!!)
+                viewModel.filter = ProductFilter.EMPTY.copy(sortBy = SortBy.RATING)
+            } else{
+                productButtonFilter.setTextColor(context?.getColor(com.em.theme.R.color.text_white)!!)
+                viewModel.filter = ProductFilter.EMPTY.copy(sortBy = SortBy.NAME)
+            }
+        }
+
     }
+
+
+    private fun FragmentFavouritesBinding.observeState(adapter: SimpleBindingAdapter<ProductWithInfo>,
+    ){
+        root.observe(viewLifecycleOwner, viewModel.stateLiveValue) { state ->
+            adapter.submitList(state.products)
+        }
+    }
+
 
     private fun FragmentFavouritesBinding.setupList(adapter: SimpleBindingAdapter<ProductWithInfo>){
         productsRecyclerView.setupGridLayout()
         productsRecyclerView.adapter = adapter
     }
 
-    private fun FragmentFavouritesBinding.setupListeners(){
-
-
-    }
-
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun createAdapter() = simpleAdapter<ProductWithInfo, ItemProductBinding> {
+    private fun createCatalogAdapter() = simpleAdapter<ProductWithInfo, ItemProductBinding> {
         areItemsSame = {oldItem, newItem ->  oldItem.product.id == newItem.product.id}
         areContentsSame = {oldItem, newItem -> oldItem == newItem }
+
 
         bind { productWithCartInfo ->
             val product = productWithCartInfo.product
@@ -71,7 +83,7 @@ class FavouritesFragment() : Fragment(R.layout.fragment_favourites) {
                 discountPercentage.isInvisible = true
 
                 finalPriceTextView.text = buildString {
-                    append(product.price.price)
+                    append(product.price.price.toString())
                     append(" ")
                     append(product.price.unit)
                 }
@@ -107,7 +119,6 @@ class FavouritesFragment() : Fragment(R.layout.fragment_favourites) {
                 append(")")
             }
 
-            Core.logger.log("${productWithCartInfo.product.title} Favorites state: ${productWithCartInfo.favourite}")
 
             if (productWithCartInfo.favourite) {
                 favoriteButton.setImageResource(com.em.theme.R.drawable.ic_type_heart__state_active)
@@ -117,16 +128,19 @@ class FavouritesFragment() : Fragment(R.layout.fragment_favourites) {
 
 
             listeners {
-
-                favoriteButton.onClick {
-                    val stateFavouriteButton = productWithCartInfo.favourite
-                    if (stateFavouriteButton) {
-                        viewModel.deleteOnFavorites(product.id)
-                    }else{
-                        viewModel.addToFavorites(product.id)
-                    }
+                root.onClick { productWithCartInfo ->
+                    viewModel.launchDetails(productWithCartInfo)
                 }
+                favoriteButton.onClick {viewModel.toggleFavouriteFlag(it)}
             }
         }
+    }
+
+
+    companion object {
+        const val DESCENDING_PRICE = "По уменьшению цены"
+        const val ASCENDING_PRICE = "По возрастанию цены"
+        const val POPULARITY = "По популярности"
+
     }
 }

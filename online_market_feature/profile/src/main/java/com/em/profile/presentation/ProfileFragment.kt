@@ -25,7 +25,7 @@ class ProfileFragment @Inject constructor():Fragment(R.layout.fragment_profile) 
         super.onViewCreated(view, savedInstanceState)
         with(binding){
             setupListeners()
-            observeProfile()
+            observeState()
         }
 
     }
@@ -43,10 +43,21 @@ class ProfileFragment @Inject constructor():Fragment(R.layout.fragment_profile) 
         root.setTryAgainListener { viewModel.reload() }
     }
 
-    private fun FragmentProfileBinding.observeProfile(){
-        root.observe(viewLifecycleOwner, viewModel.profileLiveValue){profile->
-            userFullName.text = "${profile.username}" + " " + "${profile.surname}"
-            userTelephone.text = profile.telephoneNumber
+    private fun FragmentProfileBinding.observeState(){
+        root.observe(viewLifecycleOwner, viewModel.stateLiveValue){ state ->
+            userFullName.text = "${state.profile.username}" + " " + "${state.profile.surname}"
+            userTelephone.text = state.profile.telephoneNumber
+
+            availableProduct.text = when (state.availableInt) {
+                0 -> ""
+                1 -> getString(R.string.settings_fragment_product_1, state.availableInt)
+                2 -> getString(R.string.settings_fragment_product_2, state.availableInt)
+                3 -> getString(R.string.settings_fragment_product_2, state.availableInt)
+                4 -> getString(R.string.settings_fragment_product_2, state.availableInt)
+                5 -> getString(R.string.settings_fragment_product_3, state.availableInt)
+                else -> getString(R.string.settings_fragment_product_3, state.availableInt)
+            }
+
         }
     }
 

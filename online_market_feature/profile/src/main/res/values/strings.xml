@@ -6,4 +6,10 @@
     <string name="settings_fragment_return_product">Возврат товара</string>
     <string name="settings_fragment_return_offer">Оферта</string>
     <string name="settings_fragment_exit">Выход</string>
+
+
+    <string name="settings_fragment_product_1">%1$d товар</string>
+    <string name="settings_fragment_product_2">%1$d товара</string>
+    <string name="settings_fragment_product_3">%1$d товаров</string>
+
 </resources>

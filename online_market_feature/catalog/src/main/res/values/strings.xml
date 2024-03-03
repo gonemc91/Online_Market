@@ -11,4 +11,6 @@
     <string name="details_button_text">Подробнее</string>
     <string name="details_add_to_cart_button">Добавить корзину</string>
     <string name="filter_label_titlte">Фильтры</string>
+    <string name="favourites_fragments_text_label1">Товары</string>
+    <string name="favourites_fragments_text_label2">Бренды</string>
 </resources>

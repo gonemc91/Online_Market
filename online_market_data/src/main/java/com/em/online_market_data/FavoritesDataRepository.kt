@@ -25,10 +25,19 @@ interface FavoritesDataRepository {
      */
     suspend fun deleteFavorites(productId: String)
 
+    /**
+     * Get available favorites products.
+     */
+    fun getAvailableFavouritesProducts(): Flow<Container<Int>>
+
+
+
 
     /**
      * Reload the flow returned by [getFavorites]
      */
     fun reload()
+
+
 
 }
