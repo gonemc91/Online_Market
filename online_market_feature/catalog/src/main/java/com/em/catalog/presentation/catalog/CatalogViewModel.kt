@@ -41,6 +41,7 @@ class CatalogViewModel @Inject constructor(
 
 
     init {
+        Core.logger.log("Start Init catalog")
         viewModelScope.launch {
             val favouritesIds = getFavouritesUseCase.getFavouritesId().unwrapFirst()
             favouritesIds.forEach {
@@ -84,6 +85,7 @@ class CatalogViewModel @Inject constructor(
             tagsList.add(AllTAGS)
             Core.logger.log("Filter in combine  ${filter.value}")
 
+
             val tags = emptyList<Tag>().toMutableSet()
             //////////////////////////////////////
             listProducts.map { product ->
@@ -95,12 +97,12 @@ class CatalogViewModel @Inject constructor(
                     tags.add(
                         Tag(
                             uuidTag = ++idSequence,
-                            tags = it,
+                            name = it,
                             active = it == selectionsTags
                         )
                     )
                 }
-                ///////////////////////////
+                //////////////////////////////////
 
                 productListWithInfo.add(
                     product.copy(
@@ -138,7 +140,6 @@ class CatalogViewModel @Inject constructor(
         }else{
             ProductFilter(tag = it)
         }
-
         selectionsFilterTags.value = it
     }
 

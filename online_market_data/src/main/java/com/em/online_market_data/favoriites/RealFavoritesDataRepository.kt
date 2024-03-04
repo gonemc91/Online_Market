@@ -26,7 +26,6 @@ class RealFavoritesDataRepository @Inject constructor (
     }
 
 
-
     override fun getFavorites(): Flow<Container<List<FavoritesProduct>>> {
         favouritesSubject.newAsyncLoad(silently = true)
         return favouritesSubject.listen()
@@ -60,8 +59,6 @@ class RealFavoritesDataRepository @Inject constructor (
         }
         favouritesSubject.updateWith(Container.Success(favouriteDataSource.getFavorites()))
         favouritesSize.updateWith(Container.Success(favouriteDataSource.getFavouritesSize()))
-
-
 
     }
 }

@@ -8,7 +8,6 @@ import com.em.catalog.domain.GetFavouritesUseCase
 import com.em.catalog.domain.entitys.filter.ProductFilter
 import com.em.catalog.domain.entitys.product.Product
 import com.em.common.Container
-import com.em.common.Core
 import com.em.common.entities.OnChange
 import com.em.common.unwrapFirst
 import com.em.presentation.BaseViewModel
@@ -30,11 +29,8 @@ class FavouritesViewModel @Inject constructor(
     private val catalogRouter: CatalogRouter,
 ) : BaseViewModel() {
 
-
     private val filterFLow = MutableStateFlow(OnChange(ProductFilter.EMPTY))
-
     private val selectionsFavorite = Selections()
-
 
     init {
         viewModelScope.launch {
@@ -64,7 +60,6 @@ class FavouritesViewModel @Inject constructor(
         ::merge
     ).toLiveValue()
 
-
     private fun merge(
         productList: Container<List<Product>>,
         selectionsFavorites: SelectionState,
@@ -72,9 +67,6 @@ class FavouritesViewModel @Inject constructor(
     ): Container<State> {
         return productList.map { listProducts ->
             val productListWithInfo = emptyList<Product>().toMutableList()
-
-            Core.logger.log("Filter in combine favourites  ${filter.value}")
-
             listProducts.map { product ->
                 if (selectionsFavorites.isChecked(product.id)) {
                     productListWithInfo.add(
@@ -91,7 +83,6 @@ class FavouritesViewModel @Inject constructor(
         }
     }
 
-
     fun launchDetails(productWithCartInfo: Product) = debounce {
         catalogRouter.launchDetails(productWithCartInfo)
     }
@@ -99,13 +90,11 @@ class FavouritesViewModel @Inject constructor(
 
     fun toggleFavouriteFlag(product: Product) = viewModelScope.launch {
         selectionsFavorite.toggle(product.id)
-
         if(selectionsFavorite.isChecked(product.id)){
             addToFavoritesUseCase.addToFavorites(product.id)
         }else{
            deleteFavouritesUseCase.deleteFavouritesItem(product.id)
         }
-
     }
 
 

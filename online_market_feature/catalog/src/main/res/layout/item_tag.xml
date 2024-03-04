@@ -9,6 +9,7 @@
     tools:backgroundTint="@color/element_dark_blue"
     android:clickable="true"
     android:focusable="true"
+    android:id="@+id/tagLayout"
     >
 
 

@@ -13,6 +13,7 @@ import com.em.catalog.domain.entitys.product.InfoProduct
 import com.em.catalog.domain.entitys.product.Product
 import com.em.presentation.BaseScreen
 import com.em.presentation.args
+import com.em.presentation.loadResources
 import com.em.presentation.viewBinding
 import com.em.presentation.viewModelCreator
 import com.em.presentation.views.observe
@@ -52,7 +53,7 @@ class ProductDetailsFragment: Fragment(R.layout.fragment_product_details) {
                 favoriteButton.setImageResource(com.em.theme.R.drawable.ic_type_heart__state_active)
             }
             val product = state.productUI
-         /*   product.images?.image1?.let { productImageView.loadResources() }*/
+            product.images?.image1?.let { productImageView.loadResources(it) }
             title.text = product.title
             subTitle.text = product.subtitle
             productAvailable.text = "Доступно для заказа ${product.available} штук"

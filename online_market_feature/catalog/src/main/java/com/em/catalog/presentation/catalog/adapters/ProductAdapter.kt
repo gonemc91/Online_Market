@@ -1,5 +1,6 @@
-package com.em.catalog.presentation.catalog.utils
+package com.em.catalog.presentation.catalog.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,31 +12,32 @@ import com.em.catalog.databinding.ItemProductBinding
 import com.em.catalog.domain.entitys.product.Product
 import com.em.presentation.loadResources
 
-interface UserActionListener {
+interface ProductActionListener {
+    fun onProductDetails(product: Product)
 
-
-    fun onUserDetails(user: Product)
+    fun onFavoriteButton (product: Product)
 
 }
 
 class ProductAdapter(
-    private val actionListener: UserActionListener
+    private val actionListener: ProductActionListener
 ) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>(), View.OnClickListener {
 
     var products: List<Product> = emptyList()
+        @SuppressLint("NotifyDataSetChanged")
         set(newValue) {
             field = newValue
             notifyDataSetChanged()
         }
 
     override fun onClick(v: View) {
-        val user = v.tag as Product
+        val product = v.tag as Product
         when (v.id) {
             R.id.favoriteButton -> {
-
+                actionListener.onFavoriteButton(product)
             }
             else -> {
-                actionListener.onUserDetails(user)
+                actionListener.onProductDetails(product)
             }
         }
     }
@@ -112,7 +114,6 @@ class ProductAdapter(
 
             }
         }
-
 
     class ProductViewHolder(
         val binding: ItemProductBinding
