@@ -24,13 +24,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?android:selectableItemBackground"
         >
 
         <ImageView
             android:id="@+id/productImageView"
-            android:layout_width="168dp"
-            android:layout_height="144dp"
+            android:layout_width="170dp"
+            android:layout_height="145dp"
             android:scaleType="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

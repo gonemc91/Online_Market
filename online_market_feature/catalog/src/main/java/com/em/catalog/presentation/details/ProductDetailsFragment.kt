@@ -52,7 +52,6 @@ class ProductDetailsFragment: Fragment(R.layout.fragment_product_details) {
             }else{
                 favoriteButton.setImageResource(com.em.theme.R.drawable.ic_type_heart__state_active)
             }
-
             val product = state.product
             product.images?.image1?.let { productImageView.loadResources(it) }
             title.text = product.title

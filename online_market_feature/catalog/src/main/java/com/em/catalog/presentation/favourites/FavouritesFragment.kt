@@ -70,7 +70,7 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun createCatalogAdapter() = simpleAdapter<ProductWithInfo, ItemProductBinding> {
-        areItemsSame = {oldItem, newItem ->  oldItem.product.id == newItem.product.id}
+        areItemsSame = {oldItem, newItem ->  oldItem.product.uuid == newItem.product.uuid}
         areContentsSame = {oldItem, newItem -> oldItem == newItem }
 
 

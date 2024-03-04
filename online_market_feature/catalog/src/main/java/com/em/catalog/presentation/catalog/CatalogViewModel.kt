@@ -92,8 +92,10 @@ class CatalogViewModel @Inject constructor(
                     tagsList.add(it)
                 }
                 tagsList.map {
+                    var idSequence: Long = 0
                     tags.add(
                         Tag(
+                            uuidTag = ++idSequence,
                             tags = it,
                             active = it == selectionsTags
                         )

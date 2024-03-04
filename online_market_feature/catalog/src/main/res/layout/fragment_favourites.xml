@@ -70,11 +70,13 @@
                 android:textAllCaps="false"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:layout_weight="0.9"
                 android:background="@drawable/background_toggle_shape"
                 android:backgroundTint="@color/background_light_grey"
                 android:gravity="center"
                 android:textColor="@color/text_grey"
+                android:text="@string/favourites_fragments_text_label1"
                 tools:text="@string/favourites_fragments_text_label2" />
 
         </LinearLayout>

@@ -31,6 +31,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class CatalogFragment : Fragment(R.layout.fragment_catalog) {
 
+
     private val binding by viewBinding<FragmentCatalogBinding>()
 
     private val viewModel by viewModels<CatalogViewModel>()
@@ -45,6 +46,7 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
         val adapterTags = createTagsAdapter()
 
 
+
         with(binding){
             observeState(adapter)
             observeStateTags(adapterTags)
@@ -54,6 +56,9 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
             setupSpinnerFilterSortBy()
         }
     }
+
+
+
 
     private fun FragmentCatalogBinding.setupListeners(){
 
@@ -94,14 +99,15 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun createTagsAdapter() = simpleAdapter<Tag, ItemTagBinding> {
-        areContentsSame = {oldItem, newItem -> oldItem == newItem }
+        areItemsSame = {oldItem, newItem ->  oldItem.uuidTag == newItem.uuidTag}
+        areContentsSame = { oldItem, newItem -> oldItem == newItem }
         bind {
 
-            if (it.active){
+            if (it.active) {
                 root.background.setTint(context?.getColor(com.em.theme.R.color.element_dark_blue)!!)
                 textViewTag.setTextColor(context?.getColor(com.em.theme.R.color.text_white)!!)
                 deleteTag.visibility = View.VISIBLE
-            }else{
+            } else {
                 root.background.setTint(context?.getColor(com.em.theme.R.color.background_light_grey)!!)
                 textViewTag.setTextColor(context?.getColor(com.em.theme.R.color.text_grey)!!)
                 deleteTag.visibility = View.GONE
@@ -111,7 +117,6 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
 
 
         listeners {
-
             root.onClick {
                 viewModel.toggleSelectedTAG(it.tags)
             }
@@ -141,14 +146,14 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun createCatalogAdapter() = simpleAdapter<ProductWithInfo, ItemProductBinding> {
-        areItemsSame = {oldItem, newItem ->  oldItem.product.id == newItem.product.id}
-        areContentsSame = {oldItem, newItem -> oldItem == newItem }
-
+        areItemsSame = {oldItem, newItem ->  oldItem.product.uuid == newItem.product.uuid}
+        areContentsSame = {oldItem, newItem -> oldItem == newItem}
 
         bind { productWithCartInfo ->
             val product = productWithCartInfo.product
 
             product.images?.image1?.let { productImageView.loadResources(it) }
+
             if (product.price.priceWithDiscount == null){
                 originPriceTextView.isInvisible = true
                 discountPercentage.isInvisible = true

@@ -1,6 +1,7 @@
 package com.em.catalog.domain.entitys.product
 
 data class Product(
+    val uuid: Long,
     val id: String,
     val title: String,
     val subtitle: String,

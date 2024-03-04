@@ -12,6 +12,11 @@
     </style>
 
 
+
+    <style name="ToolBar" parent="Widget.AppCompat.Toolbar.Button.Navigation">
+
+    </style>
+
     <style name="custom_toolbar" parent="@style/Widget.MaterialComponents.Toolbar">
         <item name="titleTextStyle">@style/List_Title_1</item>
     </style>
@@ -169,6 +174,8 @@
         <item name="android:layout_height">24dp</item>
         <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
     </style>
+
+
 
 
 

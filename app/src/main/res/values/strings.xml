@@ -9,7 +9,7 @@
     <string name="tabs_profile">Профиль</string>
 
     <string name="favorites_fragment">Избранное</string>
-
+    <string name="favourites_label">Избранное</string>
 
 
 </resources>

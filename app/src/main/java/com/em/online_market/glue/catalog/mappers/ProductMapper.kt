@@ -14,7 +14,9 @@ import com.em.online_market_data.products.entites.product_models.ProductImagesDB
 
 
 fun ProductDBO.toProduct(): Product{
+    var idSequence: Long = 0
     return Product(
+        uuid = ++idSequence,
         id = this.id,
         title = this.title,
         subtitle = this.subtitle,
