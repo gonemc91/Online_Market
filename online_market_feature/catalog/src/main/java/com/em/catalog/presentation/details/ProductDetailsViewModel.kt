@@ -5,7 +5,6 @@ import com.em.catalog.domain.AddToFavoritesUseCase
 import com.em.catalog.domain.DeleteFavouritesUseCase
 import com.em.catalog.domain.GetProductsDetailsUseCase
 import com.em.catalog.domain.entitys.product.Product
-import com.em.catalog.domain.entitys.product.ProductWithInfo
 import com.em.common.Container
 import com.em.presentation.BaseViewModel
 import dagger.assisted.Assisted
@@ -55,12 +54,12 @@ class ProductDetailsViewModel @AssistedInject constructor(
 
 
     private fun merge(
-        productContainer: Container<ProductWithInfo>,
+        productContainer: Container<Product>,
         isAddToFavorite: Boolean
     ): Container<State>{
-        return productContainer.map{productWithCartInfo ->
+        return productContainer.map{product ->
             State(
-                productWithCartInfo = productWithCartInfo,
+                product= product,
                 addToFavorite = isAddToFavorite
             )
         }
@@ -72,10 +71,11 @@ class ProductDetailsViewModel @AssistedInject constructor(
     }
 
     class State(
-        private val productWithCartInfo: ProductWithInfo,
+        private val product: Product,
         private val addToFavorite: Boolean,
     ){
-        val product = productWithCartInfo.product
+
+        val productUI = product
         val favoritesButtonState: Boolean get() = !addToFavorite
         
     }

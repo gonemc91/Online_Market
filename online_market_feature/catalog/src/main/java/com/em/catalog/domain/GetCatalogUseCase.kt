@@ -12,7 +12,6 @@ import javax.inject.Inject
 
 class GetCatalogUseCase  @Inject constructor(
     private val productsRepository: ProductsRepository,
-    //private val favoritesRepository: FavoritesRepositoryCatalog,
 ) {
 
     /**

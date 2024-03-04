@@ -13,4 +13,13 @@
     <string name="filter_label_titlte">Фильтры</string>
     <string name="favourites_fragments_text_label1">Товары</string>
     <string name="favourites_fragments_text_label2">Бренды</string>
+
+
+
+    <string name="catalog_fragments_with_space">%1$s %2$s</string>
+    <string name="catalog_fragments_with_percentage">-%1$s %%</string>
+    <string name="catalog_fragments_with_bracket">(%1$s)</string>
+
+
+
 </resources>

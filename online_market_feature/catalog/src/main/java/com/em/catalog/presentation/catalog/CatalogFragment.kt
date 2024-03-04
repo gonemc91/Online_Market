@@ -18,7 +18,7 @@ import com.em.catalog.domain.entitys.filter.ProductFilter
 import com.em.catalog.domain.entitys.filter.SortBy
 import com.em.catalog.domain.entitys.filter.SortOrder
 import com.em.catalog.domain.entitys.filter.Tag
-import com.em.catalog.domain.entitys.product.ProductWithInfo
+import com.em.catalog.domain.entitys.product.Product
 import com.em.catalog.presentation.catalog.CatalogViewModel.Companion.AllTAGS
 import com.em.presentation.loadResources
 import com.em.presentation.viewBinding
@@ -124,7 +124,7 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
     }
 
 
-    private fun FragmentCatalogBinding.observeState(adapter: SimpleBindingAdapter<ProductWithInfo>,
+    private fun FragmentCatalogBinding.observeState(adapter: SimpleBindingAdapter<Product>,
     ){
         root.observe(viewLifecycleOwner, viewModel.stateLiveValue) { state ->
             adapter.submitList(state.products)
@@ -138,19 +138,18 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
         }
     }
 
-    private fun FragmentCatalogBinding.setupList(adapter: SimpleBindingAdapter<ProductWithInfo>){
+    private fun FragmentCatalogBinding.setupList(adapter: SimpleBindingAdapter<Product>){
         productsRecyclerView.setupGridLayout()
         productsRecyclerView.adapter = adapter
     }
 
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun createCatalogAdapter() = simpleAdapter<ProductWithInfo, ItemProductBinding> {
-        areItemsSame = {oldItem, newItem ->  oldItem.product.uuid == newItem.product.uuid}
+    private fun createCatalogAdapter() = simpleAdapter<Product, ItemProductBinding> {
+        areItemsSame = {oldItem, newItem ->  oldItem.uuid == newItem.uuid}
         areContentsSame = {oldItem, newItem -> oldItem == newItem}
 
-        bind { productWithCartInfo ->
-            val product = productWithCartInfo.product
+        bind { product ->
 
             product.images?.image1?.let { productImageView.loadResources(it) }
 
@@ -158,45 +157,41 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
                 originPriceTextView.isInvisible = true
                 discountPercentage.isInvisible = true
 
-                finalPriceTextView.text = buildString {
-                    append(product.price.price.toString())
-                    append(" ")
-                    append(product.price.unit)
-                }
+                finalPriceTextView.text = getString(
+                    R.string.catalog_fragments_with_space,
+                    product.price.price.toString(),
+                    product.price.unit
+                )
+
             }else{
                 originPriceTextView.visibility = View.VISIBLE
                 discountPercentage.visibility = View.VISIBLE
 
-                originPriceTextView.text = buildString {
-                    append(product.price.price)
-                    append(" ")
-                    append(product.price.unit)
-                }
+                originPriceTextView.text = getString(
+                    R.string.catalog_fragments_with_space,
+                    product.price.price.toString(),
+                    product.price.unit
+                )
 
-                finalPriceTextView.text = buildString {
-                    append(product.price.priceWithDiscount)
-                    append(" ")
-                    append(product.price.unit)
-                }
+                finalPriceTextView.text = getString(
+                    R.string.catalog_fragments_with_space,
+                    product.price.priceWithDiscount,
+                    product.price.unit
+                )
 
-                discountPercentage.text = buildString {
-                    append("-")
-                    append(product.price.discount.toString())
-                    append("%")
-                }
-
+                discountPercentage.text = getString(
+                    R.string.catalog_fragments_with_percentage,
+                    product.price.discount.toString())
             }
+
             subTitle.text = product.title
             productDescription.text = product.description
             ratingText.text = product.feedback.rating.toString()
-            feedbackText.text = buildString {
-                append("(")
-                append(product.feedback.count)
-                append(")")
-            }
+            feedbackText.text = getString(
+                R.string.catalog_fragments_with_bracket,
+                product.feedback.count.toString())
 
-
-            if (productWithCartInfo.favourite) {
+            if (product.favourite) {
                 favoriteButton.setImageResource(com.em.theme.R.drawable.ic_type_heart__state_active)
             } else {
                 favoriteButton.setImageResource(com.em.theme.R.drawable.ic_type_heart__state_default)

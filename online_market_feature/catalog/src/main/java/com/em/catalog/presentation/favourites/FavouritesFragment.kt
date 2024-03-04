@@ -13,7 +13,7 @@ import com.em.catalog.databinding.FragmentFavouritesBinding
 import com.em.catalog.databinding.ItemProductBinding
 import com.em.catalog.domain.entitys.filter.ProductFilter
 import com.em.catalog.domain.entitys.filter.SortBy
-import com.em.catalog.domain.entitys.product.ProductWithInfo
+import com.em.catalog.domain.entitys.product.Product
 import com.em.presentation.loadResources
 import com.em.presentation.viewBinding
 import com.em.presentation.views.observe
@@ -54,7 +54,7 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
     }
 
 
-    private fun FragmentFavouritesBinding.observeState(adapter: SimpleBindingAdapter<ProductWithInfo>,
+    private fun FragmentFavouritesBinding.observeState(adapter: SimpleBindingAdapter<Product>,
     ){
         root.observe(viewLifecycleOwner, viewModel.stateLiveValue) { state ->
             adapter.submitList(state.products)
@@ -62,20 +62,20 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
     }
 
 
-    private fun FragmentFavouritesBinding.setupList(adapter: SimpleBindingAdapter<ProductWithInfo>){
+    private fun FragmentFavouritesBinding.setupList(adapter: SimpleBindingAdapter<Product>){
         productsRecyclerView.setupGridLayout()
         productsRecyclerView.adapter = adapter
     }
 
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun createCatalogAdapter() = simpleAdapter<ProductWithInfo, ItemProductBinding> {
-        areItemsSame = {oldItem, newItem ->  oldItem.product.uuid == newItem.product.uuid}
+    private fun createCatalogAdapter() = simpleAdapter<Product, ItemProductBinding> {
+        areItemsSame = {oldItem, newItem ->  oldItem.uuid == newItem.uuid}
         areContentsSame = {oldItem, newItem -> oldItem == newItem }
 
 
-        bind { productWithCartInfo ->
-            val product = productWithCartInfo.product
+        bind { product ->
+
 
             product.images?.image1?.let { productImageView.loadResources(it) }
             if (product.price.priceWithDiscount == null){
@@ -120,7 +120,7 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
             }
 
 
-            if (productWithCartInfo.favourite) {
+            if (product.favourite) {
                 favoriteButton.setImageResource(com.em.theme.R.drawable.ic_type_heart__state_active)
             } else {
                 favoriteButton.setImageResource(com.em.theme.R.drawable.ic_type_heart__state_default)

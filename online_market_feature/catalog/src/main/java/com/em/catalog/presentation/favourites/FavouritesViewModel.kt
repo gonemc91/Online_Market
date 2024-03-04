@@ -7,7 +7,6 @@ import com.em.catalog.domain.GetCatalogUseCase
 import com.em.catalog.domain.GetFavouritesUseCase
 import com.em.catalog.domain.entitys.filter.ProductFilter
 import com.em.catalog.domain.entitys.product.Product
-import com.em.catalog.domain.entitys.product.ProductWithInfo
 import com.em.common.Container
 import com.em.common.Core
 import com.em.common.entities.OnChange
@@ -72,15 +71,14 @@ class FavouritesViewModel @Inject constructor(
         filter: OnChange<ProductFilter>,
     ): Container<State> {
         return productList.map { listProducts ->
-            val productListWithInfo = emptyList<ProductWithInfo>().toMutableList()
+            val productListWithInfo = emptyList<Product>().toMutableList()
 
             Core.logger.log("Filter in combine favourites  ${filter.value}")
 
             listProducts.map { product ->
                 if (selectionsFavorites.isChecked(product.id)) {
                     productListWithInfo.add(
-                        ProductWithInfo(
-                            product = product,
+                        product.copy(
                             favourite = selectionsFavorites.isChecked(product.id)
                         )
                     )
@@ -94,25 +92,25 @@ class FavouritesViewModel @Inject constructor(
     }
 
 
-    fun launchDetails(productWithCartInfo: ProductWithInfo) = debounce {
+    fun launchDetails(productWithCartInfo: Product) = debounce {
         catalogRouter.launchDetails(productWithCartInfo)
     }
 
 
-    fun toggleFavouriteFlag(product: ProductWithInfo) = viewModelScope.launch {
-        selectionsFavorite.toggle(product.product.id)
+    fun toggleFavouriteFlag(product: Product) = viewModelScope.launch {
+        selectionsFavorite.toggle(product.id)
 
-        if(selectionsFavorite.isChecked(product.product.id)){
-            addToFavoritesUseCase.addToFavorites(product.product.id)
+        if(selectionsFavorite.isChecked(product.id)){
+            addToFavoritesUseCase.addToFavorites(product.id)
         }else{
-           deleteFavouritesUseCase.deleteFavouritesItem(product.product.id)
+           deleteFavouritesUseCase.deleteFavouritesItem(product.id)
         }
 
     }
 
 
     class State(
-        val products: List<ProductWithInfo>,
+        val products: List<Product>,
         val filter: ProductFilter,
     )
 

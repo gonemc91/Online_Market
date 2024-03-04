@@ -1,6 +1,6 @@
 package com.em.catalog.domain
 
-import com.em.catalog.domain.entitys.product.ProductWithInfo
+import com.em.catalog.domain.entitys.product.Product
 import com.em.catalog.domain.repositories.FavoritesRepositoryCatalog
 import com.em.catalog.domain.repositories.ProductsRepository
 import com.em.common.Container
@@ -19,14 +19,11 @@ class GetProductsDetailsUseCase  @Inject constructor(
      * @return infinite flow, always success; errors are delivered to [Container]
      */
 
-    fun getProduct(id: String): Flow<Container<ProductWithInfo>> {
+    fun getProduct(id: String): Flow<Container<Product>> {
         return favoritesRepository.getProductIdIdentifiersInFavorites()
             .map { container ->
                 container.suspendMap{idsInCart ->
-                    ProductWithInfo(
-                        product = productsRepository.getProduct(id),
-                        favourite = idsInCart.contains(id)
-                    )
+                    productsRepository.getProduct(id).copy(favourite = idsInCart.contains(id))
                 }
             }
     }

@@ -12,5 +12,6 @@ data class Product(
     val description: String,
     val info: List<InfoProduct>,
     val ingredients: String,
-    val images: ProductImages?
+    val images: ProductImages?,
+    val favourite: Boolean,
 )

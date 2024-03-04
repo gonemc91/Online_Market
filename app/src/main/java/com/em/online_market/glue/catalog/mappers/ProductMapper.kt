@@ -27,7 +27,9 @@ fun ProductDBO.toProduct(): Product{
         description = this.description,
         info = productInfoFromDBO(this.info),
         ingredients = this.ingredients,
-        images = this.images?.let { productImagesFromDBO(it) }
+        favourite = false,
+        images = this.images?.let { productImagesFromDBO(it)
+        }
     )
 }
 

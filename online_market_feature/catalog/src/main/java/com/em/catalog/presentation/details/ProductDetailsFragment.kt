@@ -10,10 +10,9 @@ import com.em.catalog.R
 import com.em.catalog.databinding.FragmentProductDetailsBinding
 import com.em.catalog.databinding.ItemInfoBinding
 import com.em.catalog.domain.entitys.product.InfoProduct
-import com.em.catalog.domain.entitys.product.ProductWithInfo
+import com.em.catalog.domain.entitys.product.Product
 import com.em.presentation.BaseScreen
 import com.em.presentation.args
-import com.em.presentation.loadResources
 import com.em.presentation.viewBinding
 import com.em.presentation.viewModelCreator
 import com.em.presentation.views.observe
@@ -25,7 +24,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ProductDetailsFragment: Fragment(R.layout.fragment_product_details) {
     class Screen(
-        val productId: ProductWithInfo,
+        val productId: Product,
     ) : BaseScreen
 
     @Inject
@@ -52,8 +51,8 @@ class ProductDetailsFragment: Fragment(R.layout.fragment_product_details) {
             }else{
                 favoriteButton.setImageResource(com.em.theme.R.drawable.ic_type_heart__state_active)
             }
-            val product = state.product
-            product.images?.image1?.let { productImageView.loadResources(it) }
+            val product = state.productUI
+         /*   product.images?.image1?.let { productImageView.loadResources() }*/
             title.text = product.title
             subTitle.text = product.subtitle
             productAvailable.text = "Доступно для заказа ${product.available} штук"
