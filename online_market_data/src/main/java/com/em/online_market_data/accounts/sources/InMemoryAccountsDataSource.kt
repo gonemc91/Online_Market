@@ -24,7 +24,6 @@ class InMemoryAccountsDataSource @Inject constructor(
             )
         )
     )
-
     override suspend fun authorization(signUpData: AuthorizationDataEntity): AccountDataEntity {
         delay(1000)
         val record = records.firstOrNull{ it.account.telephoneNumber == signUpData.telephoneNumber}
@@ -41,7 +40,6 @@ class InMemoryAccountsDataSource @Inject constructor(
                 ),
                 token = UUID.randomUUID().toString()
             )
-            Core.logger.log("authorization: ${newRecord.account}; token: ${newRecord.token}")
             records.add(newRecord)
             settings.setToken(newRecord.token)
             settings.setAccountInfo(newRecord.account)

@@ -83,11 +83,9 @@ class CatalogViewModel @Inject constructor(
             val productListWithInfo = emptyList<Product>().toMutableList()
             val tagsList  = emptyList<String>().toMutableList()
             tagsList.add(AllTAGS)
-            Core.logger.log("Filter in combine  ${filter.value}")
-
 
             val tags = emptyList<Tag>().toMutableSet()
-            //////////////////////////////////////
+
             listProducts.map { product ->
                 tagList.unwrap().forEach {
                     tagsList.add(it)
@@ -102,7 +100,6 @@ class CatalogViewModel @Inject constructor(
                         )
                     )
                 }
-                //////////////////////////////////
 
                 productListWithInfo.add(
                     product.copy(

@@ -42,8 +42,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.android.material)
-
-    implementation("com.elveum:element-adapter:0.4")
+    implementation(libs.elveum.adapter)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)

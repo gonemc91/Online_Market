@@ -16,7 +16,7 @@ interface FavouriteSourceModule {
 
     @Binds
     @Singleton
-    fun bindCartSource(
+    fun bindFavouriteSource(
         inMemoryFavouritesDataSources: InMemoryFavouritesDataSources
     ): FavoritesDataSource
 }
