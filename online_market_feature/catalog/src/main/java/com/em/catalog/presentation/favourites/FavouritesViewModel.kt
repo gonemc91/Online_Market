@@ -30,16 +30,9 @@ class FavouritesViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     private val filterFLow = MutableStateFlow(OnChange(ProductFilter.EMPTY))
-    private val selectionsFavorite = Selections()
+    private val getChangeFavourites = getFavouritesUseCase.getFavouritesId()
 
-    init {
-        viewModelScope.launch {
-            val favouritesIds = getFavouritesUseCase.getFavouritesId().unwrapFirst()
-            favouritesIds.forEach {
-                selectionsFavorite.toggle(it)
-            }
-        }
-    }
+
 
     var filter: ProductFilter
         get() = filterFLow.value.value
@@ -55,23 +48,23 @@ class FavouritesViewModel @Inject constructor(
 
     val stateLiveValue = combine(
         productWithFilterFlow,
-        selectionsFavorite.flow(),
+        getChangeFavourites,
         filterFLow,
         ::merge
     ).toLiveValue()
 
     private fun merge(
         productList: Container<List<Product>>,
-        selectionsFavorites: SelectionState,
+        selectionsFavorites: Container<Set<String>>,
         filter: OnChange<ProductFilter>,
     ): Container<State> {
         return productList.map { listProducts ->
             val productListWithInfo = emptyList<Product>().toMutableList()
             listProducts.map { product ->
-                if (selectionsFavorites.isChecked(product.id)) {
+                if ( selectionsFavorites.unwrap().contains(product.id)) {
                     productListWithInfo.add(
                         product.copy(
-                            favourite = selectionsFavorites.isChecked(product.id)
+                            favourite =  selectionsFavorites.unwrap().contains(product.id)
                         )
                     )
                 }
@@ -89,11 +82,11 @@ class FavouritesViewModel @Inject constructor(
 
 
     fun toggleFavouriteFlag(product: Product) = viewModelScope.launch {
-        selectionsFavorite.toggle(product.id)
-        if(selectionsFavorite.isChecked(product.id)){
+        val hasFavouritesId = getChangeFavourites.unwrapFirst().contains(product.id)
+        if(!hasFavouritesId){
             addToFavoritesUseCase.addToFavorites(product.id)
         }else{
-           deleteFavouritesUseCase.deleteFavouritesItem(product.id)
+            deleteFavouritesUseCase.deleteFavouritesItem(product.id)
         }
     }
 

@@ -98,7 +98,7 @@ class CatalogViewModel @Inject constructor(
                 }
                 productListWithInfo.add(
                     product.copy(
-                        favourite = selectionsFavorites.unwrap().contains(product.id) //selectionsFavorites.isChecked(product.id)
+                        favourite = selectionsFavorites.unwrap().contains(product.id)
                     )
                 )
             }
@@ -116,9 +116,8 @@ class CatalogViewModel @Inject constructor(
 
 
     fun toggleFavouriteFlag(product: Product) = viewModelScope.launch {
-        val hasId = getChangeFavourites.unwrapFirst().contains(product.id)
-        Core.logger.log("$hasId")
-        if(!hasId){
+        val hasFavouritesId = getChangeFavourites.unwrapFirst().contains(product.id)
+        if(!hasFavouritesId){
             addToFavoritesUseCase.addToFavorites(product.id)
         }else{
            deleteFavouritesUseCase.deleteFavouritesItem(product.id)
