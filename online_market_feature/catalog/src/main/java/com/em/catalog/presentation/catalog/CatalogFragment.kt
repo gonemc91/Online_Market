@@ -50,7 +50,9 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
             override fun onFavoriteButton(product: Product) {
                 viewModel.toggleFavouriteFlag(product)
             }
-        })
+        }
+
+        )
         with(binding){
             setupList(adapterProduct)
             observeState(adapterProduct)

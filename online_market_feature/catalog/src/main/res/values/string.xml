@@ -1,2 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+
+    <string name="lorem_description">Пенка для лица Глубокое очищение содержит минеральную воду и соду, способствует глубокому очищению пор от различных загрязнений, контролирует работу сальных желез, сужает поры. Обладает мягким антисептическим действием, не пересушивая кожу. Минеральная вода тонизирует и смягчает кожу.</string>
+
+    <string name="details_description">Описание</string>
+    <string name="details_hide_button">Скрыть</string>
+    <string name="details_characteristic_text">Характеристики</string>
+    <string name="details_product_article_text">Артикул товара</string>
+    <string name="details_product_use_case_text">Область использования</string>
+    <string name="details_country_manufacture_text">Страна производства</string>
+    <string name="details_composition_title_text">Состав</string>
+    <string name="details_button_text">Подробнее</string>
+    <string name="details_add_to_cart_button">Добавить корзину</string>
+
+    <string name="filter_label_title">Фильтры</string>
+    <string name="favourites_fragments_text_label1">Товары</string>
+    <string name="favourites_fragments_text_label2">Бренды</string>
+
+    <string name="catalog_fragments_with_space">%1$s %2$s</string>
+    <string name="catalog_fragments_with_percentage">-%1$s %%</string>
+    <string name="catalog_fragments_with_bracket">(%1$s)</string>
+
+    <string name="details_fragments_feedback">%1$s · %2$s отзывы</string>
+    <string name="details_fragments_with_space">%1$s %2$s</string>
+    <string name="details_fragments_with_percentage">-%1$s %%</string>
+    <string name="details_fragments_with_available">Доступно для заказа %1$s штук</string>
+
+</resources>

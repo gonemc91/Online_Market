@@ -26,11 +26,11 @@
         android:layout_height="match_parent"
         >
 
-        <ImageView
+        <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/productImageView"
             android:layout_width="170dp"
             android:layout_height="145dp"
-            android:scaleType="center"
+            android:scaleType="fitCenter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -48,6 +48,7 @@
             android:background="@drawable/ic_type_heart__state_default"
             android:backgroundTint="@color/element_pink"
             app:tint="@color/element_pink"
+            android:elevation="2dp"
             />
 
 

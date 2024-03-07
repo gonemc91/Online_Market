@@ -36,6 +36,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:itemBackground="@null"
         app:itemRippleColor="@null"
+        app:itemHorizontalTranslationEnabled="false"
+        app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
         >
 
 

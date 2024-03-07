@@ -22,7 +22,7 @@ class DefaultDestinationProvider @Inject constructor(
     override fun provideMainTabs(): List<NavTab> {
         return listOf(
             NavTab(
-                destinationId = R.id.catalogFragment,
+                destinationId = R.id.catalogFragment, //fake destination
                 title = context.getString(R.string.tabs_main),
                 iconRes = drawable.ic_type_home__state_default
             ),
@@ -32,12 +32,12 @@ class DefaultDestinationProvider @Inject constructor(
                 iconRes = drawable.ic_type_catalog__state_default,
             ),
             NavTab(
-                destinationId = R.id.catalogFragment,
+                destinationId = R.id.catalogFragment,//fake destination
                 title = context.getString(R.string.tabs_cart),
                 iconRes = drawable.ic_type_bag__state_default,
             ),
             NavTab(
-                destinationId = R.id.catalogFragment,
+                destinationId = R.id.profileFragment,//fake destination
                 title = context.getString(R.string.tabs_discount),
                 iconRes = drawable.ic_type_discount__state_default,
             ),

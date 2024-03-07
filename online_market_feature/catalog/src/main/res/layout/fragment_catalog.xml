@@ -75,7 +75,7 @@
             style="@style/List_Title_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/filter_label_titlte"
+            android:text="@string/filter_label_title"
             app:layout_constraintEnd_toEndOf="@id/endGuideline"
             app:layout_constraintTop_toTopOf="parent" />
 

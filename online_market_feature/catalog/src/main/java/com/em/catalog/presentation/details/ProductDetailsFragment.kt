@@ -11,9 +11,9 @@ import com.em.catalog.databinding.FragmentProductDetailsBinding
 import com.em.catalog.databinding.ItemInfoBinding
 import com.em.catalog.domain.entitys.product.InfoProduct
 import com.em.catalog.domain.entitys.product.Product
+import com.em.catalog.presentation.catalog.adapters.ViewPagerAdapter
 import com.em.presentation.BaseScreen
 import com.em.presentation.args
-import com.em.presentation.loadResources
 import com.em.presentation.viewBinding
 import com.em.presentation.viewModelCreator
 import com.em.presentation.views.observe
@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class ProductDetailsFragment: Fragment(R.layout.fragment_product_details) {
+class ProductDetailsFragment : Fragment(R.layout.fragment_product_details) {
     class Screen(
         val productId: Product,
     ) : BaseScreen
@@ -37,7 +37,7 @@ class ProductDetailsFragment: Fragment(R.layout.fragment_product_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = createAdapter()
-        with(binding){
+        with(binding) {
             setupList(adapter)
             observeState(adapter)
             setupListeners()
@@ -47,19 +47,30 @@ class ProductDetailsFragment: Fragment(R.layout.fragment_product_details) {
     private fun FragmentProductDetailsBinding.observeState(adapter: SimpleBindingAdapter<InfoProduct>) {
         root.observe(viewLifecycleOwner, viewModel.stateLiveValue) { state ->
 
-            if (state.favoritesButtonState){
+            if (state.favoritesButtonState) {
                 favoriteButton.setImageResource(com.em.theme.R.drawable.ic_type_heart__state_default)
-            }else{
+            } else {
                 favoriteButton.setImageResource(com.em.theme.R.drawable.ic_type_heart__state_active)
             }
             val product = state.productUI
-            product.images?.image1?.let { productImageView.loadResources(it) }
+
+            if (product.images != null) {
+                val imageList = listOf(
+                    product.images.image1,
+                    product.images.image2
+                )
+                val adapter = ViewPagerAdapter()
+                adapter.productImages = imageList
+                productImageView.adapter = adapter
+            }
+
+
             title.text = product.title
             subTitle.text = product.subtitle
-            productAvailable.text = "Доступно для заказа ${product.available} штук"
+            productAvailable.text =  getString(R.string.details_fragments_with_available, product.available.toString())
             val rating = product.feedback.rating.toInt()
 
-           for (i in 0 until rating){
+            for (i in 0 until rating) {
                 when (i) {
                     0 -> ratingImage1.setTintColor(com.em.theme.R.color.element_orange)
                     1 -> ratingImage2.setTintColor(com.em.theme.R.color.element_orange)
@@ -69,40 +80,86 @@ class ProductDetailsFragment: Fragment(R.layout.fragment_product_details) {
                 }
 
             }
-            ratingText.text = "${product.feedback.rating} · ${product.feedback.count} отзывы"
-            finalPriceTextView.text = buildString {
-                append(product.price.priceWithDiscount)
-                append(" ")
-                append(product.price.unit)
+            ratingText.text = getString(
+                R.string.details_fragments_feedback,
+                product.feedback.rating.toString(),
+                product.feedback.count.toString()
+            )
+            finalPriceTextView.text =
+                getString(
+                    R.string.details_fragments_with_space,
+                    product.price.priceWithDiscount,
+                    product.price.unit
+                )
+            originPriceTextView.text =
+                getString(
+                    R.string.details_fragments_with_space,
+                    product.price.price.toString(),
+                    product.price.unit
+                )
+
+            discountPercentage.text =
+                getString(
+                    R.string.catalog_fragments_with_percentage,
+                    product.price.discount.toString()
+                )
+            labelForButton.text = product.title
+            textDescription.text = product.description
+
+            adapter.submitList(product.info)
+
+            textComposition.text = product.ingredients
+            finalPriceTextViewInButton.text =
+                getString(
+                    R.string.details_fragments_with_space,
+                    product.price.priceWithDiscount,
+                    product.price.unit
+                )
+
+            originPriceTextViewInButton.text =
+                getString(
+                    R.string.details_fragments_with_space,
+                    product.price.price.toString(),
+                    product.price.unit
+                )
+            favoriteButton.setOnClickListener {
+                viewModel.addToFavorites(product)
+            }
+
+            var isVisibleDetails = true
+            buttonHideMoreDescription.setOnClickListener {
+                isVisibleDetails = !isVisibleDetails
 
 
-                originPriceTextView.text = buildString {
-                    append(product.price.price)
-                    append(" ")
-                    append(product.price.unit)
-                }
-
-                discountPercentage.text = "- ${product.price.discount}%"
-                labelForButton.text = product.title
-                textDescription.text = product.description
-
-                adapter.submitList(product.info)
-
-                textComposition.text = product.ingredients
-                finalPriceTextViewInButton.text = buildString {
-                    append(product.price.priceWithDiscount)
-                    append(" ")
-                    append(product.price.unit)
-                }
-                originPriceTextViewInButton.text = buildString {
-                    append(product.price.price)
-                    append(" ")
-                    append(product.price.unit)
-                }
-                favoriteButton.setOnClickListener{
-                    viewModel.addToFavorites(product)
+                if (isVisibleDetails) {
+                    buttonLabel.visibility = View.VISIBLE
+                    buttonLabelImage.visibility = View.VISIBLE
+                    labelForButton.visibility = View.VISIBLE
+                    textDescription.visibility = View.VISIBLE
+                    buttonHideMoreDescription.text = getString(R.string.details_hide_button)
+                } else {
+                    buttonLabel.visibility = View.GONE
+                    buttonLabelImage.visibility = View.GONE
+                    labelForButton.visibility = View.GONE
+                    textDescription.visibility = View.GONE
+                    buttonHideMoreDescription.text = getString(R.string.details_button_text)
                 }
             }
+
+            var isVisibleComponent = true
+            buttonHideMoreComposition.setOnClickListener {
+                isVisibleComponent = !isVisibleComponent
+                if (isVisibleComponent) {
+                    textComposition.maxLines = 10
+                    buttonHideMoreComposition.text = getString(R.string.details_hide_button)
+                }else{
+                    textComposition.lineHeight
+                    textComposition.maxLines = 2
+                    buttonHideMoreComposition.text = getString(R.string.details_button_text)
+
+                }
+            }
+
         }
     }
 
@@ -113,8 +170,8 @@ class ProductDetailsFragment: Fragment(R.layout.fragment_product_details) {
     }
 
     private fun createAdapter() = simpleAdapter<InfoProduct, ItemInfoBinding> {
-        areItemsSame = {oldItem, newItem ->  oldItem.title == newItem.title}
-        areContentsSame = {oldItem, newItem -> oldItem == newItem }
+        areItemsSame = { oldItem, newItem -> oldItem.title == newItem.title }
+        areContentsSame = { oldItem, newItem -> oldItem == newItem }
 
         bind {
             productArticle.text = it.title
@@ -127,6 +184,5 @@ class ProductDetailsFragment: Fragment(R.layout.fragment_product_details) {
         root.setTryAgainListener { viewModel.reload() }
 
     }
-
 
 }

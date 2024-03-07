@@ -23,6 +23,7 @@ class ProductDetailsViewModel @AssistedInject constructor(
 ) : BaseViewModel(){
 
     private val addFavoritesInFavoriteFlow = MutableStateFlow(screen.productId.favourite)
+
     private val productFlow = MutableStateFlow(Container.Success(screen.productId))
 
 
@@ -37,7 +38,6 @@ class ProductDetailsViewModel @AssistedInject constructor(
         getProductsDetailsUseCase.reload()
     }
 
-
     fun  addToFavorites(product: Product) = viewModelScope.launch {
 
         val isChecked = addFavoritesInFavoriteFlow.value
@@ -51,7 +51,6 @@ class ProductDetailsViewModel @AssistedInject constructor(
         }
 
     }
-
 
     private fun merge(
         productContainer: Container<Product>,
@@ -71,12 +70,14 @@ class ProductDetailsViewModel @AssistedInject constructor(
     }
 
     class State(
-        private val product: Product,
+        product: Product,
         private val addToFavorite: Boolean,
+
     ){
 
         val productUI = product
         val favoritesButtonState: Boolean get() = !addToFavorite
-        
+
+
     }
 }

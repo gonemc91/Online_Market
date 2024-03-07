@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.elveum.elementadapter.getString
 import com.em.catalog.R
 import com.em.catalog.databinding.ItemProductBinding
 import com.em.catalog.domain.entitys.product.Product
-import com.em.presentation.loadResources
 
 interface ProductActionListener {
     fun onProductDetails(product: Product)
@@ -26,8 +26,10 @@ class ProductAdapter(
     var products: List<Product> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
         set(newValue) {
+            val diffCallback =  ProductDiffCallback(field, newValue)
+            val diffResult = DiffUtil.calculateDiff(diffCallback)
             field = newValue
-            notifyDataSetChanged()
+            diffResult.dispatchUpdatesTo(this)
         }
 
     override fun onClick(v: View) {
@@ -49,8 +51,6 @@ class ProductAdapter(
         val binding = ItemProductBinding.inflate(inflater, parent, false)
 
 
-
-
         binding.root.setOnClickListener(this)
         binding.favoriteButton.setOnClickListener(this)
 
@@ -63,8 +63,15 @@ class ProductAdapter(
             holder.itemView.tag = product
             favoriteButton.tag = product
 
-
-            product.images?.image1?.let { productImageView.loadResources(it) }
+            if (product.images != null) {
+                val imageList = listOf(
+                    product.images.image1,
+                    product.images.image2
+                )
+                val adapter = ViewPagerAdapter()
+                adapter.productImages = imageList
+                productImageView.adapter = adapter
+            }
 
             if (product.price.priceWithDiscount == null){
                 originPriceTextView.isInvisible = true
@@ -110,14 +117,33 @@ class ProductAdapter(
                 favoriteButton.setImageResource(com.em.theme.R.drawable.ic_type_heart__state_default)
             }
 
-
-
             }
         }
 
     class ProductViewHolder(
         val binding: ItemProductBinding
     ) : RecyclerView.ViewHolder(binding.root)
-
-
 }
+
+
+class ProductDiffCallback(
+    private val oldList: List<Product>,
+    private val newList: List<Product>
+) : DiffUtil.Callback() {
+
+    override fun getOldListSize(): Int = oldList.size
+    override fun getNewListSize(): Int = newList.size
+
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        val oldProduct = oldList[oldItemPosition]
+        val newProduct = newList[newItemPosition]
+        return oldProduct.id == newProduct.id
+    }
+
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        val oldProduct = oldList[oldItemPosition]
+        val newProduct = newList[newItemPosition]
+        return oldProduct == newProduct
+    }
+}
+

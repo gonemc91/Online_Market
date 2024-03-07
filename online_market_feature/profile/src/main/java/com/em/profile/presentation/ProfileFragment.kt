@@ -15,8 +15,6 @@ import javax.inject.Inject
 class ProfileFragment @Inject constructor():Fragment(R.layout.fragment_profile) {
 
 
-
-
     private val viewModel by viewModels<ProfileViewModel>()
 
     private val binding by viewBinding<FragmentProfileBinding>()

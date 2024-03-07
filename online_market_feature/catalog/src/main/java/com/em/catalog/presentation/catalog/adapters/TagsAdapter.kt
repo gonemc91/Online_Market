@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.elveum.elementadapter.resources
 import com.em.catalog.R
@@ -22,8 +23,10 @@ class TagsAdapter(
     var tags: List<Tag> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
         set(newValue) {
+            val diffCallback = TagsDiffCallback(field, newValue)
+            val diffResult = DiffUtil.calculateDiff(diffCallback)
             field = newValue
-            notifyDataSetChanged()
+            diffResult.dispatchUpdatesTo(this)
         }
 
     override fun onClick(v: View) {
@@ -71,4 +74,26 @@ class TagsAdapter(
     ) : RecyclerView.ViewHolder(binding.root)
 
 
+}
+
+
+class TagsDiffCallback(
+    private val oldList: List<Tag>,
+    private val newList: List<Tag>
+) : DiffUtil.Callback() {
+
+    override fun getOldListSize(): Int = oldList.size
+    override fun getNewListSize(): Int = newList.size
+
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        val oldTags = oldList[oldItemPosition]
+        val newTags = newList[newItemPosition]
+        return oldTags.uuidTag == newTags.uuidTag
+    }
+
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        val oldTags = oldList[oldItemPosition]
+        val newTags = newList[newItemPosition]
+        return oldTags == newTags
+    }
 }

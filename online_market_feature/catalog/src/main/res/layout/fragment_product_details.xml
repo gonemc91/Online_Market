@@ -38,11 +38,10 @@
                 />
 
 
-            <ImageView
+            <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/productImageView"
                 android:layout_width="0dp"
                 android:layout_height="368dp"
-                android:scaleType="centerCrop"
                 tools:background="#ababab"
                 app:layout_constraintStart_toStartOf="@+id/startGuideline"
                 app:layout_constraintEnd_toEndOf="@+id/endGuideline"
@@ -248,9 +247,12 @@
                 app:layout_constraintStart_toStartOf="@id/startGuideline"
                 app:layout_constraintEnd_toEndOf="@id/endGuideline"
                 android:background="@drawable/background_shape_button"
-                tools:ignore="ContentDescription" />
+                tools:ignore="ContentDescription"
+                tools:visibility="gone"
+                />
 
             <ImageView
+                android:id="@+id/buttonLabelImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="@id/buttonLabel"
@@ -258,6 +260,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/buttonLabel"
                 android:src="@drawable/ic_type_right_arrow__state_default"
                 android:layout_marginEnd="22dp"
+                tools:visibility="gone"
                 />
 
             <TextView
@@ -269,7 +272,9 @@
                 app:layout_constraintTop_toTopOf="@+id/buttonLabel"
                 app:layout_constraintBottom_toBottomOf="@+id/buttonLabel"
                 android:layout_marginStart="9dp"
-                tools:text="A'PIEU" />
+                tools:text="A'PIEU"
+                tools:visibility="gone"
+                />
 
             <TextView
                 android:id="@+id/textDescription"
@@ -279,10 +284,12 @@
                 app:layout_constraintStart_toStartOf="@id/startGuideline"
                 app:layout_constraintEnd_toStartOf="@id/endGuideline"
                 app:layout_constraintTop_toBottomOf="@id/buttonLabel"
-                tools:text="@string/lorem_description" />
+                tools:text="@string/lorem_description"
+                tools:visibility="gone"
+                />
 
             <TextView
-                android:id="@+id/buttonHide"
+                android:id="@+id/buttonHide_More_Description"
                 style="@style/Button_text_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -300,7 +307,7 @@
                 android:layout_height="wrap_content"
                 style="@style/List_Title_1"
                 android:text="@string/details_characteristic_text"
-                app:layout_constraintTop_toBottomOf="@+id/buttonHide"
+                app:layout_constraintTop_toBottomOf="@+id/buttonHide_More_Description"
                 app:layout_constraintStart_toStartOf="@id/startGuideline"
                 android:layout_marginTop="34dp"
                 />
@@ -339,17 +346,18 @@
                 style="@style/Text_1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/startGuideline"
-                app:layout_constraintEnd_toStartOf="@id/endGuideline"
-                app:layout_constraintTop_toBottomOf="@+id/compositionTitle"
-                tools:text="@string/lorem_description"
-                android:layout_marginTop="16dp"
-                android:lines="3"
+                android:layout_marginTop="12dp"
                 android:ellipsize="end"
-                />
+                app:layout_constraintEnd_toStartOf="@id/endGuideline"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@+id/compositionTitle"
+                android:minLines="2"
+                tools:maxLines="10"
+                tools:text="@string/lorem_description" />
 
             <TextView
-                android:id="@+id/buttonMore"
+                android:id="@+id/buttonHide_More_Composition"
                 style="@style/Button_text_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -361,52 +369,73 @@
             </TextView>
 
 
-
-            <Button
+            <FrameLayout
                 android:id="@+id/enterButton"
-                style="@style/AppButtonStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
-                android:text="@string/details_add_to_cart_button"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/background_shape_button"
+                android:backgroundTint="@color/element_pink"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/startGuideline"
                 app:layout_constraintStart_toStartOf="@id/endGuideline"
-                app:layout_constraintTop_toBottomOf="@id/buttonMore"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:gravity="right|center"
-                />
+                app:layout_constraintTop_toBottomOf="@id/buttonHide_More_Composition" >
 
 
-            <TextView
-                android:id="@+id/finalPriceTextViewInButton"
-                style="@style/Button_text_2"
-                android:textColor="@color/text_white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/enterButton"
-                app:layout_constraintTop_toTopOf="@id/enterButton"
-                app:layout_constraintBottom_toBottomOf="@id/enterButton"
-                tools:text="489 ₽"
-                android:layout_marginStart="16dp"
-                android:elevation="1dp"
-                />
 
-            <TextView
-                android:id="@+id/originPriceTextViewInButton"
-                style="@style/Caption_2"
-                android:textColor="@color/text_grey"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_diagonal_line"
-                app:layout_constraintStart_toEndOf="@+id/finalPriceTextViewInButton"
-                app:layout_constraintTop_toTopOf="@id/enterButton"
-                app:layout_constraintBottom_toBottomOf="@id/enterButton"
-                android:layout_marginStart="9dp"
-                tools:text="749 ₽"
-                android:elevation="1dp"
-                />
+                <TextView
+
+                    android:id="@+id/finalPriceTextViewInButton"
+                    android:textColor="@color/text_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/enterButton"
+                    app:layout_constraintTop_toTopOf="@id/enterButton"
+                    app:layout_constraintBottom_toBottomOf="@id/enterButton"
+                    android:layout_gravity="center_vertical"
+                    tools:text="489 ₽"
+                    android:layout_marginStart="16dp"
+                    style="@style/Button_text_2"
+                    />
+
+                <TextView
+                    android:id="@+id/originPriceTextViewInButton"
+                    android:textColor="@color/text_grey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_diagonal_line"
+                    app:layout_constraintStart_toEndOf="@+id/finalPriceTextViewInButton"
+                    app:layout_constraintTop_toTopOf="@id/enterButton"
+                    app:layout_constraintBottom_toBottomOf="@id/enterButton"
+                    android:layout_marginStart="62dp"
+                    style="@style/Caption_2"
+                    tools:text="749 ₽"
+                    android:layout_gravity="center_vertical"
+                    />
+
+                <TextView
+                    style="@style/List_Title_2"
+                    android:textColor="@color/text_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/enterButton"
+                    app:layout_constraintTop_toTopOf="@id/enterButton"
+                    app:layout_constraintBottom_toBottomOf="@id/enterButton"
+                    android:text="Добваить в корзину"
+                    android:layout_marginStart="16dp"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="15dp"
+                    />
+
+
+
+            </FrameLayout>
+
+
 
 
             <Space
