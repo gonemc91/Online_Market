@@ -27,7 +27,7 @@
         >
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/productImageView"
+            android:id="@+id/productImageViewPager"
             android:layout_width="170dp"
             android:layout_height="145dp"
             android:scaleType="fitCenter"
@@ -35,6 +35,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:background="#ababab" />
+
+
+
+        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+            android:id="@+id/tab_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:dotsColor="@color/element_light_grey"
+            app:dotsClickable="false"
+            app:dotsCornerRadius="8dp"
+            app:dotsSize="6dp"
+            app:dotsSpacing="2dp"
+            app:dotsWidthFactor="0"
+            app:selectedDotColor="@color/element_pink"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productImageViewPager"
+            />
+
+
+
+
+
 
         <ImageButton
             android:id="@+id/favoriteButton"
@@ -60,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_diagonal_line"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productImageView"
+                app:layout_constraintTop_toBottomOf="@+id/productImageViewPager"
                 android:layout_marginStart="@dimen/card_border_padding"
                 android:layout_marginTop="@dimen/card_vertical_padding"
                 tools:text="749 ₽" />

@@ -3,6 +3,7 @@ package com.em.catalog.presentation.details
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.elveum.elementadapter.SimpleBindingAdapter
 import com.elveum.elementadapter.setTintColor
 import com.elveum.elementadapter.simpleAdapter
@@ -18,6 +19,8 @@ import com.em.presentation.viewBinding
 import com.em.presentation.viewModelCreator
 import com.em.presentation.views.observe
 import com.em.presentation.views.simpleList
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -36,15 +39,20 @@ class ProductDetailsFragment : Fragment(R.layout.fragment_product_details) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = createAdapter()
+
+        val infoProductAdapter = createInfoAdapter()
+
         with(binding) {
-            setupList(adapter)
-            observeState(adapter)
+            setupProductInfoList(infoProductAdapter)
+            observeState(infoProductAdapter)
             setupListeners()
+
         }
     }
 
-    private fun FragmentProductDetailsBinding.observeState(adapter: SimpleBindingAdapter<InfoProduct>) {
+    private fun FragmentProductDetailsBinding.observeState(
+        infoAdapter: SimpleBindingAdapter<InfoProduct>,
+    ) {
         root.observe(viewLifecycleOwner, viewModel.stateLiveValue) { state ->
 
             if (state.favoritesButtonState) {
@@ -61,7 +69,10 @@ class ProductDetailsFragment : Fragment(R.layout.fragment_product_details) {
                 )
                 val adapter = ViewPagerAdapter()
                 adapter.productImages = imageList
-                productImageView.adapter = adapter
+                productImageViewPager.adapter = adapter
+                tabLayout.attachTo(productImageViewPager)
+
+
             }
 
 
@@ -78,7 +89,6 @@ class ProductDetailsFragment : Fragment(R.layout.fragment_product_details) {
                     3 -> ratingImage4.setTintColor(com.em.theme.R.color.element_orange)
                     4 -> ratingImage5.setTintColor(com.em.theme.R.color.element_orange)
                 }
-
             }
             ratingText.text = getString(
                 R.string.details_fragments_feedback,
@@ -106,7 +116,7 @@ class ProductDetailsFragment : Fragment(R.layout.fragment_product_details) {
             labelForButton.text = product.title
             textDescription.text = product.description
 
-            adapter.submitList(product.info)
+            infoAdapter.submitList(product.info)
 
             textComposition.text = product.ingredients
             finalPriceTextViewInButton.text =
@@ -164,15 +174,15 @@ class ProductDetailsFragment : Fragment(R.layout.fragment_product_details) {
     }
 
 
-    private fun FragmentProductDetailsBinding.setupList(adapter: SimpleBindingAdapter<InfoProduct>) {
+    private fun FragmentProductDetailsBinding.setupProductInfoList(adapter: SimpleBindingAdapter<InfoProduct>) {
         productInfoRecyclerView.simpleList()
         productInfoRecyclerView.adapter = adapter
+
     }
 
-    private fun createAdapter() = simpleAdapter<InfoProduct, ItemInfoBinding> {
+    private fun createInfoAdapter() = simpleAdapter<InfoProduct, ItemInfoBinding> {
         areItemsSame = { oldItem, newItem -> oldItem.title == newItem.title }
         areContentsSame = { oldItem, newItem -> oldItem == newItem }
-
         bind {
             productArticle.text = it.title
             textProductArticle.text = it.value
@@ -180,9 +190,24 @@ class ProductDetailsFragment : Fragment(R.layout.fragment_product_details) {
 
     }
 
+
     private fun FragmentProductDetailsBinding.setupListeners() {
         root.setTryAgainListener { viewModel.reload() }
-
     }
+
+
+
+    fun TabLayout.setupWithViewPager2(viewPager: ViewPager2, labels: List<String>) {
+
+        if (labels.size != viewPager.adapter?.itemCount)
+            throw Exception("The size of list and the tab count should be equal!")
+
+        TabLayoutMediator(this, viewPager,
+            TabLayoutMediator.TabConfigurationStrategy { tab, position ->
+                tab.text = labels[position]
+            }).attach()
+    }
+
+
 
 }

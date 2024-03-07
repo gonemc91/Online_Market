@@ -44,6 +44,8 @@ dependencies {
     implementation(libs.android.material)
     implementation(libs.elveum.adapter)
 
+    implementation("com.tbuonomo:dotsindicator:5.0")
+
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 

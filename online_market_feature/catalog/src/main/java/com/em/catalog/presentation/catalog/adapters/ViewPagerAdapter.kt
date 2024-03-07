@@ -1,6 +1,5 @@
 package com.em.catalog.presentation.catalog.adapters
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,8 +8,8 @@ import com.em.presentation.loadResources
 
 class ViewPagerAdapter : RecyclerView.Adapter<PagerVH>() {
 
+    var positionOut = 0
     var productImages: List<Int> = emptyList()
-        @SuppressLint("NotifyDataSetChanged")
         set(newValue) {
             field = newValue
         }
@@ -27,11 +26,16 @@ class ViewPagerAdapter : RecyclerView.Adapter<PagerVH>() {
 
     override fun onBindViewHolder(holder: PagerVH, position: Int) {
         with(holder.binding){
+            positionOut = position
             val imageProduct = productImages[position]
+
             imageProduct.let {image.loadResources(it)}
         }
     }
 }
+
+
+
 
 class PagerVH(val binding: ItemPBinding) : RecyclerView.ViewHolder(binding.root)
 

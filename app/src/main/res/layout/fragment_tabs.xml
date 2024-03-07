@@ -28,15 +28,13 @@
         android:animateLayoutChanges="false"
         android:background="@color/background_white"
         android:orientation="horizontal"
-        app:itemIconTint="@drawable/buttom_nav_selector"
+        app:itemIconTint="@drawable/button_nav_selector"
+        app:itemTextColor="@drawable/button_nav_selector"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:itemBackground="@null"
-        app:itemRippleColor="@null"
-        app:itemHorizontalTranslationEnabled="false"
         app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
         >
 

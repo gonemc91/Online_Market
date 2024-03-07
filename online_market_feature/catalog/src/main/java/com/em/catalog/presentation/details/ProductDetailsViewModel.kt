@@ -39,9 +39,7 @@ class ProductDetailsViewModel @AssistedInject constructor(
     }
 
     fun  addToFavorites(product: Product) = viewModelScope.launch {
-
         val isChecked = addFavoritesInFavoriteFlow.value
-
         if(!isChecked){
             addFavoritesInFavoriteFlow.value = true
             addToFavoritesUseCase.addToFavorites(product.id)

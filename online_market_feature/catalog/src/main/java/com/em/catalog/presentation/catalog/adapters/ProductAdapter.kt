@@ -1,6 +1,5 @@
 package com.em.catalog.presentation.catalog.adapters
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import com.em.catalog.domain.entitys.product.Product
 
 interface ProductActionListener {
     fun onProductDetails(product: Product)
-
     fun onFavoriteButton (product: Product)
 
 }
@@ -24,7 +22,6 @@ class ProductAdapter(
 ) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>(), View.OnClickListener {
 
     var products: List<Product> = emptyList()
-        @SuppressLint("NotifyDataSetChanged")
         set(newValue) {
             val diffCallback =  ProductDiffCallback(field, newValue)
             val diffResult = DiffUtil.calculateDiff(diffCallback)
@@ -68,15 +65,15 @@ class ProductAdapter(
                     product.images.image1,
                     product.images.image2
                 )
-                val adapter = ViewPagerAdapter()
-                adapter.productImages = imageList
-                productImageView.adapter = adapter
-            }
+                val pagerAdapter = ViewPagerAdapter()
+                pagerAdapter.productImages = imageList
+                productImageViewPager.adapter = pagerAdapter
+                tabLayout.attachTo(productImageViewPager)
+        }
 
             if (product.price.priceWithDiscount == null){
                 originPriceTextView.isInvisible = true
                 discountPercentage.isInvisible = true
-
                 finalPriceTextView.text = getString(
                     R.string.catalog_fragments_with_space,
                     product.price.price.toString(),
@@ -86,19 +83,16 @@ class ProductAdapter(
             }else{
                 originPriceTextView.visibility = View.VISIBLE
                 discountPercentage.visibility = View.VISIBLE
-
                 originPriceTextView.text = getString(
                     R.string.catalog_fragments_with_space,
                     product.price.price.toString(),
                     product.price.unit
                 )
-
                 finalPriceTextView.text = getString(
                     R.string.catalog_fragments_with_space,
                     product.price.priceWithDiscount,
                     product.price.unit
                 )
-
                 discountPercentage.text = getString(
                     R.string.catalog_fragments_with_percentage,
                     product.price.discount.toString())

@@ -1,6 +1,5 @@
 package com.em.catalog.presentation.catalog.adapters
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +20,6 @@ class TagsAdapter(
 ) : RecyclerView.Adapter<TagsAdapter.TagsViewHolder>(), View.OnClickListener {
 
     var tags: List<Tag> = emptyList()
-        @SuppressLint("NotifyDataSetChanged")
         set(newValue) {
             val diffCallback = TagsDiffCallback(field, newValue)
             val diffResult = DiffUtil.calculateDiff(diffCallback)
