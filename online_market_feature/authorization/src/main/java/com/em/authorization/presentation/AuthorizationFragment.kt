@@ -57,8 +57,6 @@ class AuthorizationFragment: Fragment(layout.fragment_authorization) {
         }
 
 
-
-
     private fun FragmentAuthorizationBinding.isInvisibleDeleteButton(
         fieldErrorMessage: Pair<AuthorizationFields, String>
     ) {

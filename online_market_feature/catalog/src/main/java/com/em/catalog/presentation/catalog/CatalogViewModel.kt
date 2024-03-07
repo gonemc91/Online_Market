@@ -11,7 +11,6 @@ import com.em.catalog.domain.entitys.filter.Tag
 import com.em.catalog.domain.entitys.product.Product
 import com.em.common.Container
 import com.em.common.Core
-import com.em.common.entities.OnChange
 import com.em.common.unwrapFirst
 import com.em.presentation.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -34,7 +33,7 @@ class CatalogViewModel @Inject constructor(
 ) : BaseViewModel() {
 
 
-    private val filterFLow = MutableStateFlow(OnChange(ProductFilter.EMPTY))
+    private val filterFLow = MutableStateFlow(ProductFilter.EMPTY)
 
     private val selectionsFavorite = Selections()
     private val selectionsFilterTags = MutableStateFlow(AllTAGS)
@@ -51,15 +50,15 @@ class CatalogViewModel @Inject constructor(
     }
 
     var filter: ProductFilter
-        get() = filterFLow.value.value
+        get() = filterFLow.value
         set(value){
-            filterFLow.value = OnChange(value)
+            filterFLow.value = value
         }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val productWithFilterFlow = filterFLow
         .flatMapLatest { filter->
-            getCatalogUseCase.getProducts(filter.value)
+            getCatalogUseCase.getProducts(filter)
         }
 
     val stateLiveValue = combine(
@@ -77,9 +76,10 @@ class CatalogViewModel @Inject constructor(
         tagList: Container<Set<String>>,
         selectionsFavorites: SelectionState,
         selectionsTags: String,
-        filter: OnChange<ProductFilter>,
+        filter: ProductFilter,
     ): Container<State> {
         return productList.map { listProducts ->
+            Core.logger.log("Get filter ${filter}")
             val productListWithInfo = emptyList<Product>().toMutableList()
             val tagsList  = emptyList<String>().toMutableList()
             tagsList.add(AllTAGS)
@@ -100,7 +100,6 @@ class CatalogViewModel @Inject constructor(
                         )
                     )
                 }
-
                 productListWithInfo.add(
                     product.copy(
                         favourite = selectionsFavorites.isChecked(product.id)
@@ -108,7 +107,7 @@ class CatalogViewModel @Inject constructor(
                 )
             }
             State(
-                filter = filter.value,
+                filter = filter,
                 products = productListWithInfo,
                 listTag = tags.toList()
             )
