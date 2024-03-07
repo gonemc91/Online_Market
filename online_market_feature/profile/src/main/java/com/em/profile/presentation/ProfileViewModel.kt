@@ -1,7 +1,6 @@
 package com.em.profile.presentation
 
 import com.em.common.Container
-import com.em.common.Core
 import com.em.presentation.BaseViewModel
 import com.em.profile.ProfileRouter
 import com.em.profile.domain.entities.Profile
@@ -40,11 +39,6 @@ class ProfileViewModel @Inject constructor(
                 availableInt = size.unwrap()
             )
         }
-    }
-
-    init {
-        Core.logger.log("Start init")
-
     }
 
     fun reload() = debounce{

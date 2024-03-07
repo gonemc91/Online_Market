@@ -120,6 +120,9 @@ class CatalogFragment : Fragment(R.layout.fragment_catalog) {
 
 
 
+
+
+
     companion object {
         const val DESCENDING_PRICE = "По уменьшению цены"
         const val ASCENDING_PRICE = "По возрастанию цены"

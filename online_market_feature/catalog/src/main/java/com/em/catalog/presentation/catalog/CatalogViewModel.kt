@@ -35,25 +35,21 @@ class CatalogViewModel @Inject constructor(
 
     private val filterFLow = MutableStateFlow(ProductFilter.EMPTY)
 
-    private val selectionsFavorite = Selections()
+    private val getChangeFavourites = getFavouritesUseCase.getFavouritesId()
+
     private val selectionsFilterTags = MutableStateFlow(AllTAGS)
 
 
-    init {
-        Core.logger.log("Start Init catalog")
-        viewModelScope.launch {
-            val favouritesIds = getFavouritesUseCase.getFavouritesId().unwrapFirst()
-            favouritesIds.forEach {
-                selectionsFavorite.toggle(it)
-            }
-        }
-    }
+
+
 
     var filter: ProductFilter
         get() = filterFLow.value
         set(value){
             filterFLow.value = value
         }
+
+
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val productWithFilterFlow = filterFLow
@@ -64,7 +60,7 @@ class CatalogViewModel @Inject constructor(
     val stateLiveValue = combine(
         productWithFilterFlow,
         getTagsValueUseCase.getAllTags(),
-        selectionsFavorite.flow(),
+        getChangeFavourites,
         selectionsFilterTags,
         filterFLow,
         ::merge
@@ -74,7 +70,7 @@ class CatalogViewModel @Inject constructor(
     private fun merge(
         productList: Container<List<Product>>,
         tagList: Container<Set<String>>,
-        selectionsFavorites: SelectionState,
+        selectionsFavorites: Container<Set<String>>,
         selectionsTags: String,
         filter: ProductFilter,
     ): Container<State> {
@@ -102,7 +98,7 @@ class CatalogViewModel @Inject constructor(
                 }
                 productListWithInfo.add(
                     product.copy(
-                        favourite = selectionsFavorites.isChecked(product.id)
+                        favourite = selectionsFavorites.unwrap().contains(product.id) //selectionsFavorites.isChecked(product.id)
                     )
                 )
             }
@@ -120,9 +116,9 @@ class CatalogViewModel @Inject constructor(
 
 
     fun toggleFavouriteFlag(product: Product) = viewModelScope.launch {
-        selectionsFavorite.toggle(product.id)
-
-        if(selectionsFavorite.isChecked(product.id)){
+        val hasId = getChangeFavourites.unwrapFirst().contains(product.id)
+        Core.logger.log("$hasId")
+        if(!hasId){
             addToFavoritesUseCase.addToFavorites(product.id)
         }else{
            deleteFavouritesUseCase.deleteFavouritesItem(product.id)
