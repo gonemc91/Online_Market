@@ -35,6 +35,9 @@ class ProductAdapter(
             R.id.favoriteButton -> {
                 actionListener.onFavoriteButton(product)
             }
+            R.id.productImageViewPager->{
+                actionListener.onProductDetails(product)
+            }
             else -> {
                 actionListener.onProductDetails(product)
             }
@@ -46,7 +49,6 @@ class ProductAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemProductBinding.inflate(inflater, parent, false)
-
 
         binding.root.setOnClickListener(this)
         binding.favoriteButton.setOnClickListener(this)

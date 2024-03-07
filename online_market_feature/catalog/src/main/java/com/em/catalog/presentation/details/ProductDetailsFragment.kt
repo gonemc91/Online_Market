@@ -3,7 +3,6 @@ package com.em.catalog.presentation.details
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.viewpager2.widget.ViewPager2
 import com.elveum.elementadapter.SimpleBindingAdapter
 import com.elveum.elementadapter.setTintColor
 import com.elveum.elementadapter.simpleAdapter
@@ -19,8 +18,6 @@ import com.em.presentation.viewBinding
 import com.em.presentation.viewModelCreator
 import com.em.presentation.views.observe
 import com.em.presentation.views.simpleList
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -46,7 +43,6 @@ class ProductDetailsFragment : Fragment(R.layout.fragment_product_details) {
             setupProductInfoList(infoProductAdapter)
             observeState(infoProductAdapter)
             setupListeners()
-
         }
     }
 
@@ -71,8 +67,6 @@ class ProductDetailsFragment : Fragment(R.layout.fragment_product_details) {
                 adapter.productImages = imageList
                 productImageViewPager.adapter = adapter
                 tabLayout.attachTo(productImageViewPager)
-
-
             }
 
 
@@ -137,6 +131,7 @@ class ProductDetailsFragment : Fragment(R.layout.fragment_product_details) {
             }
 
             var isVisibleDetails = true
+
             buttonHideMoreDescription.setOnClickListener {
                 isVisibleDetails = !isVisibleDetails
 
@@ -194,20 +189,6 @@ class ProductDetailsFragment : Fragment(R.layout.fragment_product_details) {
     private fun FragmentProductDetailsBinding.setupListeners() {
         root.setTryAgainListener { viewModel.reload() }
     }
-
-
-
-    fun TabLayout.setupWithViewPager2(viewPager: ViewPager2, labels: List<String>) {
-
-        if (labels.size != viewPager.adapter?.itemCount)
-            throw Exception("The size of list and the tab count should be equal!")
-
-        TabLayoutMediator(this, viewPager,
-            TabLayoutMediator.TabConfigurationStrategy { tab, position ->
-                tab.text = labels[position]
-            }).attach()
-    }
-
 
 
 }

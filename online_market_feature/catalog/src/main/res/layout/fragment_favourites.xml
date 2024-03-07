@@ -76,8 +76,7 @@
                 android:backgroundTint="@color/background_light_grey"
                 android:gravity="center"
                 android:textColor="@color/text_grey"
-                android:text="@string/favourites_fragments_text_label1"
-                tools:text="@string/favourites_fragments_text_label2" />
+                android:text="@string/favourites_fragments_text_label2" />
 
         </LinearLayout>
 
